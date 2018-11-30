@@ -10,8 +10,7 @@ const template = []
 
 // Add macOS specific menu items
 
-if(process.platform === 'darwin')
-{
+if (process.platform === 'darwin') {
 	template.unshift({
 		label: app.getName(),
 		submenu: [
