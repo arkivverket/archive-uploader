@@ -22,13 +22,15 @@ function createWindow() {
 		defaultHeight: 800
 	})
 
-	// Create the application window and register it with the state manager
+	// Create the application window and register it with the state keeper
 
 	win = new BrowserWindow({
 		x: windowState.x,
 		y: windowState.y,
 		width: windowState.width,
-		height: windowState.height
+		height: windowState.height,
+		resizable: false,
+		fullscreen: false
 	})
 
 	windowState.manage(win)
