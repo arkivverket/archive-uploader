@@ -31,12 +31,23 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "yarn react-build && yarn electron-build"
+    "build": "yarn react-build && yarn electron-build",
+    "build-all": "yarn react-build && yarn electron-build -mw"
   },
   "build": {
       "appId": "no.arkivverket.digitalisering",
       "directories": {
           "buildResources": "resources"
+      },
+      "mac": {
+          "target": [
+              "dmg"
+          ]
+      },
+      "win": {
+          "target": [
+              "portable"
+          ]
       }
   },
   "browserslist": [
