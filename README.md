@@ -8,7 +8,7 @@ Clone the repo and run the following command:
 yarn install
 ```
 
-Next you can start the electron app in development mode using the following command:
+Next you can start the Electron app in development mode using the following command:
 
 ```
 yarn electron-dev

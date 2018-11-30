@@ -1,9 +1,13 @@
-const electron      = require('electron')
-const app           = electron.app
-const BrowserWindow = electron.BrowserWindow
-const path          = require('path')
-const urlUtilities  = require('url')
-const isDev         = require('electron-is-dev')
+const electron          = require('electron')
+const app               = electron.app
+const BrowserWindow     = electron.BrowserWindow
+const Menu              = electron.Menu
+const path              = require('path')
+const urlUtilities      = require('url')
+const isDev             = require('electron-is-dev')
+const windowStateKeeper = require('electron-window-state')
+
+const menu          = require('./ui/menu')
 
 let win
 
@@ -11,12 +15,24 @@ let win
  * Create window.
  */
 function createWindow() {
-	// Create the browser window
+
+	// Load the previous state with fallback to defaults
+
+	let windowState = windowStateKeeper({
+		defaultWidth: 500,
+		defaultHeight: 800
+	})
+
+	// Create the application window and register it with the state manager
 
 	win = new BrowserWindow({
-		width: 500,
-		height: 800
+		x: windowState.x,
+		y: windowState.y,
+		width: windowState.width,
+		height: windowState.height
 	})
+
+	windowState.manage(win)
 
 	// Load the renderer
 
@@ -55,11 +71,13 @@ function registerProtocol() {
 	})
 }
 
-// Create a window and register the protocol when the app is ready
+// Create a window, register the protocol and
+// set the application menu when the app is ready
 
 app.on('ready', () => {
 	createWindow()
 	registerProtocol()
+	Menu.setApplicationMenu(menu)
 })
 
 // Quit when all windows are closed
