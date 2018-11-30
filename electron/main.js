@@ -6,8 +6,7 @@ const path              = require('path')
 const urlUtilities      = require('url')
 const isDev             = require('electron-is-dev')
 const windowStateKeeper = require('electron-window-state')
-
-const menu          = require('./ui/menu')
+const menu              = require('./ui/menu')
 
 let win
 
