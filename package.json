@@ -33,6 +33,12 @@
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "yarn react-build && yarn electron-build"
   },
+  "build": {
+      "appId": "no.arkivverket.digitalisering",
+      "directories": {
+          "buildResources": "resources"
+      }
+  },
   "browserslist": [
     "electron 3.0"
   ]
