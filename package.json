@@ -5,7 +5,7 @@
   "author": "Arkivvkerket",
   "private": true,
   "homepage": "./",
-  "main": "public/electron.js",
+  "main": "electron/electron.js",
   "dependencies": {
     "electron-is-dev": "^1.0.1",
     "electron-util": "^0.10.2",
@@ -18,37 +18,22 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
     "electron": "^3.0.10",
     "electron-builder": "^20.38.1",
     "node-sass": "^4.10.0",
     "wait-on": "^3.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "build -c.extraMetadata.main=build/electron.js",
-    "preelectron-pack": "yarn build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test --env=jsdom",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "yarn react-build && yarn electron-build"
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "build": {
-    "appId": "no.arkivverket.digitalisering",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    }
-  }
+    "electron 3.0"
+  ]
 }

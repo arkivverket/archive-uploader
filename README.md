@@ -11,7 +11,7 @@ yarn install
 Next you can start the Electron app in development mode using the following command:
 
 ```
-yarn electron-dev
+yarn start
 ```
 
 All changes made to React components will automatically reload. If you make changes to the Electron application then you'll have to restart the app.
@@ -21,5 +21,5 @@ All changes made to React components will automatically reload. If you make chan
 The following command will build a production ready version of the Electron app (concurrently only for macOS):
 
 ```
-yarn electron-pack
+yarn build
 ```
