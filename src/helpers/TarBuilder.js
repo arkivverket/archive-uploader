@@ -16,7 +16,7 @@ export const buildTar = (sourceDir, tarName) => {
 		let fileList = []
 
 		files.forEach((file) => {
-			if(file.charAt(0) !== '.' && fs.statSync(sourceDir + '/' + file).isFile()) {
+			if (file.charAt(0) !== '.' && fs.statSync(sourceDir + '/' + file).isFile()) {
 				fileList.push(file)
 			}
 		})
@@ -27,7 +27,7 @@ export const buildTar = (sourceDir, tarName) => {
 			cwd: sourceDir
 		}
 
-		return tar.create(options,fileList).then(() => {
+		return tar.create(options, fileList).then(() => {
 			return new Promise((resolve, reject) => {
 				resolve(options.file)
 			})
