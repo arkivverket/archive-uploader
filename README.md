@@ -1,4 +1,4 @@
-# Archive Digitalisation Uploader
+# Archive Digitisation Uploader
 
 ## Getting started
 
