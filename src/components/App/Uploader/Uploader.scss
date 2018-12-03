@@ -1,10 +1,11 @@
 $buttonColor: #0069D9;
+$backgroundColor: #EEE;
 
 body {
 	.uploader {
 		height: 100vh;
 		color: #444;
-		background-color: #EEE;
+		background-color: $backgroundColor;
 		display: block;
 
 		.info {
@@ -31,17 +32,18 @@ body {
 				align-items: center;
 				justify-content: center;
 				height: calc(100% - 90px);
-				border: 3px dashed #ccc;
+				border: 3px dashed #CCC;
+				background-color: darken($backgroundColor, 4);
 				font-size: 1.5em;
 
 				//background: green;
 
 				&.active {
-					background-color: #FEFEFE;
+					background-color: lighten($backgroundColor, 5);
 
 					&.animated {
 						background-size: 40px 40px;
-						background-image: linear-gradient(-45deg, #F6F6F6 25%, transparent 25%, transparent 50%, #F6F6F6 50%, #F6F6F6 75%, transparent 75%, transparent);
+						background-image: linear-gradient(-45deg, lighten($backgroundColor, 2.5) 25%, transparent 25%, transparent 50%, lighten($backgroundColor, 2.5) 50%, lighten($backgroundColor, 2.5) 75%, transparent 75%, transparent);
 						animation: barberpole .8s linear infinite;
 					}
 
