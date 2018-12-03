@@ -21,7 +21,7 @@ class Uploader extends Component {
 	onDragEnterHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.add('active');
+		event.target.classList.add('active', 'animated');
 	}
 
 	/**
@@ -30,7 +30,7 @@ class Uploader extends Component {
 	onDragExitHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.remove('active');
+		event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']));
 	}
 
 	/**
@@ -66,6 +66,8 @@ class Uploader extends Component {
 	 */
 	onDropHandler = (event) => {
 		event.preventDefault()
+
+		event.target.classList.remove('animated');
 
 		if (this.validateUpload(event.dataTransfer.files) === false) {
 			event.target.classList.remove('active');
