@@ -11,7 +11,14 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	onDragEnterHandler(event) {
+	state = {
+		dropZoneLabel: this.props.dropZoneLabel
+	}
+
+	/**
+	 *
+	 */
+	onDragEnterHandler = (event) => {
 		event.preventDefault()
 
 		event.target.classList.add('active');
@@ -20,7 +27,7 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	onDragExitHandler(event) {
+	onDragExitHandler = (event) => {
 		event.preventDefault()
 
 		event.target.classList.remove('active');
@@ -29,39 +36,48 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	onDragOverHandler(event) {
+	onDragOverHandler = (event) => {
 		event.preventDefault()
 	}
 
 	/**
 	 *
 	 */
-	onDropHandler(event) {
-		event.preventDefault()
+	validateUpload = (files) => {
+		let success = true;
 
-		let error = false;
-
-		if (event.dataTransfer.files.length > 1) {
-			error = true;
+		if (files.length > 1) {
+			success = false;
 
 			alert('You can only upload a single item!')
 		}
 
-		if (!error && !fs.statSync(event.dataTransfer.files[0].path).isDirectory()) {
-			error = true;
+		if (success && !fs.statSync(files[0].path).isDirectory()) {
+			success = false;
 
 			alert('You must upload a folder!')
 		}
 
-		if (error) {
+		return success;
+	}
+
+	/**
+	 *
+	 */
+	onDropHandler = (event) => {
+		event.preventDefault()
+
+		if (this.validateUpload(event.dataTransfer.files) === false) {
 			event.target.classList.remove('active');
 
 			document.getElementById('start-upload').disabled = true;
 
+			this.setState({dropZoneLabel: this.props.dropZoneLabel})
+
 			return;
 		}
 
-		console.log(event.dataTransfer.files[0].path)
+		this.setState({dropZoneLabel: event.dataTransfer.files[0].path})
 
 		document.getElementById('start-upload').disabled = false;
 	}
@@ -69,7 +85,7 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	showActiveUploads() {
+	showActiveUploads = () => {
 		document.getElementById('uploader').style.display = 'none'
 		document.getElementById('uploads').style.display = 'block'
 	}
@@ -77,7 +93,7 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	render() {
+	render = () => {
 		return (
 			<div id="uploader" className="uploader">
 				<div className="header">
@@ -90,14 +106,23 @@ class Uploader extends Component {
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</div>
 				<div id="dropzone" className="dropzone">
-					<div className="drop" onDragEnter={this.onDragEnterHandler} onDragLeave={this.onDragExitHandler} onDragOver={this.onDragOverHandler} onDrop={this.onDropHandler}>
-						Drop the folder here
+					<div className="drop"
+						onDragEnter={this.onDragEnterHandler}
+						onDragLeave={this.onDragExitHandler}
+						onDragOver={this.onDragOverHandler}
+						onDrop={this.onDropHandler}
+					>
+						{this.state.dropZoneLabel}
 					</div>
 					<button id="start-upload" disabled>Start upload</button>
 				</div>
 			</div>
 		)
 	}
+}
+
+Uploader.defaultProps = {
+	dropZoneLabel: 'Drop the folder here'
 }
 
 export default Uploader;

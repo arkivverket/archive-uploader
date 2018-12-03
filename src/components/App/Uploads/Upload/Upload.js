@@ -8,7 +8,7 @@ class Upload extends Component {
 	/**
 	 *
 	 */
-	render() {
+	render = () => {
 		return (
 			<div>Upload</div>
 		)

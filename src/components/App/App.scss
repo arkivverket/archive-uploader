@@ -34,7 +34,7 @@ body {
 	}
 }
 
-// Disable text default styles to hide that the gui is rendered in Electron
+// Disable default styles to hide that the GUI is rendered in Electron
 
 :not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
 	user-select: none;

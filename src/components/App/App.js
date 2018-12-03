@@ -1,18 +1,9 @@
 import React, { Component } from 'react'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { faTimes, faUpload } from "@fortawesome/free-solid-svg-icons"
 import './App.scss'
 
 const electron = window.require('electron')
-
-// Add icons to library
-
-library.add(
-	faTimes,
-	faUpload
-)
 
 // Register "start-upload" listener
 
@@ -32,7 +23,7 @@ class App extends Component {
 	/**
 	 *
 	 */
-	render() {
+	render = () => {
 		return (
 			<React.Fragment>
 				<Uploader />

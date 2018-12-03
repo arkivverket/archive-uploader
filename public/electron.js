@@ -27,8 +27,8 @@ function createWindow() {
 	win = new BrowserWindow({
 		x: windowState.x,
 		y: windowState.y,
-		width: windowState.width,
-		height: windowState.height,
+		width: 500,
+		height: 800,
 		resizable: false,
 		fullscreen: false
 	})

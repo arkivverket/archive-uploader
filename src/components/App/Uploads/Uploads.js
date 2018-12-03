@@ -9,7 +9,7 @@ class Uploads extends Component {
 	/**
 	 *
 	 */
-	closeActiveUploads() {
+	closeActiveUploads = () => {
 		document.getElementById('uploader').style.display = 'block'
 		document.getElementById('uploads').style.display = 'none'
 	}
@@ -17,7 +17,7 @@ class Uploads extends Component {
 	/**
 	 *
 	 */
-	render() {
+	render = () => {
 		return (
 			<div id="uploads" className="uploads">
 			<div className="header">
