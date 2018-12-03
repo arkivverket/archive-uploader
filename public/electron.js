@@ -30,7 +30,12 @@ function createWindow() {
 		width: 500,
 		height: 800,
 		resizable: false,
-		fullscreen: false
+		fullscreen: false,
+		show: false
+	})
+
+	win.once('ready-to-show', () => {
+		win.show()
 	})
 
 	windowState.manage(win)
