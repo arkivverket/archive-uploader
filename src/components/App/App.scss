@@ -3,9 +3,12 @@ body {
 	background: #EEE;
 
 	.header {
-		padding: 1em;
-		padding-top: 1.5em;
-		padding-bottom: 1.5em;
+		padding-left: 1em;
+		padding-right: 1em;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 		text-align: right;
 		-webkit-app-region: drag;
 

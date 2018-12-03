@@ -28,10 +28,10 @@ function createWindow() {
 		titleBarStyle: is.macos ? 'hidden' : 'default',
 		x: windowState.x,
 		y: windowState.y,
-		width: 500,
-		height: 800,
-		resizable: false,
-		fullscreen: false,
+		width: windowState.width,
+		height: windowState.height,
+		minHeight: 500,
+		minWidth: 500,
 		show: false
 	})
 

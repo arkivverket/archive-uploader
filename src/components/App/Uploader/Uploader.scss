@@ -21,7 +21,7 @@ body {
 		.dropzone {
 			padding-left: 1em;
 			padding-right: 1em;
-			height: calc(100vh - 5em);
+			height: calc(100vh - 70px);
 
 			//background: blue;
 			//display: none;
@@ -30,7 +30,7 @@ body {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				height: 620px;
+				height: calc(100% - 90px);
 				border: 3px dashed #ccc;
 
 				//background: green;
