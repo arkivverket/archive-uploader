@@ -1,24 +1,46 @@
 body {
 	height: 100vh;
-	background: #F8F8F8;
-}
+	background: #333;
 
-.container {
-	height: calc(100vh - 4em);
-	padding: 1em;
-}
+	.header {
+		padding: 1em;
+		padding-top: 1.5em;
+		padding-bottom: 1.5em;
+		text-align: right;
 
-.header {
-	margin-bottom: 1em;
-	text-align: right;
-}
+		a.button {
+			padding: .5em;
+			padding-left: 1em;
+			padding-right: 1em;
+			background: #333;
+			color: #EEE;
+			text-decoration: none;
+			border-radius: 1em;
 
-.dropzone {
-	height: calc(100vh - 6.5em);
-	padding: 1em;
-	border: 3px dashed #ccc;
+			&.light {
+				background: #EEE;
+				color: #333;
+			}
 
-	&:hover {
-		background-color: #FEFEFE;
+			span {
+				padding-left: .5em;
+				display: none;
+			}
+
+			&:hover span {
+				display: inline;
+			}
+		}
 	}
+}
+
+// Disable text default styles to hide that the gui is rendered in Electron
+
+:not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
+	user-select: none;
+	cursor: default;
+}
+
+button:focus {
+	outline:0;
 }
