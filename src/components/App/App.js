@@ -10,8 +10,8 @@ const electron = window.require('electron')
 electron.ipcRenderer.on('start-upload', function(event, url) {
 	console.log(url)
 
-	document.getElementById('uploader').style.display = 'block'
 	document.getElementById('uploads').style.display = 'none'
+	document.getElementById('uploader').style.display = 'block'
 	document.getElementById('info').style.display = 'none'
 	document.getElementById('dropzone').style.display = 'block'
 })
