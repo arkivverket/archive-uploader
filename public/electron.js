@@ -4,9 +4,9 @@ const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
 const path              = require('path')
 const urlUtilities      = require('url')
-const isDev             = require('electron-is-dev')
 const windowStateKeeper = require('electron-window-state')
 const menu              = require('./electron/ui/menu')
+const {is}              = require('electron-util');
 
 let win
 
@@ -25,6 +25,7 @@ function createWindow() {
 	// Create the application window and register it with the state keeper
 
 	win = new BrowserWindow({
+		titleBarStyle: is.macos ? 'hidden' : 'default',
 		x: windowState.x,
 		y: windowState.y,
 		width: 500,
@@ -42,7 +43,7 @@ function createWindow() {
 
 	// Load the renderer
 
-	if (isDev) {
+	if (is.development) {
 		win.loadURL('http://localhost:3000')
 
 		win.webContents.openDevTools()

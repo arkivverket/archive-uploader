@@ -3,6 +3,7 @@
 const electron = require('electron')
 const app      = electron.app
 const Menu     = electron.Menu
+const {is}     = require('electron-util');
 
 // Base template
 
@@ -10,7 +11,7 @@ const template = []
 
 // Add macOS specific menu items
 
-if (process.platform === 'darwin') {
+if (is.macos) {
 	template.unshift({
 		label: app.getName(),
 		submenu: [
