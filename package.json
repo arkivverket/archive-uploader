@@ -5,7 +5,7 @@
   "author": "Arkivvkerket",
   "private": true,
   "homepage": "./",
-  "main": "electron/electron.js",
+  "main": "public/electron.js",
   "dependencies": {
     "electron-is-dev": "^1.0.1",
     "electron-util": "^0.10.2",
