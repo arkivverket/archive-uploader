@@ -9,6 +9,7 @@ const menu              = require('./electron/ui/menu')
 const {is}              = require('electron-util')
 
 let win
+let urlToOpenOnStartup = null
 
 const lock = app.requestSingleInstanceLock()
 
@@ -23,7 +24,23 @@ else {
 			if (win.isMinimized()) {
 				win.restore()
 			}
+
 			win.focus()
+		}
+	})
+
+	// Register custom protocol
+
+	app.setAsDefaultProtocolClient('dpldr')
+
+	// Register listener for "open-url"
+
+	app.on('open-url', (event, url) => {
+		if (win) {
+			win.webContents.send('start-upload', url)
+		}
+		else {
+			urlToOpenOnStartup = url
 		}
 	})
 
@@ -80,28 +97,20 @@ else {
 		})
 	}
 
-	/**
-	 * Register protocol and open-url event handler.
-	 */
-	function registerProtocol() {
-		// Register custom protocol
-
-		app.setAsDefaultProtocolClient('dpldr')
-
-		// Register protocol handler
-
-		app.on('open-url', function (event, url) {
-			 win.webContents.send('start-upload', url)
-		})
-	}
-
-	// Create a window, register the protocol and
-	// set the application menu when the app is ready
+	// Create a window and set the application menu when the app is ready
 
 	app.on('ready', () => {
 		createWindow()
-		registerProtocol()
+
 		Menu.setApplicationMenu(menu)
+
+		if (urlToOpenOnStartup !== null) {
+			win.once('show', () => {
+				win.webContents.send('start-upload', urlToOpenOnStartup)
+
+				urlToOpenOnStartup = null
+			})
+		}
 	})
 
 	// Quit when all windows are closed
