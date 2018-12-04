@@ -36,6 +36,8 @@ else {
 	// Register listener for "open-url"
 
 	app.on('open-url', (event, url) => {
+		event.preventDefault()
+
 		if (win) {
 			win.webContents.send('start-upload', url)
 		}
