@@ -29,7 +29,7 @@ class App extends Component {
 			folderName: data.folderName,
 			uploadUrl: data.uploadUrl,
 			meta: data.meta
-		};
+		}
 	}
 
 	/**
@@ -67,7 +67,7 @@ class App extends Component {
 			if (uploads[key].id === id) {
 				uploads.splice(key, 1)
 
-				break;
+				break
 			}
 		}
 
@@ -83,8 +83,8 @@ class App extends Component {
 				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
 			</React.Fragment>
-		);
+		)
 	}
 }
 
-export default App;
+export default App

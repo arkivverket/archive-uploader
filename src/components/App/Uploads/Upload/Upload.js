@@ -21,12 +21,6 @@ class Upload extends Component {
 	componentWillMount = () => {
 
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
-			console.log(tar);
-
-			/*let myNotification = new Notification('Uploader', {
-				body: 'Fuck yes!!'
-			})*/
-
 			this.setState({buildingTar: false})
 
 			this.props.removeUpload(this.props.data.id)
@@ -62,4 +56,4 @@ class Upload extends Component {
 	}
 }
 
-export default Upload;
+export default Upload

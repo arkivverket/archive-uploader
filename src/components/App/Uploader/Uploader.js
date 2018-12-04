@@ -45,21 +45,21 @@ class Uploader extends Component {
 	 *
 	 */
 	validateUpload = (files) => {
-		let success = true;
+		let success = true
 
 		if (files.length > 1) {
-			success = false;
+			success = false
 
 			alert('You can only upload a single item!')
 		}
 
 		if (success && !fs.statSync(files[0].path).isDirectory()) {
-			success = false;
+			success = false
 
 			alert('You must upload a folder!')
 		}
 
-		return success;
+		return success
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Uploader extends Component {
 
 			this.setState({dropZoneLabel: this.props.dropZoneLabel})
 
-			return;
+			return
 		}
 
 		this.setState({dropZoneLabel: event.dataTransfer.files[0].path})
@@ -142,4 +142,4 @@ Uploader.defaultProps = {
 	dropZoneLabel: 'Drop the folder here'
 }
 
-export default Uploader;
+export default Uploader

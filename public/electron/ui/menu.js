@@ -3,7 +3,7 @@
 const electron = require('electron')
 const app      = electron.app
 const Menu     = electron.Menu
-const {is}     = require('electron-util');
+const {is}     = require('electron-util')
 
 // Base template
 

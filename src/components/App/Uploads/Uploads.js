@@ -41,4 +41,4 @@ class Uploads extends Component {
 	}
 }
 
-export default Uploads;
+export default Uploads

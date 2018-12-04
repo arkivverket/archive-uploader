@@ -2,6 +2,7 @@ const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const path     = window.require('path')
 const tar      = window.require('tar')
+const {is}     = window.require('electron-util')
 
 /**
  * Builds a tar file from the source firectory and
