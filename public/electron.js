@@ -47,7 +47,7 @@ else {
 	/**
 	 * Create window.
 	 */
-	function createWindow() {
+	const createWindow = () => {
 
 		// Load the previous state with fallback to defaults
 
