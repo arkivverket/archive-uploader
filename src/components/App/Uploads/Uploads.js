@@ -28,10 +28,10 @@ class Uploads extends Component {
 		return (
 			<div id="uploads" className="uploads">
 			<div className="header">
-				<a className="button light" onClick={this.closeActiveUploads}>
+				<button className="button light" onClick={this.closeActiveUploads}>
 					<FontAwesomeIcon fixedWidth icon="times" />
 					<span>Close</span>
-				</a>
+				</button>
 			</div>
 				<div id="upload-list" className="upload-list">
 					{uploads}

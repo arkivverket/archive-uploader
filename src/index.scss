@@ -1,7 +1,22 @@
 body {
 	margin: 0;
 	padding: 0;
+
+	height: 100vh;
+	background: #EEE;
+
 	font: caption;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	// Disable default styles to hide that the GUI is rendered in Electron
+
+	:not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
+		user-select: none;
+		cursor: default;
+	}
+
+	button:focus {
+		outline:0;
+	}
 }

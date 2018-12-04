@@ -1,7 +1,4 @@
 body {
-	height: 100vh;
-	background: #EEE;
-
 	.header {
 		padding-left: 1em;
 		padding-right: 1em;
@@ -12,12 +9,13 @@ body {
 		text-align: right;
 		-webkit-app-region: drag;
 
-		a.button {
+		button.button {
 			padding: .5em;
 			padding-left: 1em;
 			padding-right: 1em;
 			background: #333;
 			color: #EEE;
+			font-size: 1em;
 			text-decoration: none;
 			border-radius: 1em;
 			-webkit-app-region: no-drag;
@@ -37,15 +35,4 @@ body {
 			}
 		}
 	}
-}
-
-// Disable default styles to hide that the GUI is rendered in Electron
-
-:not(input):not(textarea), :not(input):not(textarea)::after, :not(input):not(textarea)::before {
-	user-select: none;
-	cursor: default;
-}
-
-button:focus {
-	outline:0;
 }
