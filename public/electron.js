@@ -9,7 +9,7 @@ const menu              = require('./electron/ui/menu')
 const {is}              = require('electron-util')
 
 let win
-let urlToOpenOnStartup = null
+let urlToOpenOnStartup
 
 if (!app.requestSingleInstanceLock()) {
 	app.quit()
@@ -104,7 +104,7 @@ else {
 
 		Menu.setApplicationMenu(menu)
 
-		if (urlToOpenOnStartup !== null) {
+		if (urlToOpenOnStartup) {
 			win.once('show', () => {
 				win.webContents.send('start-upload', urlToOpenOnStartup)
 
