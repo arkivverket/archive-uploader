@@ -7,7 +7,9 @@ const {is}     = require('electron-util')
 
 // Base template
 
-const template = []
+const template = [{
+	role: 'windowMenu'
+}]
 
 // Add macOS specific menu items
 
@@ -22,7 +24,6 @@ if (is.macos) {
 			type: 'separator'
 		},
 		{
-			label: 'Services',
 			role: 'services',
 			submenu: []
 		},
@@ -30,24 +31,19 @@ if (is.macos) {
 			type: 'separator'
 		},
 		{
-			label: 'Hide ' + app.getName(),
-			accelerator: 'Command+H',
 			role: 'hide'
 		},
 		{
-			label: 'Hide Others',
-			accelerator: 'Command+Shift+H',
 			role: 'hideothers'
 		},
 		{
-			label: 'Show All',
 			role: 'unhide'
 		},
 		{
 			type: 'separator'
 		},
 		{
-			label: 'Quit',
+			label: 'Quit ' + app.getName(),
 			accelerator: 'Command+Q',
 			click: () => {
 				app.quit()

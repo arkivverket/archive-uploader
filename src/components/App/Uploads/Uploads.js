@@ -27,12 +27,12 @@ class Uploads extends Component {
 
 		return (
 			<div id="uploads" className="uploads">
-			<div className="header">
-				<button className="button light" onClick={this.closeActiveUploads}>
-					<FontAwesomeIcon fixedWidth icon="times" />
-					<span>Close</span>
-				</button>
-			</div>
+				<div className="header">
+					<button className="button light" onClick={this.closeActiveUploads}>
+						<FontAwesomeIcon fixedWidth icon="times" />
+						<span>Close</span>
+					</button>
+				</div>
 				<div id="upload-list" className="upload-list">
 					{uploads}
 				</div>
