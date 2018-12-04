@@ -11,9 +11,7 @@ const {is}              = require('electron-util')
 let win
 let urlToOpenOnStartup = null
 
-const lock = app.requestSingleInstanceLock()
-
-if (!lock) {
+if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
