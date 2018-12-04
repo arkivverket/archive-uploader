@@ -1,0 +1,63 @@
+$progressBarBackgroundColor: #5FACBD;
+
+body {
+	.uploads {
+		.upload {
+			&:not(:last-child) {
+				border-bottom: 1px solid #666;
+			}
+
+			.top-row {
+				padding: 1em;
+				padding-bottom: .5em;
+				display: flex;
+
+				.folder-name {
+					font-weight: bold;
+				}
+
+				.cancel {
+					margin-left: auto;
+				}
+			}
+
+			.bottom-row {
+				padding: 1em;
+				padding-top: .5em;
+				display: flex;
+
+				.source-directory {
+					color: darken(#EEE, 30);
+				}
+
+				.status-icon {
+					margin-left: auto;
+					color: darken(#EEE, 50);
+				}
+			}
+
+			.progress {
+				height: 20px;
+				background-color: #333;
+
+				.bar {
+					height: 100%;
+					width: 0;
+					background-color: $progressBarBackgroundColor;
+					background-size: 40px 40px;
+					background-image: linear-gradient(-45deg, lighten($progressBarBackgroundColor, 5) 25%, transparent 25%, transparent 50%, lighten($progressBarBackgroundColor, 5) 50%, lighten($progressBarBackgroundColor, 5) 75%, transparent 75%, transparent);
+					animation: barberpole .8s linear infinite;
+				}
+
+				@keyframes barberpole {
+					from  {
+						background-position: 40px 0;
+					}
+					to {
+						background-position: 0 0;
+					}
+				}
+			}
+		}
+	}
+}

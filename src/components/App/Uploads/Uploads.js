@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Upload from './Upload/Upload'
 import './Uploads.scss'
 
 /**
@@ -18,6 +19,12 @@ class Uploads extends Component {
 	 *
 	 */
 	render = () => {
+		const uploads = this.props.uploads.map((upload, index) => {
+			return (
+				<Upload key={index} data={upload} removeUpload={this.props.removeUpload} />
+			)
+		})
+
 		return (
 			<div id="uploads" className="uploads">
 			<div className="header">
@@ -26,7 +33,9 @@ class Uploads extends Component {
 					<span>Close</span>
 				</a>
 			</div>
-				Active Uploads
+				<div id="upload-list" className="upload-list">
+					{uploads}
+				</div>
 			</div>
 		)
 	}

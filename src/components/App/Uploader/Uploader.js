@@ -12,7 +12,8 @@ class Uploader extends Component {
 	 *
 	 */
 	state = {
-		dropZoneLabel: this.props.dropZoneLabel
+		dropZoneLabel: this.props.dropZoneLabel,
+		buttonDisabled: true
 	}
 
 	/**
@@ -21,7 +22,7 @@ class Uploader extends Component {
 	onDragEnterHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.add('active', 'animated');
+		event.target.classList.add('active', 'animated')
 	}
 
 	/**
@@ -30,7 +31,7 @@ class Uploader extends Component {
 	onDragExitHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']));
+		event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']))
 	}
 
 	/**
@@ -67,12 +68,12 @@ class Uploader extends Component {
 	onDropHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.remove('animated');
+		event.target.classList.remove('animated')
 
 		if (this.validateUpload(event.dataTransfer.files) === false) {
-			event.target.classList.remove('active');
+			event.target.classList.remove('active')
 
-			document.getElementById('start-upload').disabled = true;
+			this.setState({buttonDisabled: true})
 
 			this.setState({dropZoneLabel: this.props.dropZoneLabel})
 
@@ -81,7 +82,7 @@ class Uploader extends Component {
 
 		this.setState({dropZoneLabel: event.dataTransfer.files[0].path})
 
-		document.getElementById('start-upload').disabled = false;
+		this.setState({buttonDisabled: false})
 	}
 
 	/**
@@ -90,6 +91,20 @@ class Uploader extends Component {
 	showActiveUploads = () => {
 		document.getElementById('uploader').style.display = 'none'
 		document.getElementById('uploads').style.display = 'block'
+	}
+
+	/**
+	 *
+	 */
+	startUpload = () => {
+		const upload = this.props.uploadTemplate
+
+		upload.sourceDirectory = this.state.dropZoneLabel
+
+		this.props.addUpload(upload)
+
+		document.getElementById('info').style.display = 'flex'
+		document.getElementById('dropzone').style.display = 'none'
 	}
 
 	/**
@@ -116,7 +131,7 @@ class Uploader extends Component {
 					>
 						{this.state.dropZoneLabel}
 					</div>
-					<button id="start-upload" disabled>Start upload</button>
+					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>Start upload</button>
 				</div>
 			</div>
 		)

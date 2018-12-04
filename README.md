@@ -29,3 +29,36 @@ If you want to build the application for all platforms (currently macOS and Wind
 ```
 yarn build-all
 ```
+
+---
+
+# Protocol
+
+The application will be launched using the custom `dpldr` protocol. The link will consist of the protocol followed by a base64 enoded JSON payload:
+
+```
+dpldr://eyJmb2xkZXJOYW1lIjoxNTQzOTI1NDM2LCJ1cGxvYWRVcmwiOiJodHRwOlwvXC9leGFtcGxlLm9yZ1wvdXBsb2FkIiwibWV0YSI6eyJ1c2VySWQiOjEyMywidW5pdElkIjoxMjMsImZvbGRlck5hbWUiOjE1NDM5MjU0MzZ9fQ==
+```
+
+The payload must contain the following data:
+
+```
+$data = [
+	'folderName' => 123,
+	'uploadUrl'  => 'http://example.org/upload',
+	'meta'       => [
+		'userId'     => 123, // Value must be signed
+		'unitId'     => 123, // Value must be signed
+		'folderName' => 123, // Value must be signed
+
+	],
+];
+```
+
+> The meta values must be signed by the Archive Digitisation application as they will be used to validate the upload using a TUS hook.
+
+---
+
+# Ideas for future versions
+
+* Generate a file hash to ensure that the file as been transferred correctly? (Must be possible to turn on/off)
