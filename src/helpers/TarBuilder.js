@@ -24,7 +24,7 @@ export const buildTar = (sourceDir, tarName) => {
 
 		const options = {
 			gzip: false,
-			file: path.join(electron.remote.app.getPath('temp'), tarName + '.tar'),
+			file: path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), tarName + '.tar'),
 			cwd: sourceDir
 		}
 
