@@ -42,7 +42,7 @@ class App extends Component {
 			document.getElementById('uploads').style.display = 'none'
 			document.getElementById('uploader').style.display = 'block'
 			document.getElementById('info').style.display = 'none'
-			document.getElementById('dropzone').style.display = 'block'
+			document.getElementById('upload').style.display = 'block'
 		})
 	}
 

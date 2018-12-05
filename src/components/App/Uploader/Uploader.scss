@@ -16,13 +16,13 @@ body {
 			height: calc(100% - 70px);
 		}
 
-		.dropzone {
+		.upload {
 			padding-left: 1em;
 			padding-right: 1em;
 			height: calc(100% - 70px);
 			display: none;
 
-			.drop {
+			.dropzone {
 				display: flex;
 				align-items: center;
 				justify-content: center;

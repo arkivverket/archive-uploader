@@ -74,7 +74,6 @@ class Uploader extends Component {
 			event.target.classList.remove('active')
 
 			this.setState({buttonDisabled: true})
-
 			this.setState({dropZoneLabel: this.props.dropZoneLabel})
 
 			return
@@ -104,7 +103,11 @@ class Uploader extends Component {
 		this.props.addUpload(upload)
 
 		document.getElementById('info').style.display = 'flex'
-		document.getElementById('dropzone').style.display = 'none'
+		document.getElementById('upload').style.display = 'none'
+		document.getElementById('dropzone').classList.remove('active')
+
+		this.setState({buttonDisabled: true})
+		this.setState({dropZoneLabel: this.props.dropZoneLabel})
 	}
 
 	/**
@@ -122,8 +125,8 @@ class Uploader extends Component {
 				<div id="info" className="info">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</div>
-				<div id="dropzone" className="dropzone">
-					<div className="drop"
+				<div id="upload" className="upload">
+					<div id="dropzone" className="dropzone"
 						onDragEnter={this.onDragEnterHandler}
 						onDragLeave={this.onDragExitHandler}
 						onDragOver={this.onDragOverHandler}
