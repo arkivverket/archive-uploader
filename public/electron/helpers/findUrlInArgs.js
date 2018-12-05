@@ -13,11 +13,7 @@ const findUrlInArgs = (protocol, argv) => {
 
 	argv.forEach((value) => {
 		if (value.startsWith(protocol + '://')) {
-			url = value
-
-			if (url.endsWith('/')) {
-				url = url.substring(0, url.length - 1)
-			}
+			url = value.replace(/\/$/, '')
 		}
 	})
 
