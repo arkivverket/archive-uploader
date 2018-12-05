@@ -19,7 +19,6 @@ class Upload extends Component {
 	 *
 	 */
 	componentWillMount = () => {
-
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			this.setState({buildingTar: false})
 
