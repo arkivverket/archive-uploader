@@ -1,3 +1,5 @@
+'use strict'
+
 const electron          = require('electron')
 const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
@@ -18,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
-	// Focus on window if we have one and handle URLs for non-macOS systems
+	// Focus on window if we have one and handle URLs on non-macOS systems
 
 	app.on('second-instance', (event, argv) => {
 		if (win) {
