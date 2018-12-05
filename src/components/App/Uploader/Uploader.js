@@ -73,15 +73,18 @@ class Uploader extends Component {
 		if (this.validateUpload(event.dataTransfer.files) === false) {
 			event.target.classList.remove('active')
 
-			this.setState({buttonDisabled: true})
-			this.setState({dropZoneLabel: this.props.dropZoneLabel})
+			this.setState({
+				dropZoneLabel: this.props.dropZoneLabel,
+				buttonDisabled: true
+			})
 
 			return
 		}
 
-		this.setState({dropZoneLabel: event.dataTransfer.files[0].path})
-
-		this.setState({buttonDisabled: false})
+		this.setState({
+			dropZoneLabel: event.dataTransfer.files[0].path,
+			buttonDisabled: false
+		})
 	}
 
 	/**
@@ -106,8 +109,10 @@ class Uploader extends Component {
 		document.getElementById('upload').style.display = 'none'
 		document.getElementById('dropzone').classList.remove('active')
 
-		this.setState({buttonDisabled: true})
-		this.setState({dropZoneLabel: this.props.dropZoneLabel})
+		this.setState({
+			dropZoneLabel: this.props.dropZoneLabel,
+			buttonDisabled: true
+		})
 	}
 
 	/**
