@@ -35,6 +35,14 @@ body {
 			background-color: #666;
 		}
 
+		.no-uploads {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			font-size: 1.5em;
+			top: calc(100% - 50%);
+		}
+
 		.upload-list {
 			height: calc(100% - 70px);
 			overflow: auto;
