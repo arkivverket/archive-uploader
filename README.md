@@ -40,6 +40,8 @@ The application will be launched using the custom `dpldr` protocol. The link wil
 dpldr://eyJmb2xkZXJOYW1lIjoxNTQzOTI1NDM2LCJ1cGxvYWRVcmwiOiJodHRwOlwvXC9leGFtcGxlLm9yZ1wvdXBsb2FkIiwibWV0YSI6eyJ1c2VySWQiOjEyMywidW5pdElkIjoxMjMsImZvbGRlck5hbWUiOjE1NDM5MjU0MzZ9fQ==
 ```
 
+> Note that the protocol is `dpldrdev` when the application run in development mode.
+
 The payload must contain the following data:
 
 ```

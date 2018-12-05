@@ -12,7 +12,7 @@ const {is}     = window.require('electron-util')
  * @param  string tarName   Desired tar name (without extension)
  * @return Promise
  */
-export const buildTar = (sourceDir, tarName) => {
+const buildTar = (sourceDir, tarName) => {
 	return fs.readdir(sourceDir).then((files) => {
 		let fileList = []
 
@@ -35,3 +35,5 @@ export const buildTar = (sourceDir, tarName) => {
 		})
 	})
 }
+
+export default buildTar

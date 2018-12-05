@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { buildTar } from '../../../../helpers/TarBuilder'
+import buildTar from '../../../../helpers/buildTar'
 import './Upload.scss'
 
 /**

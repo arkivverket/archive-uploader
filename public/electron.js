@@ -6,43 +6,63 @@ const path              = require('path')
 const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
 const menu              = require('./electron/ui/menu')
+const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const {is}              = require('electron-util')
 
 let win
 let urlToOpenOnStartup
 
+const protocol = is.development ? 'dpldrdev' : 'dpldr'
+
 if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
-	// Focus on window if we have one
+	// Focus on window if we have one and handle URLs for non-macOS systems
 
-	app.on('second-instance', () => {
+	app.on('second-instance', (event, argv) => {
 		if (win) {
 			if (win.isMinimized()) {
 				win.restore()
 			}
 
 			win.focus()
+
+			if (!is.macos) {
+				const url = findUrlInArgs(protocol, argv)
+
+				if (url !== null) {
+					win.webContents.send('start-upload', url)
+				}
+			}
 		}
 	})
 
 	// Register custom protocol
 
-	app.setAsDefaultProtocolClient('dpldr')
+	app.setAsDefaultProtocolClient(protocol)
 
-	// Register listener for "open-url"
+	// Handle opened URL opening
 
-	app.on('open-url', (event, url) => {
-		event.preventDefault()
+	if (is.macos) {
+		app.on('open-url', (event, url) => {
+			event.preventDefault()
 
-		if (win) {
-			win.webContents.send('start-upload', url)
-		}
-		else {
+			if (win) {
+				win.webContents.send('start-upload', url)
+			}
+			else {
+				urlToOpenOnStartup = url
+			}
+		})
+	}
+	else {
+		const url = findUrlInArgs(protocol, process.argv)
+
+		if (url !== null) {
 			urlToOpenOnStartup = url
 		}
-	})
+	}
 
 	/**
 	 * Create window.
