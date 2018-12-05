@@ -1,8 +1,7 @@
 'use strict'
 
 /**
- * Finds a url matching the protocol in the argument array.
- * Null is returned if none is found.
+ * Returns the first URL with the specified protocol or false.
  *
  * @param  string protocol protocol prefix
  * @param  array  argv     arguments
