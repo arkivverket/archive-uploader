@@ -36,7 +36,7 @@ class Uploads extends Component {
 				<div id="upload-list" className="upload-list">
 					{uploads}
 					{this.props.uploads.length === 0 &&
-						<div class="no-uploads">There are no active uploads.</div>
+						<div className="no-uploads">There are no active uploads.</div>
 					}
 				</div>
 			</div>

@@ -12,7 +12,8 @@ class Upload extends Component {
 	 *
 	 */
 	state = {
-		buildingTar: true
+		buildingTar: true,
+		uploadPercent: 0
 	}
 
 	/**
@@ -40,15 +41,19 @@ class Upload extends Component {
 					<div className="source-directory">{this.props.data.sourceDirectory}</div>
 					<div className="status-icon">
 						{this.state.buildingTar === true &&
-							<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
+							<span title="Building archive">
+								<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
+							</span>
 						}
 						{this.state.buildingTar === false &&
-							<FontAwesomeIcon fixedWidth icon="upload" />
+							<span title="Uploading">
+								<FontAwesomeIcon fixedWidth icon="upload" />
+							</span>
 						}
 					</div>
 				</div>
 				<div className="progress">
-					<div className="bar" style={{width: 0 + `%`}}></div>
+					<div className="bar" style={{width: this.state.uploadPercent + `%`}}></div>
 				</div>
 			</div>
 		)
