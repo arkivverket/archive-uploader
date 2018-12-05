@@ -6,18 +6,18 @@
  *
  * @param  string protocol protocol prefix
  * @param  array  argv     arguments
- * @return string|null
+ * @return string|false
  */
 const findUrlInArgs = (protocol, argv) => {
-	let url = null;
+	const arguments = argv.length
 
-	argv.forEach((value) => {
-		if (value.startsWith(protocol + '://')) {
-			url = value.replace(/\/$/, '')
+	for (let i = 0; i < arguments; i++) {
+		if (argv[i].startsWith(protocol + '://')) {
+			return argv[i].replace(/\/$/, '') // Strip trailing slashes since Windows appends one
 		}
-	})
+	}
 
-	return url;
+	return false;
 }
 
 module.exports = findUrlInArgs

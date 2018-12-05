@@ -20,7 +20,7 @@ if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
-	// Focus on window if we have one and handle URLs on non-macOS systems
+	// Focus window if we have one and handle URL opening on Windows/Linux
 
 	app.on('second-instance', (event, argv) => {
 		if (win) {
@@ -33,7 +33,7 @@ else {
 			if (!is.macos) {
 				const url = findUrlInArgs(protocol, argv)
 
-				if (url !== null) {
+				if (url !== false) {
 					win.webContents.send('start-upload', url)
 				}
 			}
@@ -44,7 +44,7 @@ else {
 
 	app.setAsDefaultProtocolClient(protocol)
 
-	// Handle opened URL opening
+	// Handle URL opening
 
 	if (is.macos) {
 		app.on('open-url', (event, url) => {
@@ -61,7 +61,7 @@ else {
 	else {
 		const url = findUrlInArgs(protocol, process.argv)
 
-		if (url !== null) {
+		if (url !== false) {
 			urlToOpenOnStartup = url
 		}
 	}
