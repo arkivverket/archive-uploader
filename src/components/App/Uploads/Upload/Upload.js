@@ -28,8 +28,8 @@ class Upload extends Component {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			this.setState({buildingTar: false})
 
-			const file = fs.createReadStream(path);
-			const size = fs.statSync(path).size;
+			const file = fs.createReadStream(tar);
+			const size = fs.statSync(tar).size;
 
 			const options = {
 				endpoint: this.props.data.uploadUrl,
