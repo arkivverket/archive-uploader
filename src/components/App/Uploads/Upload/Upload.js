@@ -31,7 +31,7 @@ class Upload extends Component {
 			const size = fs.statSync(path).size;
 
 			const options = {
-				endpoint: this.pros.data.uploadUrl,
+				endpoint: this.props.data.uploadUrl,
 				resume: true,
 				uploadSize: size,
 				metadata: {
