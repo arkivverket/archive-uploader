@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import buildTar from '../../../../helpers/buildTar'
 import './Upload.scss'
 
+const fs   = window.require('fs')
+const path = window.require('path')
+const tus  = window.require('tus-js-client')
+
 /**
  *
  */
@@ -23,7 +27,35 @@ class Upload extends Component {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			this.setState({buildingTar: false})
 
-			this.props.removeUpload(this.props.data.id)
+			const file = fs.createReadStream(path);
+			const size = fs.statSync(path).size;
+
+			const options = {
+				endpoint: this.pros.data.uploadUrl,
+				resume: true,
+				uploadSize: size,
+				metadata: {
+					filename: path.basename(tar),
+					userId: this.props.data.meta.userId,
+					unitId: this.props.data.meta.unitId,
+					folderName: this.props.data.folderName
+				},
+				onError: (error) => {
+					throw error
+				},
+				onProgress: (bytesUploaded, bytesTotal) => {
+					this.setState({uploadPercent: Math.round(bytesUploaded / bytesTotal * 100)})
+				},
+				onSuccess: function () {
+					this.props.removeUpload(this.props.data.id)
+
+					fs.unlink(tar)
+				}
+			}
+
+			const upload = new tus.Upload(file, options)
+
+			upload.start()
 		})
 	}
 
