@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import buildTar from '../../../../helpers/buildTar'
+import notify from '../../../../helpers/notify'
 import './Upload.scss'
 
 const fs   = window.require('fs')
@@ -48,6 +49,8 @@ class Upload extends Component {
 				},
 				onSuccess: function () {
 					this.props.removeUpload(this.props.data.id)
+
+					notify(this.props.data.folderName + ' has been uploaded')
 
 					fs.unlink(tar)
 				}
