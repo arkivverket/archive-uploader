@@ -47,7 +47,7 @@ class Upload extends Component {
 				onProgress: (bytesUploaded, bytesTotal) => {
 					this.setState({uploadPercent: Math.round(bytesUploaded / bytesTotal * 100)})
 				},
-				onSuccess: function () {
+				onSuccess: () => {
 					this.props.removeUpload(this.props.data.id)
 
 					notify(this.props.data.folderName + ' has been uploaded')
