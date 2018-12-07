@@ -1,5 +1,3 @@
-const { getDoNotDisturb } from 'electron-notification-state'
-
 const electron = window.require('electron')
 
 /**
@@ -8,11 +6,9 @@ const electron = window.require('electron')
  * @param string message Message
  */
 const notify = (message) => {
-	if (!getDoNotDisturb()) {
-		const notification = new Notification(electron.remote.app.getName(), {
-			body: message
-		})
-	}
+	const notification = new Notification(electron.remote.app.getName(), {
+		body: message
+	})
 }
 
 export default notify
