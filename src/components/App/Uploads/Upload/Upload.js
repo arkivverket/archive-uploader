@@ -43,9 +43,9 @@ class Upload extends Component {
 				uploadUrl: window.localStorage.getItem(fileId),
 				uploadSize: size,
 				metadata: {
-					filename: path.basename(tar),
 					userId: this.props.data.meta.userId,
 					unitId: this.props.data.meta.unitId,
+					fileName: path.basename(tar),
 					folderName: this.props.data.folderName
 				},
 				onError: (error) => {
