@@ -52,7 +52,7 @@ class Upload extends Component {
 
 					notify(this.props.data.folderName + ' has been uploaded')
 
-					fs.unlink(tar)
+					fs.unlinkSync(tar)
 				}
 			}
 
