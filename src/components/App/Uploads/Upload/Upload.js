@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Tippy from '@tippy.js/react'
 import buildTar from '../../../../helpers/buildTar'
 import notify from '../../../../helpers/notify'
 import './Upload.scss'
+import 'tippy.js/dist/tippy.css'
 
 const fs   = window.require('fs')
 const md5  = window.require('md5')
@@ -25,11 +27,19 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	tusUpload = null
+
+	/**
+	 *
+	 */
+	isPaused = false
+
+	/**
+	 *
+	 */
 	componentWillMount = () => {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			this.setState({buildingTar: false})
-
-			let upload
 
 			let isFirstProgress = true
 
@@ -52,8 +62,8 @@ class Upload extends Component {
 					throw error
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
-					if(isFirstProgress) {
-						window.localStorage.setItem(fileId, upload.url)
+					if (isFirstProgress) {
+						window.localStorage.setItem(fileId, this.tusUpload.url)
 
 						isFirstProgress = false
 					}
@@ -71,10 +81,24 @@ class Upload extends Component {
 				}
 			}
 
-			upload = new tus.Upload(file, options)
+			this.tusUpload = new tus.Upload(file, options)
 
-			upload.start()
+			this.tusUpload.start()
 		})
+	}
+
+	/**
+	 *
+	 */
+	toggleUpload = () => {
+		if (this.isPaused) {
+			this.tusUpload.start()
+			this.isPaused = false
+		}
+		else {
+			this.tusUpload.abort()
+			this.isPaused = true
+		}
 	}
 
 	/**
@@ -91,19 +115,21 @@ class Upload extends Component {
 					<div className="source-directory">{this.props.data.sourceDirectory}</div>
 					<div className="status-icon">
 						{this.state.buildingTar === true &&
-							<span title="Building archive">
+							<Tippy content="Building archive">
 								<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
-							</span>
+							</Tippy>
 						}
 						{this.state.buildingTar === false &&
-							<span title="Uploading">
+							<Tippy content="Uploading">
 								<FontAwesomeIcon fixedWidth icon="upload" />
-							</span>
+							</Tippy>
 						}
 					</div>
 				</div>
-				<div className="progress">
-					<div className="bar" style={{width: this.state.uploadPercent + `%`}}></div>
+				<div className="progress" onClick={this.toggleUpload}>
+					<Tippy content={this.state.uploadPercent + `%`}>
+						<div className="bar" style={{width: this.state.uploadPercent + `%`}}></div>
+					</Tippy>
 				</div>
 			</div>
 		)
