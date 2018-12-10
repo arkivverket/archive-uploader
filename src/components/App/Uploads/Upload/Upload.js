@@ -5,6 +5,7 @@ import notify from '../../../../helpers/notify'
 import './Upload.scss'
 
 const fs   = window.require('fs')
+const md5  = window.require('md5')
 const path = window.require('path')
 const tus  = window.require('tus-js-client')
 
@@ -28,12 +29,18 @@ class Upload extends Component {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			this.setState({buildingTar: false})
 
-			const file = fs.createReadStream(tar);
-			const size = fs.statSync(tar).size;
+			let upload
+
+			let isFirstProgress = true
+
+			const file   = fs.createReadStream(tar)
+			const size   = fs.statSync(tar).size
+			const fileId = md5(this.props.data.id + size)
 
 			const options = {
 				endpoint: this.props.data.uploadUrl,
 				resume: true,
+				uploadUrl: window.localStorage.getItem(fileId),
 				uploadSize: size,
 				metadata: {
 					filename: path.basename(tar),
@@ -45,10 +52,18 @@ class Upload extends Component {
 					throw error
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
+					if(isFirstProgress) {
+						window.localStorage.setItem(fileId, upload.url)
+
+						isFirstProgress = false
+					}
+
 					this.setState({uploadPercent: Math.round(bytesUploaded / bytesTotal * 100)})
 				},
 				onSuccess: () => {
 					this.props.removeUpload(this.props.data.id)
+
+					window.localStorage.removeItem(fileId)
 
 					notify(this.props.data.folderName + ' has been uploaded')
 
@@ -56,7 +71,7 @@ class Upload extends Component {
 				}
 			}
 
-			const upload = new tus.Upload(file, options)
+			upload = new tus.Upload(file, options)
 
 			upload.start()
 		})
