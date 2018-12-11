@@ -4,6 +4,7 @@ const electron          = require('electron')
 const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
+const ipcMain           = electron.ipcMain
 const path              = require('path')
 const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
@@ -13,6 +14,7 @@ const {is}              = require('electron-util')
 
 let win
 let urlToOpenOnStartup
+let closeWithoutDialog = false
 
 const protocol = is.development ? 'dpldrdev' : 'dpldr'
 
@@ -113,7 +115,25 @@ else {
 			}))
 		}
 
-		// Register close event
+		// Register close event handler
+
+		win.on('close', (event) => {
+			if(!closeWithoutDialog) {
+				event.preventDefault()
+
+				win.webContents.send('can-i-close')
+
+				ipcMain.once('can-i-close-reply', (event, canClose) => {
+					if (canClose) {
+						closeWithoutDialog = true
+
+						win.close()
+					}
+				})
+			}
+		})
+
+		// Register closed event handler
 
 		win.on('closed', () => {
 			win = null
