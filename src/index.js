@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { library } from "@fortawesome/fontawesome-svg-core"
-import { faTimes, faUpload, faCircleNotch } from "@fortawesome/free-solid-svg-icons"
+import { faTimes, faUpload, faCircleNotch, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import App from './components/App/App'
 import './index.scss'
 
@@ -10,7 +10,9 @@ import './index.scss'
 library.add(
 	faTimes,
 	faUpload,
-	faCircleNotch
+	faCircleNotch,
+	faPause,
+	faPlay
 )
 
 // Start the application

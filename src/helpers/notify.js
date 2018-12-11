@@ -6,7 +6,7 @@ const electron = window.require('electron')
  * @param string message Message
  */
 const notify = (message) => {
-	const notification = new Notification(electron.remote.app.getName(), {
+	return new Notification(electron.remote.app.getName(), {
 		body: message
 	})
 }

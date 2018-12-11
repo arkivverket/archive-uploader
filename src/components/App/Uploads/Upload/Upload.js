@@ -21,18 +21,14 @@ class Upload extends Component {
 	 */
 	state = {
 		buildingTar: true,
-		uploadPercent: 0
+		uploadPercent: 0,
+		isPaused: false
 	}
 
 	/**
 	 *
 	 */
 	tusUpload = null
-
-	/**
-	 *
-	 */
-	isPaused = false
 
 	/**
 	 *
@@ -68,7 +64,7 @@ class Upload extends Component {
 						isFirstProgress = false
 					}
 
-					this.setState({uploadPercent: Math.round(bytesUploaded / bytesTotal * 100)})
+					this.setState({uploadPercent:(bytesUploaded / bytesTotal * 100).toFixed(2)})
 				},
 				onSuccess: () => {
 					this.props.removeUpload(this.props.data.id)
@@ -91,13 +87,15 @@ class Upload extends Component {
 	 *
 	 */
 	toggleUpload = () => {
-		if (this.isPaused) {
-			this.tusUpload.start()
-			this.isPaused = false
-		}
-		else {
-			this.tusUpload.abort()
-			this.isPaused = true
+		if (this.tusUpload !== null) {
+			if (this.state.isPaused) {
+				this.tusUpload.start()
+				this.setState({isPaused: false})
+			}
+			else {
+				this.tusUpload.abort()
+				this.setState({isPaused: true})
+			}
 		}
 	}
 
@@ -120,15 +118,29 @@ class Upload extends Component {
 							</Tippy>
 						}
 						{this.state.buildingTar === false &&
-							<Tippy content="Uploading">
-								<FontAwesomeIcon fixedWidth icon="upload" />
-							</Tippy>
+							<React.Fragment>
+								<span onClick={this.toggleUpload} style={{'margin-right': '1em'}}>
+									{this.state.isPaused === true &&
+										<Tippy content="Resume">
+											<FontAwesomeIcon fixedWidth icon="play" />
+										</Tippy>
+									}
+									{this.state.isPaused === false &&
+										<Tippy content="Pause">
+											<FontAwesomeIcon fixedWidth icon="pause" />
+										</Tippy>
+									}
+								</span>
+								<Tippy content="Uploading">
+									<FontAwesomeIcon fixedWidth icon="upload" />
+								</Tippy>
+							</React.Fragment>
 						}
 					</div>
 				</div>
 				<div className="progress" onClick={this.toggleUpload}>
 					<Tippy content={this.state.uploadPercent + `%`}>
-						<div className="bar" style={{width: this.state.uploadPercent + `%`}}></div>
+						<div className={`bar ${this.state.isPaused ? 'paused' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
 					</Tippy>
 				</div>
 			</div>
