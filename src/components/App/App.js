@@ -52,7 +52,7 @@ class App extends Component {
 	addUpload = (upload) => {
 		let uploads = this.state.uploads
 
-		uploads.push(upload)
+		uploads.unshift(upload)
 
 		this.setState({uploads: uploads})
 	}
