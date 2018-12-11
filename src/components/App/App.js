@@ -35,23 +35,9 @@ class App extends Component {
 	/**
 	 *
 	 */
-	componentWillMount = () => {
-		electron.ipcRenderer.on('start-upload', (event, url) => {
-			this.setState({uploadTemplate: this.buildCurrentUploadTemplate(url)})
-
-			document.getElementById('uploads').style.display = 'none'
-			document.getElementById('uploader').style.display = 'block'
-			document.getElementById('info').style.display = 'none'
-			document.getElementById('upload').style.display = 'block'
-		})
-	}
-
-	/**
-	 *
-	 */
-	uploadExists = (path) => {
+	uploadExists = (id) => {
 		for (let key in this.state.uploads) {
-			if (this.state.uploads[key].sourceDirectory === path) {
+			if (this.state.uploads[key].id === id) {
 				return true
 			}
 		}
@@ -90,10 +76,32 @@ class App extends Component {
 	/**
 	 *
 	 */
+	componentWillMount = () => {
+		electron.ipcRenderer.on('start-upload', (event, url) => {
+			const template = this.buildCurrentUploadTemplate(url)
+
+			if (this.uploadExists(template.id)) {
+				alert('This folder (' + template.folderName + ') is currently beeing uploaded!')
+
+				return
+			}
+
+			this.setState({uploadTemplate: template})
+
+			document.getElementById('uploads').style.display = 'none'
+			document.getElementById('uploader').style.display = 'block'
+			document.getElementById('info').style.display = 'none'
+			document.getElementById('upload').style.display = 'block'
+		})
+	}
+
+	/**
+	 *
+	 */
 	render = () => {
 		return (
 			<React.Fragment>
-				<Uploader uploadExists={this.uploadExists} addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
+				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
 			</React.Fragment>
 		)

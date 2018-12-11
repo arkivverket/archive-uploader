@@ -59,12 +59,6 @@ class Uploader extends Component {
 			alert('You must upload a folder!')
 		}
 
-		if (this.props.uploadExists(files[0].path)) {
-			success = false
-
-			alert('This folder is already beeing uploaded!')
-		}
-
 		return success
 	}
 

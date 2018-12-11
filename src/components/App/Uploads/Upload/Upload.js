@@ -35,6 +35,43 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	toggleUpload = () => {
+		if (this.tusUpload !== null) {
+			if (this.state.isPaused) {
+				this.tusUpload.start()
+
+				this.setState({isPaused: false})
+			}
+			else {
+				this.tusUpload.abort()
+
+				this.setState({isPaused: true})
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	cancelUpload = () => {
+		if (window.confirm('Are you sure that you want to cancel the upload?')) {
+			this.tusUpload.abort()
+
+			this.setState({isPaused: true})
+
+			if (fs.existsSync(this.state.tarFilePath)) {
+				fs.unlinkSync(this.state.tarFilePath)
+			}
+
+			window.localStorage.removeItem(this.state.fileId)
+
+			this.props.removeUpload(this.props.data.id)
+		}
+	}
+
+	/**
+	 *
+	 */
 	componentWillMount = () => {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			let isFirstProgress = true
@@ -89,43 +126,6 @@ class Upload extends Component {
 
 			this.tusUpload.start()
 		})
-	}
-
-	/**
-	 *
-	 */
-	toggleUpload = () => {
-		if (this.tusUpload !== null) {
-			if (this.state.isPaused) {
-				this.tusUpload.start()
-
-				this.setState({isPaused: false})
-			}
-			else {
-				this.tusUpload.abort()
-
-				this.setState({isPaused: true})
-			}
-		}
-	}
-
-	/**
-	 *
-	 */
-	cancelUpload = () => {
-		if (window.confirm('Are you sure that you want to cancel the upload?')) {
-			this.tusUpload.abort()
-
-			this.setState({isPaused: true})
-
-			if (fs.existsSync(this.state.tarFilePath)) {
-				fs.unlinkSync(this.state.tarFilePath)
-			}
-
-			window.localStorage.removeItem(this.state.fileId)
-
-			this.props.removeUpload(this.props.data.id)
-		}
 	}
 
 	/**
