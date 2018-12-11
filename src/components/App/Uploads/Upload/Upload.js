@@ -144,7 +144,7 @@ class Upload extends Component {
 						}
 						{this.state.buildingTar === false &&
 							<React.Fragment>
-								<span onClick={this.toggleUpload} style={{'margin-right': '.5em'}}>
+								<span onClick={this.toggleUpload} style={{marginRight: '.5em'}}>
 									{this.state.isPaused === true &&
 										<Tippy content="Resume">
 											<FontAwesomeIcon fixedWidth icon="play-circle" />

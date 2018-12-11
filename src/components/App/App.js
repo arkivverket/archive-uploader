@@ -49,6 +49,19 @@ class App extends Component {
 	/**
 	 *
 	 */
+	uploadExists = (path) => {
+		for (let key in this.state.uploads) {
+			if (this.state.uploads[key].sourceDirectory === path) {
+				return true
+			}
+		}
+
+		return false
+	}
+
+	/**
+	 *
+	 */
 	addUpload = (upload) => {
 		let uploads = this.state.uploads
 
@@ -80,7 +93,7 @@ class App extends Component {
 	render = () => {
 		return (
 			<React.Fragment>
-				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
+				<Uploader uploadExists={this.uploadExists} addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
 			</React.Fragment>
 		)
