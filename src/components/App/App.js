@@ -93,6 +93,12 @@ class App extends Component {
 			document.getElementById('info').style.display = 'none'
 			document.getElementById('upload').style.display = 'block'
 		})
+
+		electron.ipcRenderer.on('can-i-close', (event) => {
+			const canClose = this.state.uploads.length === 0 || window.confirm('You have active uploads. Do you really want to quit?')
+
+			event.sender.send('can-i-close-reply', canClose)
+		})
 	}
 
 	/**
