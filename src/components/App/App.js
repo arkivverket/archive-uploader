@@ -81,7 +81,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(url)
 
 			if (this.uploadExists(template.id)) {
-				alert('This folder (' + template.folderName + ') is currently beeing uploaded!')
+				alert('This folder (' + template.folderName + ') is currently being uploaded!')
 
 				return
 			}
