@@ -11,10 +11,6 @@ body {
 				.folder-name {
 					font-weight: bold;
 				}
-
-				.cancel {
-					margin-left: auto;
-				}
 			}
 
 			.bottom-row {
@@ -24,7 +20,11 @@ body {
 				align-items: center;
 
 				.source-directory {
+					width: 85%;
 					color: darken(#EEE, 30);
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 
 				.status-icon {

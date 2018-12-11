@@ -135,11 +135,14 @@ class Upload extends Component {
 		return (
 			<div className="upload">
 				<div className="top-row">
-					<div className="folder-name">{this.props.data.folderName}</div>
-					<div className="cancel"></div>
+					<div className="folder-name">
+						{this.props.data.folderName}
+					</div>
 				</div>
 				<div className="bottom-row">
-					<div className="source-directory">{this.props.data.sourceDirectory}</div>
+					<div className="source-directory" title={this.props.data.sourceDirectory}>
+						{this.props.data.sourceDirectory}
+					</div>
 					<div className="status-icon">
 						{this.state.buildingTar === true &&
 							<Tippy content="Building archive">

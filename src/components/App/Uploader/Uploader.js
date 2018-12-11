@@ -144,9 +144,13 @@ class Uploader extends Component {
 						onDragOver={this.onDragOverHandler}
 						onDrop={this.onDropHandler}
 					>
-						{this.state.dropZoneLabel}
+						<div class="label" title={this.state.dropZoneLabel}>
+							{this.state.dropZoneLabel}
+						</div>
 					</div>
-					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>Start upload</button>
+					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>
+						Start upload
+					</button>
 				</div>
 			</div>
 		)
