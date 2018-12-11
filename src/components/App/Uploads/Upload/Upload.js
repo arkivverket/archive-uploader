@@ -79,7 +79,9 @@ class Upload extends Component {
 
 					notify(this.props.data.folderName + ' has been uploaded')
 
-					fs.unlinkSync(tar)
+					if (fs.existsSync(tar)) {
+						fs.unlinkSync(tar)
+					}
 				}
 			}
 
@@ -116,7 +118,9 @@ class Upload extends Component {
 
 			this.setState({isPaused: true})
 
-			fs.unlinkSync(this.state.tarFilePath)
+			if (fs.existsSync(this.state.tarFilePath)) {
+				fs.unlinkSync(this.state.tarFilePath)
+			}
 
 			window.localStorage.removeItem(this.state.fileId)
 
