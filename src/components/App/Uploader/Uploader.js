@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { isDirectoryEmpty } from '../../../helpers/fsHelpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Uploader.scss'
 
@@ -57,6 +58,12 @@ class Uploader extends Component {
 			success = false
 
 			alert('You must upload a folder!')
+		}
+
+		if (success && isDirectoryEmpty(files[0].path)) {
+			success = false
+
+			alert('The folder must contain at least one file!')
 		}
 
 		return success

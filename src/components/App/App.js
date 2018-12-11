@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { isDirectoryEmpty } from '../../helpers/fsHelpers'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
 import './App.scss'
 
 const electron = window.require('electron')
-const fs       = window.require('fs')
+const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
 
 /**
@@ -29,7 +30,9 @@ class App extends Component {
 			uploads = JSON.parse(uploads)
 
 			for (let key in uploads) {
-				if (!fs.existsSync(uploads[key].sourceDirectory)) {
+				let directory = uploads[key].sourceDirectory
+
+				if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory() || isDirectoryEmpty(directory)) {
 					uploads.splice(key, 1)
 				}
 			}

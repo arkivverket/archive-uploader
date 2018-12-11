@@ -16,7 +16,7 @@ const findUrlInArgs = (protocol, argv) => {
 		}
 	}
 
-	return false;
+	return false
 }
 
 module.exports = findUrlInArgs

@@ -6,7 +6,7 @@ import notify from '../../../../helpers/notify'
 import './Upload.scss'
 import 'tippy.js/dist/tippy.css'
 
-const fs   = window.require('fs')
+const fs   = window.require('fs-extra')
 const md5  = window.require('md5')
 const path = window.require('path')
 const tus  = window.require('tus-js-client')
