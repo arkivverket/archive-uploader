@@ -8,9 +8,7 @@
  * @return string|false
  */
 const findUrlInArgs = (protocol, argv) => {
-	const argvLength = argv.length
-
-	for (let i = 0; i < argvLength; i++) {
+	for (let i = 0; i < argv.length; i++) {
 		if (argv[i].startsWith(protocol + '://')) {
 			return argv[i].replace(/\/$/, '') // Strip trailing slashes
 		}

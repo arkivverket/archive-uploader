@@ -29,11 +29,11 @@ class App extends Component {
 		if (uploads !== null) {
 			uploads = JSON.parse(uploads)
 
-			for (let key in uploads) {
-				let directory = uploads[key].sourceDirectory
+			for (let i; i < uploads.length; i++) {
+				let directory = uploads[i].sourceDirectory
 
 				if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory() || isDirectoryEmpty(directory)) {
-					uploads.splice(key, 1)
+					uploads.splice(i, 1)
 				}
 			}
 
@@ -61,8 +61,8 @@ class App extends Component {
 	 *
 	 */
 	uploadExists = (id) => {
-		for (let key in this.state.uploads) {
-			if (this.state.uploads[key].id === id) {
+		for (let i; i < this.state.uploads.length; i++) {
+			if (this.state.uploads[i].id === id) {
 				return true
 			}
 		}
@@ -89,9 +89,9 @@ class App extends Component {
 	removeUpload = (id) => {
 		let uploads = this.state.uploads
 
-		for (let key in uploads) {
-			if (uploads[key].id === id) {
-				uploads.splice(key, 1)
+		for (let i; i < uploads.length; i++) {
+			if (uploads[i].id === id) {
+				uploads.splice(i, 1)
 
 				break
 			}

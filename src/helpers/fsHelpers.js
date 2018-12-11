@@ -10,9 +10,7 @@ const isDirectoryEmpty = (path) => {
 		return true
 	}
 
-	const fileCount = files.length
-
-	for (let i = 0; i < fileCount; i++) {
+	for (let i = 0; i < files.length; i++) {
 		if (files[i].charAt(0) !== '.' && fs.statSync(path + '/' + files[i]).isFile()) {
 			return false
 		}
