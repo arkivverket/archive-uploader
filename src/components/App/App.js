@@ -22,6 +22,27 @@ class App extends Component {
 	/**
 	 *
 	 */
+	restoreUploads = () => {
+		let uploads = window.localStorage.getItem('uploads')
+
+		if (uploads !== null) {
+			uploads = JSON.parse(uploads)
+
+			for (let key in uploads) {
+				if (!fs.existsSync(uploads[key].sourceDirectory)) {
+					uploads.splice(key, 1)
+				}
+			}
+
+			this.setState({uploads: uploads})
+
+			window.localStorage.setItem('uploads', JSON.stringify(uploads))
+		}
+	}
+
+	/**
+	 *
+	 */
 	buildCurrentUploadTemplate = (url) => {
 		const data = JSON.parse(window.atob(url.split('//').pop()))
 
@@ -76,27 +97,6 @@ class App extends Component {
 		this.setState({uploads: uploads})
 
 		window.localStorage.setItem('uploads', JSON.stringify(uploads))
-	}
-
-	/**
-	 *
-	 */
-	restoreUploads = () => {
-		let uploads = window.localStorage.getItem('uploads')
-
-		if(uploads !== null) {
-			uploads = JSON.parse(uploads)
-
-			for (let key in uploads) {
-				if (!fs.existsSync(uploads[key].sourceDirectory)) {
-					uploads.splice(key, 1)
-				}
-			}
-
-			this.setState({uploads: uploads})
-
-			window.localStorage.setItem('uploads', JSON.stringify(uploads))
-		}
 	}
 
 	/**
