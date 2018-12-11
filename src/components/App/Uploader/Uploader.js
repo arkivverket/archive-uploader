@@ -144,7 +144,7 @@ class Uploader extends Component {
 						onDragOver={this.onDragOverHandler}
 						onDrop={this.onDropHandler}
 					>
-						<div class="label" title={this.state.dropZoneLabel}>
+						<div className="label" title={this.state.dropZoneLabel}>
 							{this.state.dropZoneLabel}
 						</div>
 					</div>
