@@ -4,6 +4,7 @@ import Uploads from './Uploads/Uploads'
 import './App.scss'
 
 const electron = window.require('electron')
+const fs       = window.require('fs')
 const md5      = window.require('md5')
 
 /**
@@ -54,6 +55,8 @@ class App extends Component {
 		uploads.unshift(upload)
 
 		this.setState({uploads: uploads})
+
+		window.localStorage.setItem('uploads', JSON.stringify(uploads))
 	}
 
 	/**
@@ -71,12 +74,37 @@ class App extends Component {
 		}
 
 		this.setState({uploads: uploads})
+
+		window.localStorage.setItem('uploads', JSON.stringify(uploads))
+	}
+
+	/**
+	 *
+	 */
+	restoreUploads = () => {
+		let uploads = window.localStorage.getItem('uploads')
+
+		if(uploads !== null) {
+			uploads = JSON.parse(uploads)
+
+			for (let key in uploads) {
+				if (!fs.existsSync(uploads[key].sourceDirectory)) {
+					uploads.splice(key, 1)
+				}
+			}
+
+			this.setState({uploads: uploads})
+
+			window.localStorage.setItem('uploads', JSON.stringify(uploads))
+		}
 	}
 
 	/**
 	 *
 	 */
 	componentWillMount = () => {
+		this.restoreUploads()
+
 		electron.ipcRenderer.on('start-upload', (event, url) => {
 			const template = this.buildCurrentUploadTemplate(url)
 
