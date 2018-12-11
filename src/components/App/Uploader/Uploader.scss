@@ -51,6 +51,11 @@ body {
 						}
 					}
 				}
+
+				& div.label {
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
 			}
 
 			button {
