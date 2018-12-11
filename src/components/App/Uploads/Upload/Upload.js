@@ -21,6 +21,8 @@ class Upload extends Component {
 	 */
 	state = {
 		buildingTar: true,
+		tarFilePath: null,
+		fileId: null,
 		uploadPercent: 0,
 		isPaused: false
 	}
@@ -35,13 +37,17 @@ class Upload extends Component {
 	 */
 	componentWillMount = () => {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
-			this.setState({buildingTar: false})
-
 			let isFirstProgress = true
 
 			const file   = fs.createReadStream(tar)
 			const size   = fs.statSync(tar).size
 			const fileId = md5(this.props.data.id + size)
+
+			this.setState({
+				buildingTar: false,
+				tarFilePath: tar,
+				fileId: fileId
+			})
 
 			const options = {
 				endpoint: this.props.data.uploadUrl,
@@ -90,12 +96,31 @@ class Upload extends Component {
 		if (this.tusUpload !== null) {
 			if (this.state.isPaused) {
 				this.tusUpload.start()
+
 				this.setState({isPaused: false})
 			}
 			else {
 				this.tusUpload.abort()
+
 				this.setState({isPaused: true})
 			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	cancelUpload = () => {
+		if (window.confirm('Are you sure that you want to cancel the upload?')) {
+			this.tusUpload.abort()
+
+			this.setState({isPaused: true})
+
+			fs.unlinkSync(this.state.tarFilePath)
+
+			window.localStorage.removeItem(this.state.fileId)
+
+			this.props.removeUpload(this.props.data.id)
 		}
 	}
 
@@ -119,20 +144,20 @@ class Upload extends Component {
 						}
 						{this.state.buildingTar === false &&
 							<React.Fragment>
-								<span onClick={this.toggleUpload} style={{'margin-right': '1em'}}>
+								<span onClick={this.toggleUpload} style={{'margin-right': '.5em'}}>
 									{this.state.isPaused === true &&
 										<Tippy content="Resume">
-											<FontAwesomeIcon fixedWidth icon="play" />
+											<FontAwesomeIcon fixedWidth icon="play-circle" />
 										</Tippy>
 									}
 									{this.state.isPaused === false &&
 										<Tippy content="Pause">
-											<FontAwesomeIcon fixedWidth icon="pause" />
+											<FontAwesomeIcon fixedWidth icon="pause-circle" />
 										</Tippy>
 									}
 								</span>
-								<Tippy content="Uploading">
-									<FontAwesomeIcon fixedWidth icon="upload" />
+								<Tippy content="Cancel">
+									<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
 								</Tippy>
 							</React.Fragment>
 						}

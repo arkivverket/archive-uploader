@@ -25,14 +25,20 @@ body {
 				padding: 1em;
 				padding-top: .5em;
 				display: flex;
+				align-items: center;
 
 				.source-directory {
 					color: darken(#EEE, 30);
 				}
 
 				.status-icon {
+					font-size: 1.2em;
 					margin-left: auto;
 					color: darken(#EEE, 50);
+
+					& svg:hover {
+						color: darken(#EEE, 30) !important;
+					}
 				}
 			}
 
