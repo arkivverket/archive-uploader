@@ -3,10 +3,6 @@ $progressBarBackgroundColor: #5FACBD;
 body {
 	.uploads {
 		.upload {
-			&:not(:last-child) {
-				border-bottom: 1px solid #666;
-			}
-
 			.top-row {
 				padding: 1em;
 				padding-bottom: .5em;

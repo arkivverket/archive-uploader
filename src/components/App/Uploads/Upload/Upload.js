@@ -167,7 +167,7 @@ class Upload extends Component {
 						}
 					</div>
 				</div>
-				<div className="progress" onClick={this.toggleUpload}>
+				<div className="progress">
 					<Tippy content={this.state.uploadPercent + `%`}>
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
 					</Tippy>

@@ -118,7 +118,7 @@ else {
 		// Register close event handler
 
 		win.on('close', (event) => {
-			if(!closeWithoutDialog) {
+			if (!closeWithoutDialog) {
 				event.preventDefault()
 
 				win.webContents.send('can-i-close')
