@@ -32,7 +32,10 @@ class Uploader extends Component {
 	onDragExitHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']))
+		if (event.relatedTarget === null || event.target !== event.relatedTarget.parentElement) {
+			event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']))
+
+		}
 	}
 
 	/**
