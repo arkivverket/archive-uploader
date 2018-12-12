@@ -6,10 +6,11 @@ import notify from '../../../../helpers/notify'
 import './Upload.scss'
 import 'tippy.js/dist/tippy.css'
 
-const fs   = window.require('fs-extra')
-const md5  = window.require('md5')
-const path = window.require('path')
-const tus  = window.require('tus-js-client')
+const filesize = window.require('filesize')
+const fs       = window.require('fs-extra')
+const md5      = window.require('md5')
+const path     = window.require('path')
+const tus      = window.require('tus-js-client')
 
 /**
  *
@@ -23,6 +24,7 @@ class Upload extends Component {
 		buildingTar: true,
 		tarFilePath: null,
 		fileId: null,
+		speed: null,
 		uploadPercent: 0,
 		isPaused: false
 	}
@@ -31,6 +33,14 @@ class Upload extends Component {
 	 *
 	 */
 	tusUpload = null
+
+	/**
+	 *
+	 */
+	transferSpeed = {
+		previousChunkTimestamp: null,
+		previousBytesUploaded: 0,
+	}
 
 	/**
 	 *
@@ -101,13 +111,30 @@ class Upload extends Component {
 					throw error
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
+
+					let speed = null
+
+					const timestamp = window.performance.now()
+
 					if (isFirstProgress) {
 						window.localStorage.setItem(fileId, this.tusUpload.url)
 
 						isFirstProgress = false
 					}
+					else {
+						const timeSinceLastProgress = timestamp - this.transferSpeed.previousChunkTimestamp
+						const bytesUploadedSinceLastProgress = bytesUploaded - this.transferSpeed.previousBytesUploaded
 
-					this.setState({uploadPercent:(bytesUploaded / bytesTotal * 100).toFixed(2)})
+						speed = filesize(bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000), {bits: true, standard: 'iec'}) + '/sec'
+					}
+
+					this.transferSpeed.previousChunkTimestamp = timestamp
+					this.transferSpeed.previousBytesUploaded = bytesUploaded
+
+					this.setState({
+						speed: speed,
+						uploadPercent:(bytesUploaded / bytesTotal * 100).toFixed(2)
+					})
 				},
 				onSuccess: () => {
 					this.props.removeUpload(this.props.data.id)
@@ -174,6 +201,11 @@ class Upload extends Component {
 					<Tippy content={this.state.uploadPercent + `%`}>
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
 					</Tippy>
+					{this.state.buildingTar === false && this.state.speed !== null && this.state.isPaused === false &&
+						<div className="speed">
+							{this.state.speed}
+						</div>
+					}
 				</div>
 			</div>
 		)
