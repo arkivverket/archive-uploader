@@ -47,6 +47,7 @@ The payload must contain the following data:
 ```
 $data = [
 	'folderName' => 123,
+	'reference'  => 'RA/EA-4070/Ki/L0009',
 	'uploadUrl'  => 'http://example.org/upload',
 	'meta'       => [
 		'userId'     => 123, // Value must be signed

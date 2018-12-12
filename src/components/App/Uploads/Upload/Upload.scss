@@ -8,8 +8,11 @@ body {
 				padding-bottom: .5em;
 				display: flex;
 
-				.folder-name {
+				.reference {
 					font-weight: bold;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
 

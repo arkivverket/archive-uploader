@@ -114,7 +114,7 @@ class Upload extends Component {
 
 					window.localStorage.removeItem(fileId)
 
-					notify(this.props.data.folderName + ' has been uploaded')
+					notify(this.props.data.reference + ' has been uploaded')
 
 					if (fs.existsSync(tar)) {
 						fs.unlinkSync(tar)
@@ -135,8 +135,8 @@ class Upload extends Component {
 		return (
 			<div className="upload">
 				<div className="top-row">
-					<div className="folder-name">
-						{this.props.data.folderName}
+					<div className="reference" title={this.props.data.reference}>
+						{this.props.data.reference}
 					</div>
 				</div>
 				<div className="bottom-row">

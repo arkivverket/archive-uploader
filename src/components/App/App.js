@@ -52,6 +52,7 @@ class App extends Component {
 		return {
 			id: md5(url),
 			folderName: data.folderName,
+			reference: data.reference,
 			uploadUrl: data.uploadUrl,
 			meta: data.meta
 		}
@@ -112,7 +113,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(url)
 
 			if (this.uploadExists(template.id)) {
-				alert('This folder (' + template.folderName + ') is currently being uploaded!')
+				alert('This folder (' + template.reference + ') is currently being uploaded!')
 
 				return
 			}
