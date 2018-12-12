@@ -19,9 +19,9 @@ class Uploads extends Component {
 	 *
 	 */
 	render = () => {
-		const uploads = this.props.uploads.map((upload, index) => {
+		const uploads = this.props.uploads.map((upload) => {
 			return (
-				<Upload key={index} data={upload} removeUpload={this.props.removeUpload} />
+				<Upload key={upload.id} data={upload} removeUpload={this.props.removeUpload} />
 			)
 		})
 
