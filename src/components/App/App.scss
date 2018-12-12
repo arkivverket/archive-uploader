@@ -27,12 +27,17 @@ body {
 			}
 
 			span {
-				padding-left: .5em;
-				display: none;
+				display: inline-block;
+				vertical-align: bottom;
+				overflow: hidden;
+				max-width: 0;
 			}
 
 			&:hover span {
-				display: inline;
+				padding-left: .5em;
+				width: auto;
+				max-width: 100px;
+				transition:max-width .2s ease-in;
 			}
 		}
 	}
