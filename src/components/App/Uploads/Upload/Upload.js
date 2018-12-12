@@ -127,20 +127,16 @@ class Upload extends Component {
 						const timeSinceLastProgress = timestamp - this.transferSpeed.previousChunkTimestamp
 						const bytesUploadedSinceLastProgress = bytesUploaded - this.transferSpeed.previousBytesUploaded
 
-						speed = filesize(bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000), {bits: true, standard: 'iec'}) + '/sec'
+						speed = bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000)
 
 						if (this.transferSpeed.timeout !== null) {
 							clearTimeout(this.transferSpeed.timeout)
 						}
 
 						this.transferSpeed.timeout = setTimeout(() => {
-							let state = {speed: null}
-
 							if (this.state.isPaused === false) {
-								state.isStalled = true
+								this.setState({isStalled: true})
 							}
-
-							this.setState(state)
 						}, 1000)
 					}
 
@@ -220,9 +216,9 @@ class Upload extends Component {
 					<Tippy content={this.state.uploadPercent + `%`}>
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
 					</Tippy>
-					{this.state.buildingTar === false && this.state.speed !== null && this.state.isPaused === false &&
+					{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
 						<div className="speed">
-							{this.state.speed}
+							{filesize(this.state.speed, {bits: true, standard: 'iec'})}/sec
 						</div>
 					}
 				</div>
