@@ -26,7 +26,7 @@ class Upload extends Component {
 		fileId: null,
 		speed: null,
 		isPaused: false,
-		isStalled: true,
+		isStalled: false,
 		uploadPercent: 0
 	}
 
