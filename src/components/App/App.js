@@ -7,6 +7,7 @@ import './App.scss'
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
+const {is}     = window.require('electron-util')
 
 /**
  *
@@ -23,7 +24,9 @@ class App extends Component {
 	/**
 	 *
 	 */
-	restoreUploads = () => {
+	constructor(props) {
+		super(props)
+
 		let uploads = window.localStorage.getItem('uploads')
 
 		if (uploads !== null) {
@@ -37,9 +40,20 @@ class App extends Component {
 				}
 			}
 
-			this.setState({uploads: uploads})
+			this.state.uploads = uploads
 
 			window.localStorage.setItem('uploads', JSON.stringify(uploads))
+
+			this.setBadgeCount(uploads.length)
+		}
+	}
+
+	/**
+	 *
+	 */
+	setBadgeCount = (count) => {
+		if (!is.windows) {
+			electron.remote.app.setBadgeCount(count)
 		}
 	}
 
@@ -82,6 +96,8 @@ class App extends Component {
 		this.setState({uploads: uploads})
 
 		window.localStorage.setItem('uploads', JSON.stringify(uploads))
+
+		this.setBadgeCount(uploads.length)
 	}
 
 	/**
@@ -101,14 +117,14 @@ class App extends Component {
 		this.setState({uploads: uploads})
 
 		window.localStorage.setItem('uploads', JSON.stringify(uploads))
+
+		this.setBadgeCount(uploads.length)
 	}
 
 	/**
 	 *
 	 */
 	componentDidMount = () => {
-		this.restoreUploads()
-
 		electron.ipcRenderer.on('start-upload', (event, url) => {
 			const template = this.buildCurrentUploadTemplate(url)
 
