@@ -69,7 +69,7 @@ class Upload extends Component {
 		if (window.confirm('Are you sure that you want to cancel the upload?')) {
 			this.tusUpload.abort()
 
-			this.setState({isPaused: true})
+			clearTimeout(this.transferSpeed.timeout)
 
 			if (fs.existsSync(this.state.tarFilePath)) {
 				fs.unlinkSync(this.state.tarFilePath)
@@ -137,7 +137,7 @@ class Upload extends Component {
 							if (this.state.isPaused === false) {
 								this.setState({isStalled: true})
 							}
-						}, 1000)
+						}, 1500)
 					}
 
 					this.transferSpeed.previousChunkTimestamp = timestamp
@@ -212,16 +212,16 @@ class Upload extends Component {
 						}
 					</div>
 				</div>
-				<div className="progress">
-					<Tippy content={this.state.uploadPercent + `%`}>
+				<Tippy content={this.state.uploadPercent + `%`} isEnabled={this.state.buildingTar === false}>
+					<div className="progress">
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
-					</Tippy>
-					{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
-						<div className="speed">
-							{filesize(this.state.speed, {bits: true, standard: 'iec'})}/sec
-						</div>
-					}
-				</div>
+						{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
+							<div className="speed">
+								{filesize(this.state.speed, {bits: true, standard: 'iec'})}/sec
+							</div>
+						}
+					</div>
+				</Tippy>
 			</div>
 		)
 	}

@@ -112,6 +112,8 @@ class Uploader extends Component {
 
 		this.props.addUpload(upload)
 
+		this.showActiveUploads()
+
 		document.getElementById('info').style.display = 'flex'
 		document.getElementById('upload').style.display = 'none'
 		document.getElementById('dropzone').classList.remove('active')
