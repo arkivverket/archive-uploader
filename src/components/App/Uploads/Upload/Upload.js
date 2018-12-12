@@ -84,7 +84,7 @@ class Upload extends Component {
 	/**
 	 *
 	 */
-	componentWillMount = () => {
+	componentDidMount = () => {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			let isFirstProgress = true
 

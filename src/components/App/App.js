@@ -106,7 +106,7 @@ class App extends Component {
 	/**
 	 *
 	 */
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.restoreUploads()
 
 		electron.ipcRenderer.on('start-upload', (event, url) => {
