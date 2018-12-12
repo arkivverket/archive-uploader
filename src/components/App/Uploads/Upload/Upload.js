@@ -25,8 +25,9 @@ class Upload extends Component {
 		tarFilePath: null,
 		fileId: null,
 		speed: null,
-		uploadPercent: 0,
-		isPaused: false
+		isPaused: false,
+		isStalled: true,
+		uploadPercent: 0
 	}
 
 	/**
@@ -40,6 +41,7 @@ class Upload extends Component {
 	transferSpeed = {
 		previousChunkTimestamp: null,
 		previousBytesUploaded: 0,
+		timeout: null,
 	}
 
 	/**
@@ -126,6 +128,20 @@ class Upload extends Component {
 						const bytesUploadedSinceLastProgress = bytesUploaded - this.transferSpeed.previousBytesUploaded
 
 						speed = filesize(bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000), {bits: true, standard: 'iec'}) + '/sec'
+
+						if (this.transferSpeed.timeout !== null) {
+							clearTimeout(this.transferSpeed.timeout)
+						}
+
+						this.transferSpeed.timeout = setTimeout(() => {
+							let state = {speed: null}
+
+							if (this.state.isPaused === false) {
+								state.isStalled = true
+							}
+
+							this.setState(state)
+						}, 1000)
 					}
 
 					this.transferSpeed.previousChunkTimestamp = timestamp
@@ -133,10 +149,13 @@ class Upload extends Component {
 
 					this.setState({
 						speed: speed,
+						isStalled: false,
 						uploadPercent:(bytesUploaded / bytesTotal * 100).toFixed(2)
 					})
 				},
 				onSuccess: () => {
+					clearTimeout(this.transferSpeed.timeout)
+
 					this.props.removeUpload(this.props.data.id)
 
 					window.localStorage.removeItem(fileId)
@@ -199,7 +218,7 @@ class Upload extends Component {
 				</div>
 				<div className="progress">
 					<Tippy content={this.state.uploadPercent + `%`}>
-						<div className={`bar ${this.state.isPaused ? 'paused' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
+						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
 					</Tippy>
 					{this.state.buildingTar === false && this.state.speed !== null && this.state.isPaused === false &&
 						<div className="speed">
