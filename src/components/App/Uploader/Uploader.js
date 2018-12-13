@@ -196,7 +196,7 @@ class Uploader extends Component {
 				<div id="info" className="info">
 					<div className="message">
 						<b>Uploader er klar til bruk!</b>
-						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen <a onClick={this.gotoDigitisation}>Arkivdigitalisering</a>, og følge instruksjonene der.</p>
+						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen <span className="link" onClick={this.gotoDigitisation}>Arkivdigitalisering</span>, og følge instruksjonene der.</p>
 					</div>
 				</div>
 				<div id="upload" className="upload">
@@ -208,7 +208,7 @@ class Uploader extends Component {
 					>
 						{this.state.dropzoneTarget === null &&
 							<div className="placeholder">
-								Dra og slipp mappen her, eller <a onClick={this.fileDialog}>bla gjennom filer</a>.
+								Dra og slipp mappen her, eller <span className="link" onClick={this.fileDialog}>bla gjennom filer</span>.
 							</div>
 						}
 						{this.state.dropzoneTarget !== null &&
