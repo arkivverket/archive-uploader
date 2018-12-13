@@ -63,11 +63,7 @@ class Uploader extends Component {
 		electron.remote.dialog.showOpenDialog({properties: ['openDirectory']}, (files) => {
 			if (files !== undefined) {
 				if (!this.validateUpload(files)) {
-					this.setState({
-						dropzoneTarget: null,
-						dropzoneActive: false,
-						buttonDisabled: true
-					})
+					this.fileDialog()
 				}
 				else {
 					this.setState({
