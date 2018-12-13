@@ -32,7 +32,8 @@ body {
 				align-items: center;
 
 				.source-directory {
-					width: 85%;
+					width: auto;
+					max-width: 85%;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;

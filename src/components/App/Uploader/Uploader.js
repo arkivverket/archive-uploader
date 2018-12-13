@@ -194,7 +194,7 @@ class Uploader extends Component {
 						onDrop={this.onDropHandler}
 					>
 						{this.state.dropzoneTarget === null &&
-							<div className="placeholder">
+							<div className="message">
 								Dra og slipp mappen her, eller <span className="link" onClick={this.fileDialog}>bla gjennom filer</span>.
 							</div>
 						}
@@ -203,7 +203,7 @@ class Uploader extends Component {
 								<div className="clear-target" onClick={this.resetState} title="Avbryt">
 									<FontAwesomeIcon fixedWidth icon="times" />
 								</div>
-								<div className="target" title={this.state.dropzoneTarget}>
+								<div className="message target" title={this.state.dropzoneTarget}>
 									{this.state.dropzoneTarget}
 								</div>
 							</React.Fragment>

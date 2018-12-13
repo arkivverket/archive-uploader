@@ -39,6 +39,7 @@ body {
 				padding-left: 1em;
 				padding-right: 1em;
 				border: 3px dashed #b6d9d6;
+				border-radius: 4px;
 				background-color: $dropzoneBgColor;
 
 				&.active {
@@ -60,15 +61,6 @@ body {
 					}
 				}
 
-				div.placeholder {
-					text-align: center;
-					background-image: url('../../../illustrations/upload.svg');
-					background-position: top center;
-					background-repeat: no-repeat;
-					padding-top: calc(96px + 1em);
-					width: 400px;
-				}
-
 				div.clear-target {
 					position: absolute;
 					top: 0em;
@@ -81,7 +73,17 @@ body {
 					}
 				}
 
+				div.message {
+					text-align: center;
+					background-image: url('../../../illustrations/upload.svg');
+					background-position: top center;
+					background-repeat: no-repeat;
+					padding-top: calc(96px + 1em);
+					width: 400px;
+				}
+
 				div.target {
+					width: auto;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;

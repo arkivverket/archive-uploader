@@ -3,6 +3,10 @@ body {
 		color: #156898;
 		text-decoration: underline;
 		cursor: pointer !important;
+
+		&:active {
+			color: #000000;
+		}
 	}
 
 	.header {
