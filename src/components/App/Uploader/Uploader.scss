@@ -31,6 +31,7 @@ body {
 			display: none;
 
 			.dropzone {
+				position: relative;
 				display: flex;
 				height: calc(100% - 80px);
 				align-items: center;
@@ -66,6 +67,18 @@ body {
 					background-repeat: no-repeat;
 					padding-top: calc(96px + 1em);
 					width: 400px;
+				}
+
+				div.clear-target {
+					position: absolute;
+					top: 0em;
+					right: 0em;
+					padding: 1em;
+					border-bottom-left-radius: 4px;
+
+					&:hover {
+						background-color: $dropzoneBgColor;
+					}
 				}
 
 				div.target {

@@ -14,35 +14,17 @@ class Uploader extends Component {
 	 *
 	 */
 	state = {
-		dropZoneTarget: null,
+		dropzoneTarget: null,
+		dropzoneActive: false,
+		dropzoneAnimated: false,
 		buttonDisabled: true
 	}
 
 	/**
 	 *
 	 */
-	onDragEnterHandler = (event) => {
-		event.preventDefault()
-
-		event.target.classList.add('active', 'animated')
-	}
-
-	/**
-	 *
-	 */
-	onDragExitHandler = (event) => {
-		event.preventDefault()
-
-		if (event.relatedTarget === null || event.target !== event.relatedTarget.parentElement) {
-			event.target.classList.remove(...(this.state.dropZoneTarget === null ? ['active', 'animated'] : ['animated']))
-		}
-	}
-
-	/**
-	 *
-	 */
-	onDragOverHandler = (event) => {
-		event.preventDefault()
+	gotoDigitisation = () => {
+		electron.shell.openExternal('https://digitalisering.arkivverket.no')
 	}
 
 	/**
@@ -57,13 +39,15 @@ class Uploader extends Component {
 			alert('Du kan bare laste opp en mappe av gangen!')
 		}
 
-		if (success && !fs.statSync(files[0].path).isDirectory()) {
+		const path = typeof(files[0]) === "object" ? files[0].path : files[0]
+
+		if (success && !fs.statSync(path).isDirectory()) {
 			success = false
 
 			alert('Du må laste opp en mape!')
 		}
 
-		if (success && isDirectoryEmpty(files[0].path)) {
+		if (success && isDirectoryEmpty(path)) {
 			success = false
 
 			alert('Mappen må inneholde minst en fil!')
@@ -75,25 +59,98 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
+	fileDialog = () => {
+		electron.remote.dialog.showOpenDialog({properties: ['openDirectory']}, (files) => {
+			if (files !== undefined) {
+				if (!this.validateUpload(files)) {
+					this.setState({
+						dropzoneTarget: null,
+						dropzoneActive: false,
+						buttonDisabled: true
+					})
+				}
+				else {
+					this.setState({
+						dropzoneTarget: files[0],
+						dropzoneActive: true,
+						buttonDisabled: false
+					})
+				}
+			}
+		})
+	}
+
+	/**
+	 *
+	 */
+	onDragEnterHandler = (event) => {
+		event.preventDefault()
+
+		this.setState({
+			dropzoneActive: true,
+			dropzoneAnimated: true,
+		})
+	}
+
+	/**
+	 *
+	 */
+	onDragExitHandler = (event) => {
+		event.preventDefault()
+
+		if (event.relatedTarget === null || event.relatedTarget.closest('.dropzone') === null) {
+
+			if (this.state.dropzoneTarget === null) {
+				this.setState({
+					dropzoneActive: false,
+					dropzoneAnimated: false
+				})
+			}
+			else {
+				this.setState({dropzoneAnimated: false})
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	onDragOverHandler = (event) => {
+		event.preventDefault()
+	}
+
+	/**
+	 *
+	 */
 	onDropHandler = (event) => {
 		event.preventDefault()
 
-		event.target.closest('.dropzone').classList.remove('animated')
-
 		if (this.validateUpload(event.dataTransfer.files) === false) {
-			event.target.closest('.dropzone').classList.remove('active')
-
 			this.setState({
-				dropZoneTarget: null,
+				dropzoneTarget: null,
+				dropzoneActive: false,
+				dropzoneAnimated: false,
 				buttonDisabled: true
 			})
-
-			return
 		}
+		else {
+			this.setState({
+				dropzoneTarget: event.dataTransfer.files[0].path,
+				dropzoneAnimated: false,
+				buttonDisabled: false
+			})
+		}
+	}
 
+	/**
+	 *
+	 */
+	clearTarget = () => {
 		this.setState({
-			dropZoneTarget: event.dataTransfer.files[0].path,
-			buttonDisabled: false
+			dropzoneTarget: null,
+			dropzoneActive: false,
+			dropzoneAnimated: false,
+			buttonDisabled: true
 		})
 	}
 
@@ -111,7 +168,7 @@ class Uploader extends Component {
 	startUpload = () => {
 		const upload = this.props.uploadTemplate
 
-		upload.sourceDirectory = this.state.dropZoneTarget
+		upload.sourceDirectory = this.state.dropzoneTarget
 
 		this.props.addUpload(upload)
 
@@ -119,19 +176,13 @@ class Uploader extends Component {
 
 		document.getElementById('info').style.display = 'flex'
 		document.getElementById('upload').style.display = 'none'
-		document.getElementById('dropzone').classList.remove('active')
 
 		this.setState({
-			dropZoneTarget: null,
+			dropzoneTarget: null,
+			dropzoneActive: false,
+			dropzoneAnimated: false,
 			buttonDisabled: true
 		})
-	}
-
-	/**
-	 *
-	 */
-	gotoDigitisation = () => {
-		electron.shell.openExternal('https://digitalisering.arkivverket.no')
 	}
 
 	/**
@@ -153,21 +204,26 @@ class Uploader extends Component {
 					</div>
 				</div>
 				<div id="upload" className="upload">
-					<div id="dropzone" className="dropzone"
+					<div id="dropzone" className={`dropzone ${this.state.dropzoneActive ? 'active' : ''} ${this.state.dropzoneAnimated ? 'animated' : ''}`}
 						onDragEnter={this.onDragEnterHandler}
 						onDragLeave={this.onDragExitHandler}
 						onDragOver={this.onDragOverHandler}
 						onDrop={this.onDropHandler}
 					>
-						{this.state.dropZoneTarget === null &&
+						{this.state.dropzoneTarget === null &&
 							<div className="placeholder">
-								Dra og slipp mappen her.
+								Dra og slipp mappen her, eller <a onClick={this.fileDialog}>bla gjennom filer</a>.
 							</div>
 						}
-						{this.state.dropZoneTarget !== null &&
-							<div className="target" title={this.state.dropZoneTarget}>
-								{this.state.dropZoneTarget}
-							</div>
+						{this.state.dropzoneTarget !== null &&
+							<React.Fragment>
+								<div className="clear-target" onClick={this.clearTarget} title="Avbryt">
+									<FontAwesomeIcon fixedWidth icon="times" />
+								</div>
+								<div className="target" title={this.state.dropzoneTarget}>
+									{this.state.dropzoneTarget}
+								</div>
+							</React.Fragment>
 						}
 					</div>
 					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>
