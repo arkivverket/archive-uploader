@@ -192,7 +192,7 @@ class Upload extends Component {
 							</span>
 						}
 						{this.state.buildingTar === false &&
-							<div class="hoverable">
+							<div className="hoverable">
 								<span onClick={this.toggleUpload} style={{marginRight: '.25em'}}>
 									{this.state.isPaused === true &&
 										<span title="Fortsett">
