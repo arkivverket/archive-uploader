@@ -6,6 +6,13 @@ import './Uploader.scss'
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 
+const initialState = {
+	dropzoneTarget: null,
+	dropzoneActive: false,
+	dropzoneAnimated: false,
+	buttonDisabled: true
+}
+
 /**
  *
  */
@@ -13,18 +20,20 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	state = {
-		dropzoneTarget: null,
-		dropzoneActive: false,
-		dropzoneAnimated: false,
-		buttonDisabled: true
-	}
+	state = initialState
 
 	/**
 	 *
 	 */
 	gotoDigitisation = () => {
 		electron.shell.openExternal('https://digitalisering.arkivverket.no')
+	}
+
+	/**
+	 *
+	 */
+	resetState = () => {
+		this.setState(initialState)
 	}
 
 	/**
@@ -122,12 +131,7 @@ class Uploader extends Component {
 		event.preventDefault()
 
 		if (this.validateUpload(event.dataTransfer.files) === false) {
-			this.setState({
-				dropzoneTarget: null,
-				dropzoneActive: false,
-				dropzoneAnimated: false,
-				buttonDisabled: true
-			})
+			this.resetState()
 		}
 		else {
 			this.setState({
@@ -136,18 +140,6 @@ class Uploader extends Component {
 				buttonDisabled: false
 			})
 		}
-	}
-
-	/**
-	 *
-	 */
-	clearTarget = () => {
-		this.setState({
-			dropzoneTarget: null,
-			dropzoneActive: false,
-			dropzoneAnimated: false,
-			buttonDisabled: true
-		})
 	}
 
 	/**
@@ -173,12 +165,7 @@ class Uploader extends Component {
 		document.getElementById('info').style.display = 'flex'
 		document.getElementById('upload').style.display = 'none'
 
-		this.setState({
-			dropzoneTarget: null,
-			dropzoneActive: false,
-			dropzoneAnimated: false,
-			buttonDisabled: true
-		})
+		this.resetState()
 	}
 
 	/**
@@ -213,7 +200,7 @@ class Uploader extends Component {
 						}
 						{this.state.dropzoneTarget !== null &&
 							<React.Fragment>
-								<div className="clear-target" onClick={this.clearTarget} title="Avbryt">
+								<div className="clear-target" onClick={this.resetState} title="Avbryt">
 									<FontAwesomeIcon fixedWidth icon="times" />
 								</div>
 								<div className="target" title={this.state.dropzoneTarget}>
