@@ -3,7 +3,8 @@ import { isDirectoryEmpty } from '../../../helpers/fsHelpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Uploader.scss'
 
-const fs = window.require('fs-extra')
+const electron = window.require('electron')
+const fs       = window.require('fs-extra')
 
 /**
  *
@@ -129,6 +130,13 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
+	gotoDigitisation = () => {
+		electron.shell.openExternal('https://digitalisering.arkivverket.no')
+	}
+
+	/**
+	 *
+	 */
 	render = () => {
 		return (
 			<div id="uploader" className="uploader">
@@ -141,7 +149,7 @@ class Uploader extends Component {
 				<div id="info" className="info">
 					<div className="message">
 						<b>Uploader er klar til bruk!</b>
-						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen Arkivdigitalisering, og følge instruksjonene der.</p>
+						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen <a onClick={this.gotoDigitisation}>Arkivdigitalisering</a>, og følge instruksjonene der.</p>
 					</div>
 				</div>
 				<div id="upload" className="upload">
