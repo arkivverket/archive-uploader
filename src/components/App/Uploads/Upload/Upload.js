@@ -47,44 +47,7 @@ class Upload extends Component {
 	/**
 	 *
 	 */
-	toggleUpload = () => {
-		if (this.tusUpload !== null) {
-			if (this.state.isPaused) {
-				this.tusUpload.start()
-
-				this.setState({isPaused: false})
-			}
-			else {
-				this.tusUpload.abort()
-
-				this.setState({isPaused: true})
-			}
-		}
-	}
-
-	/**
-	 *
-	 */
-	cancelUpload = () => {
-		if (window.confirm('Er du sikker på at du vil avbryte opplastingen?')) {
-			this.tusUpload.abort()
-
-			clearTimeout(this.transferSpeed.timeout)
-
-			if (fs.existsSync(this.state.tarFilePath)) {
-				fs.unlinkSync(this.state.tarFilePath)
-			}
-
-			window.localStorage.removeItem(this.state.fileId)
-
-			this.props.removeUpload(this.props.data.id)
-		}
-	}
-
-	/**
-	 *
-	 */
-	componentDidMount = () => {
+	upload = () => {
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			let isFirstProgress = true
 
@@ -137,7 +100,7 @@ class Upload extends Component {
 							if (this.state.isPaused === false) {
 								this.setState({isStalled: true})
 							}
-						}, 1500)
+						}, 2000)
 					}
 
 					this.transferSpeed.previousChunkTimestamp = timestamp
@@ -156,7 +119,9 @@ class Upload extends Component {
 
 					window.localStorage.removeItem(fileId)
 
-					notify(this.props.data.reference + ' er ferdig opplastet!')
+					notify(this.props.data.reference + ' er ferdig opplastet!', {
+						tag: this.props.data.id
+					})
 
 					if (fs.existsSync(tar)) {
 						fs.unlinkSync(tar)
@@ -168,6 +133,50 @@ class Upload extends Component {
 
 			this.tusUpload.start()
 		})
+	}
+
+	/**
+	 *
+	 */
+	toggleUpload = () => {
+		if (this.tusUpload !== null) {
+			if (this.state.isPaused) {
+				this.tusUpload.start()
+
+				this.setState({isPaused: false})
+			}
+			else {
+				this.tusUpload.abort()
+
+				this.setState({isPaused: true})
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	cancelUpload = () => {
+		if (window.confirm('Er du sikker på at du vil avbryte opplastingen?')) {
+			this.tusUpload.abort()
+
+			clearTimeout(this.transferSpeed.timeout)
+
+			if (fs.existsSync(this.state.tarFilePath)) {
+				fs.unlinkSync(this.state.tarFilePath)
+			}
+
+			window.localStorage.removeItem(this.state.fileId)
+
+			this.props.removeUpload(this.props.data.id)
+		}
+	}
+
+	/**
+	 *
+	 */
+	componentDidMount = () => {
+		this.upload()
 	}
 
 	/**
