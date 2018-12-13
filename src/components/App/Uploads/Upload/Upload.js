@@ -185,22 +185,30 @@ class Upload extends Component {
 					<div className="source-directory" title={this.props.data.sourceDirectory}>
 						{this.props.data.sourceDirectory}
 					</div>
-					<div className="status-icon">
+					<div className="controls">
 						{this.state.buildingTar === true &&
-							<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
+							<span title="Klargjør for opplasting">
+								<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
+							</span>
 						}
 						{this.state.buildingTar === false &&
-							<React.Fragment>
-								<span onClick={this.toggleUpload} style={{marginRight: '.5em'}}>
+							<div class="hoverable">
+								<span onClick={this.toggleUpload} style={{marginRight: '.25em'}}>
 									{this.state.isPaused === true &&
-										<FontAwesomeIcon fixedWidth icon="play-circle" />
+										<span title="Fortsett">
+											<FontAwesomeIcon fixedWidth icon="play-circle" />
+										</span>
 									}
 									{this.state.isPaused === false &&
-										<FontAwesomeIcon fixedWidth icon="pause-circle" />
+										<span title="Pause">
+											<FontAwesomeIcon fixedWidth icon="pause-circle" />
+										</span>
 									}
 								</span>
-								<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
-							</React.Fragment>
+								<span title="Avbryt">
+									<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
+								</span>
+							</div>
 						}
 					</div>
 				</div>

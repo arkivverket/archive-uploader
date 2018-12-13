@@ -38,12 +38,16 @@ body {
 					white-space: nowrap;
 				}
 
-				.status-icon {
+				.controls {
 					font-size: 1.2em;
 					margin-left: auto;
 
-					& svg:hover {
-						color: darken(#EEE, 30) !important;
+					.hoverable {
+						color: lighten(#373A3C, 30) !important;
+
+						& svg:hover {
+							color: #373A3C !important;
+						}
 					}
 				}
 			}
