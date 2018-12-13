@@ -184,13 +184,6 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	componentWillReceiveProps = () => {
-		this.clearTarget()
-	}
-
-	/**
-	 *
-	 */
 	render = () => {
 		return (
 			<div id="uploader" className="uploader">

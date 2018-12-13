@@ -153,9 +153,11 @@ class App extends Component {
 	 *
 	 */
 	render = () => {
+		const key = this.state.uploadTemplate === null ? null : this.state.uploadTemplate.id
+
 		return (
 			<React.Fragment>
-				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} />
+				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} key={key} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
 			</React.Fragment>
 		)
