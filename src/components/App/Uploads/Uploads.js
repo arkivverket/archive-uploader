@@ -28,17 +28,23 @@ class Uploads extends Component {
 		return (
 			<div id="uploads" className="uploads">
 				<div className="header">
-					<button className="button light" onClick={this.closeActiveUploads}>
+					<button className="button" onClick={this.closeActiveUploads}>
 						<FontAwesomeIcon fixedWidth icon="times" />
-						<span>Close</span>
+						<span>Lukk</span>
 					</button>
 				</div>
-				<div id="upload-list" className="upload-list">
-					{uploads}
-					{this.props.uploads.length === 0 &&
-						<div className="no-uploads">There are no active uploads.</div>
-					}
-				</div>
+				{this.props.uploads.length === 0 &&
+					<div className="no-uploads">
+						<div className="message">
+							Det er ingenting som lastes opp akkurat nå.
+						</div>
+					</div>
+				}
+				{this.props.uploads.length !== 0 &&
+					<div id="upload-list" className="upload-list">
+						{uploads}
+					</div>
+				}
 			</div>
 		)
 	}

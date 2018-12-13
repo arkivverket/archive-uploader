@@ -129,7 +129,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(url)
 
 			if (this.uploadExists(template.id)) {
-				alert('This folder (' + template.reference + ') is currently being uploaded!')
+				alert('Denne mappen (' + template.reference + ') er under opplasting!')
 
 				return
 			}
@@ -143,7 +143,7 @@ class App extends Component {
 		})
 
 		electron.ipcRenderer.on('can-i-close', (event) => {
-			const canClose = this.state.uploads.length === 0 || window.confirm('You have active uploads. Do you really want to quit?')
+			const canClose = this.state.uploads.length === 0 || window.confirm('Du har pågående opplastinger. Er du sikker på at du vil avslutte?')
 
 			event.sender.send('can-i-close-reply', canClose)
 		})

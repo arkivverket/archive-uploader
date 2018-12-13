@@ -1,51 +1,62 @@
 body {
 	.uploads {
 		height: 100vh;
-		color: #EEE;
-		background-color: #444;
 		display: none;
+
+		justify-content: center;
 
 		::-webkit-scrollbar {
 			width: 10px;
 		}
 
 		::-webkit-scrollbar-button {
-			background-color: #666;
+			background-color: #EEEEEE;
 		}
 
 		::-webkit-scrollbar-track {
-			background-color: #646464;
+			background-color: #DDDDDD;
 		}
 
 		::-webkit-scrollbar-track-piece {
-			background-color: #333;
+			background-color: #DDD;
 		}
 
 		::-webkit-scrollbar-thumb {
 			min-height: 50px;
-			background-color: #666;
+			background-color: #EEEEEE;
 			border-radius: 0;
 		}
 
 		::-webkit-scrollbar-corner {
-			background-color: #646464;
+			background-color: #DDDDDD;
 		}
 
 		::-webkit-resizer {
-			background-color: #666;
-		}
-
-		.no-uploads {
-			position: absolute;
-			width: 100%;
-			text-align: center;
-			font-size: 1.5em;
-			top: calc(100% - 50%);
+			background-color: #EEEEEE;
 		}
 
 		.upload-list {
 			height: calc(100% - 70px);
 			overflow: auto;
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+
+		.no-uploads {
+			display: flex;
+			height: calc(100% - 70px);
+			justify-content: center;
+			align-items: center;
+
+			.message {
+				text-align: center;
+				background-image: url('../../../illustrations/bench.svg');
+				background-position: top center;
+				background-repeat: no-repeat;
+				padding-top: calc(96px + 1em);
+				margin-top: -70px;
+				width: 400px;
+			}
 		}
 	}
 }

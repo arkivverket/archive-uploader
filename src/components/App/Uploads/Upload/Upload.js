@@ -66,7 +66,7 @@ class Upload extends Component {
 	 *
 	 */
 	cancelUpload = () => {
-		if (window.confirm('Are you sure that you want to cancel the upload?')) {
+		if (window.confirm('Er du sikker på at du vil avbryte opplastingen?')) {
 			this.tusUpload.abort()
 
 			clearTimeout(this.transferSpeed.timeout)
@@ -156,7 +156,7 @@ class Upload extends Component {
 
 					window.localStorage.removeItem(fileId)
 
-					notify(this.props.data.reference + ' has been uploaded')
+					notify(this.props.data.reference + ' er ferdig opplastet!')
 
 					if (fs.existsSync(tar)) {
 						fs.unlinkSync(tar)
@@ -187,27 +187,19 @@ class Upload extends Component {
 					</div>
 					<div className="status-icon">
 						{this.state.buildingTar === true &&
-							<Tippy content="Building archive">
-								<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
-							</Tippy>
+							<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
 						}
 						{this.state.buildingTar === false &&
 							<React.Fragment>
 								<span onClick={this.toggleUpload} style={{marginRight: '.5em'}}>
 									{this.state.isPaused === true &&
-										<Tippy content="Resume">
-											<FontAwesomeIcon fixedWidth icon="play-circle" />
-										</Tippy>
+										<FontAwesomeIcon fixedWidth icon="play-circle" />
 									}
 									{this.state.isPaused === false &&
-										<Tippy content="Pause">
-											<FontAwesomeIcon fixedWidth icon="pause-circle" />
-										</Tippy>
+										<FontAwesomeIcon fixedWidth icon="pause-circle" />
 									}
 								</span>
-								<Tippy content="Cancel">
-									<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
-								</Tippy>
+								<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
 							</React.Fragment>
 						}
 					</div>

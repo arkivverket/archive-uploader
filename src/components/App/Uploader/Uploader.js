@@ -13,7 +13,7 @@ class Uploader extends Component {
 	 *
 	 */
 	state = {
-		dropZoneLabel: this.props.dropZoneLabel,
+		dropZoneTarget: null,
 		buttonDisabled: true
 	}
 
@@ -33,8 +33,7 @@ class Uploader extends Component {
 		event.preventDefault()
 
 		if (event.relatedTarget === null || event.target !== event.relatedTarget.parentElement) {
-			event.target.classList.remove(...(this.state.dropZoneLabel === this.props.dropZoneLabel ? ['active', 'animated'] : ['animated']))
-
+			event.target.classList.remove(...(this.state.dropZoneTarget === null ? ['active', 'animated'] : ['animated']))
 		}
 	}
 
@@ -54,19 +53,19 @@ class Uploader extends Component {
 		if (files.length > 1) {
 			success = false
 
-			alert('You can only upload a single item!')
+			alert('Du kan bare laste opp en mappe av gangen!')
 		}
 
 		if (success && !fs.statSync(files[0].path).isDirectory()) {
 			success = false
 
-			alert('You must upload a folder!')
+			alert('Du må laste opp en mape!')
 		}
 
 		if (success && isDirectoryEmpty(files[0].path)) {
 			success = false
 
-			alert('The folder must contain at least one file!')
+			alert('Mappen må inneholde minst en fil!')
 		}
 
 		return success
@@ -78,13 +77,13 @@ class Uploader extends Component {
 	onDropHandler = (event) => {
 		event.preventDefault()
 
-		event.target.classList.remove('animated')
+		event.target.closest('.dropzone').classList.remove('animated')
 
 		if (this.validateUpload(event.dataTransfer.files) === false) {
-			event.target.classList.remove('active')
+			event.target.closest('.dropzone').classList.remove('active')
 
 			this.setState({
-				dropZoneLabel: this.props.dropZoneLabel,
+				dropZoneTarget: null,
 				buttonDisabled: true
 			})
 
@@ -92,7 +91,7 @@ class Uploader extends Component {
 		}
 
 		this.setState({
-			dropZoneLabel: event.dataTransfer.files[0].path,
+			dropZoneTarget: event.dataTransfer.files[0].path,
 			buttonDisabled: false
 		})
 	}
@@ -111,7 +110,7 @@ class Uploader extends Component {
 	startUpload = () => {
 		const upload = this.props.uploadTemplate
 
-		upload.sourceDirectory = this.state.dropZoneLabel
+		upload.sourceDirectory = this.state.dropZoneTarget
 
 		this.props.addUpload(upload)
 
@@ -122,7 +121,7 @@ class Uploader extends Component {
 		document.getElementById('dropzone').classList.remove('active')
 
 		this.setState({
-			dropZoneLabel: this.props.dropZoneLabel,
+			dropZoneTarget: null,
 			buttonDisabled: true
 		})
 	}
@@ -136,11 +135,14 @@ class Uploader extends Component {
 				<div className="header">
 					<button className="button" onClick={this.showActiveUploads}>
 						<FontAwesomeIcon fixedWidth icon="upload" />
-						<span>Uploads</span>
+						<span>Opplastinger</span>
 					</button>
 				</div>
 				<div id="info" className="info">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					<div className="message">
+						<b>Uploader er klar til bruk!</b>
+						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen Arkivdigitalisering, og følge instruksjonene der.</p>
+					</div>
 				</div>
 				<div id="upload" className="upload">
 					<div id="dropzone" className="dropzone"
@@ -149,21 +151,24 @@ class Uploader extends Component {
 						onDragOver={this.onDragOverHandler}
 						onDrop={this.onDropHandler}
 					>
-						<div className="label" title={this.state.dropZoneLabel}>
-							{this.state.dropZoneLabel}
-						</div>
+						{this.state.dropZoneTarget === null &&
+							<div className="placeholder">
+								Dra og slipp mappen her.
+							</div>
+						}
+						{this.state.dropZoneTarget !== null &&
+							<div className="target" title={this.state.dropZoneTarget}>
+								{this.state.dropZoneTarget}
+							</div>
+						}
 					</div>
 					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>
-						Start upload
+						Start opplasting
 					</button>
 				</div>
 			</div>
 		)
 	}
-}
-
-Uploader.defaultProps = {
-	dropZoneLabel: 'Drop the folder here'
 }
 
 export default Uploader

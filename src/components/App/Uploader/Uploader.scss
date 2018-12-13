@@ -1,19 +1,27 @@
-$buttonColor: #5FACBD;
-$backgroundColor: #EEE;
+$buttonColor: #034c6b;
+$buttonColorDisabled: #5B8BA0;
+$dropzoneBgColor: #daefef;
 
 body {
 	.uploader {
 		height: 100vh;
-		color: #444;
-		background-color: $backgroundColor;
 		display: block;
 
 		.info {
-			padding-left: 1em;
-			padding-right: 1em;
 			display: flex;
-			align-items: center;
 			height: calc(100% - 70px);
+			align-items: center;
+			justify-content: center;
+
+			.message {
+				text-align: center;
+				background-image: url('../../../illustrations/upload.svg');
+				background-position: top center;
+				background-repeat: no-repeat;
+				padding-top: calc(96px + 1em);
+				margin-top: -70px;
+				width: 400px;
+			}
 		}
 
 		.upload {
@@ -24,21 +32,20 @@ body {
 
 			.dropzone {
 				display: flex;
+				height: calc(100% - 80px);
 				align-items: center;
 				justify-content: center;
 				padding-left: 1em;
 				padding-right: 1em;
-				height: calc(100% - 80px);
-				border: 3px dashed #CCC;
-				background-color: darken($backgroundColor, 4);
-				font-size: 1.5em;
+				border: 3px dashed #b6d9d6;
+				background-color: $dropzoneBgColor;
 
 				&.active {
-					background-color: lighten($backgroundColor, 5);
+					background-color: lighten($dropzoneBgColor, 5);
 
 					&.animated {
 						background-size: 40px 40px;
-						background-image: linear-gradient(-45deg, lighten($backgroundColor, 2.5) 25%, transparent 25%, transparent 50%, lighten($backgroundColor, 2.5) 50%, lighten($backgroundColor, 2.5) 75%, transparent 75%, transparent);
+						background-image: linear-gradient(-45deg, lighten($dropzoneBgColor, 2.5) 25%, transparent 25%, transparent 50%, lighten($dropzoneBgColor, 2.5) 50%, lighten($dropzoneBgColor, 2.5) 75%, transparent 75%, transparent);
 						animation: barberpole .8s linear infinite;
 					}
 
@@ -52,7 +59,16 @@ body {
 					}
 				}
 
-				& div.label {
+				div.placeholder {
+					text-align: center;
+					background-image: url('../../../illustrations/upload.svg');
+					background-position: top center;
+					background-repeat: no-repeat;
+					padding-top: calc(96px + 1em);
+					width: 400px;
+				}
+
+				div.target {
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
@@ -63,23 +79,24 @@ body {
 				margin-top: 1em;
 				width: 100%;
 				padding: 1em;
-				background-color: $buttonColor;
+				background-color: #034C6B;
 				color: #FFF;
 				border: none;
+				border-radius: 4px;
 				font-size: 1em;
 
 				&:disabled {
 					cursor: not-allowed;
-					background-color: lighten($buttonColor, 20);
+					background-color: #5B8BA0;
 				}
 
 				&:not(:disabled) {
 					&:hover {
-						background-color: darken($buttonColor, 10);
+						background-color: #023a52;
 					}
 
 					&:active {
-						background-color: darken($buttonColor, 20);
+						background-color: #022838;
 					}
 				}
 			}
