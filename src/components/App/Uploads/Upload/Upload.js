@@ -12,23 +12,26 @@ const md5      = window.require('md5')
 const path     = window.require('path')
 const tus      = window.require('tus-js-client')
 
+const initialState = {
+	buildingTar: true,
+	tarFilePath: null,
+	fileId: null,
+	speed: null,
+	isPaused: false,
+	isStalled: false,
+	uploadPercent: 0,
+	exception: null,
+	showExceptionDetails: false
+}
+
 /**
  *
  */
 class Upload extends Component {
-
 	/**
 	 *
 	 */
-	state = {
-		buildingTar: true,
-		tarFilePath: null,
-		fileId: null,
-		speed: null,
-		isPaused: false,
-		isStalled: false,
-		uploadPercent: 0
-	}
+	state = initialState
 
 	/**
 	 *
@@ -47,7 +50,15 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	resetState = () => {
+		this.setState(initialState)
+	}
+
+	/**
+	 *
+	 */
 	upload = () => {
+
 		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
 			let isFirstProgress = true
 
@@ -73,7 +84,7 @@ class Upload extends Component {
 					folderName: this.props.data.folderName
 				},
 				onError: (error) => {
-					throw error
+					this.setState({exception: error})
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
 
@@ -133,6 +144,9 @@ class Upload extends Component {
 
 			this.tusUpload.start()
 		})
+		.catch((error) => {
+			this.setState({exception: error})
+		})
 	}
 
 	/**
@@ -151,6 +165,21 @@ class Upload extends Component {
 				this.setState({isPaused: true})
 			}
 		}
+	}
+
+	/**
+	 *
+	 */
+	toggleExceptionDetails = () => {
+		this.setState({showExceptionDetails: this.state.showExceptionDetails ? false : true})
+	}
+
+	/**
+	 *
+	 */
+	retryUpload = () => {
+		this.resetState()
+		this.upload()
 	}
 
 	/**
@@ -231,6 +260,32 @@ class Upload extends Component {
 						}
 					</div>
 				</Tippy>
+				{this.state.exception !== null &&
+					<React.Fragment>
+						<div className="error">
+							<div>
+								En feil har oppstått.
+								<div className="details" title="Info">
+									<FontAwesomeIcon fixedWidth icon="info-circle" onClick={this.toggleExceptionDetails} />
+								</div>
+								<div className="options">
+									<span onClick={this.retryUpload}>Prøv på nytt</span>
+									<span onClick={this.cancelUpload}>Avbryt</span>
+								</div>
+							</div>
+						</div>
+						{this.state.showExceptionDetails === true &&
+							<div className="error-details">
+								<div className="close" onClick={this.toggleExceptionDetails} title="Lukk">
+									<FontAwesomeIcon fixedWidth icon="times" />
+								</div>
+								<div className="details">
+									{this.state.exception.message}
+								</div>
+							</div>
+						}
+					</React.Fragment>
+				}
 			</div>
 		)
 	}
