@@ -120,7 +120,7 @@ class Upload extends Component {
 					this.setState({
 						speed: speed,
 						isStalled: false,
-						uploadPercent:(bytesUploaded / bytesTotal * 100).toFixed(2)
+						uploadPercent: (bytesUploaded / bytesTotal * 100).toFixed(2)
 					})
 				},
 				onSuccess: () => {
