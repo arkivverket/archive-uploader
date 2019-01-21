@@ -81,7 +81,7 @@ class Upload extends Component {
 					userId: this.props.data.meta.userId,
 					unitId: this.props.data.meta.unitId,
 					fileName: path.basename(tar),
-					folderName: this.props.data.folderName
+					folderName: this.props.data.meta.folderName
 				},
 				onError: (error) => {
 					this.setState({exception: error})
