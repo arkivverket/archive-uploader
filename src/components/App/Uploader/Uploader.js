@@ -53,7 +53,7 @@ class Uploader extends Component {
 		if (success && !fs.statSync(path).isDirectory()) {
 			success = false
 
-			alert('Du må laste opp en mape!')
+			alert('Du må laste opp en mappe!')
 		}
 
 		if (success && isDirectoryEmpty(path)) {
