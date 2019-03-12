@@ -90,7 +90,10 @@ else {
 			height: windowState.height,
 			minHeight: 500,
 			minWidth: 500,
-			show: false
+			show: false,
+			webPreferences: {
+				nodeIntegration: true
+			}
 		})
 
 		win.once('ready-to-show', () => {

@@ -25,7 +25,7 @@
     "devDependencies": {
         "concurrently": "^4.1.0",
         "cross-env": "^5.2.0",
-        "electron": "^3.1.6",
+        "electron": "^4.0.8",
         "electron-builder": "^20.39.0",
         "node-sass": "^4.11.0",
         "wait-on": "^3.2.0"
