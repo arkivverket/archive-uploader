@@ -4,7 +4,6 @@ import Tippy from '@tippy.js/react'
 import buildTar from '../../../../helpers/buildTar'
 import notify from '../../../../helpers/notify'
 import './Upload.scss'
-import 'tippy.js/dist/tippy.css'
 
 const filesize = window.require('filesize')
 const fs       = window.require('fs-extra')
