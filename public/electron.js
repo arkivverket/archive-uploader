@@ -48,7 +48,7 @@ else {
 
 	// Handle URL opening
 
-	if (is.macos) {
+	if (is.macos) {
 		app.on('open-url', (event, url) => {
 			event.preventDefault()
 

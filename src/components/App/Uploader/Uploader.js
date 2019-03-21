@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { isDirectoryEmpty } from '../../../helpers/fsHelpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Uploader.scss'
@@ -48,7 +49,7 @@ class Uploader extends Component {
 			alert('Du kan bare laste opp en mappe av gangen!')
 		}
 
-		const path = typeof(files[0]) === "object" ? files[0].path : files[0]
+		const path = typeof(files[0]) === 'object' ? files[0].path : files[0]
 
 		if (success && !fs.statSync(path).isDirectory()) {
 			success = false
@@ -88,7 +89,7 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	onDragEnterHandler = (event) => {
+	onDragEnterHandler = (event) => {
 		event.preventDefault()
 
 		this.setState({
@@ -100,7 +101,7 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	onDragExitHandler = (event) => {
+	onDragExitHandler = (event) => {
 		event.preventDefault()
 
 		if (event.relatedTarget === null || event.relatedTarget.closest('.dropzone') === null) {
@@ -216,6 +217,11 @@ class Uploader extends Component {
 			</div>
 		)
 	}
+}
+
+Uploader.propTypes = {
+	addUpload: PropTypes.func,
+	uploadTemplate: PropTypes.object
 }
 
 export default Uploader

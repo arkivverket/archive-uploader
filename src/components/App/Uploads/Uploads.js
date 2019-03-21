@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Upload from './Upload/Upload'
 import './Uploads.scss'
@@ -48,6 +49,11 @@ class Uploads extends Component {
 			</div>
 		)
 	}
+}
+
+Uploads.propTypes = {
+	removeUpload: PropTypes.func,
+	uploads: PropTypes.object
 }
 
 export default Uploads

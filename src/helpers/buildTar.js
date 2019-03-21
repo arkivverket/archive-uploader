@@ -29,7 +29,7 @@ const buildTar = (sourceDir, tarName) => {
 		}
 
 		return tar.create(options, fileList).then(() => {
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve) => {
 				resolve(options.file)
 			})
 		})

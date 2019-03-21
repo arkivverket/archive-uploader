@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippy.js/react'
 import buildTar from '../../../../helpers/buildTar'
@@ -142,8 +143,7 @@ class Upload extends Component {
 			this.tusUpload = new tus.Upload(file, options)
 
 			this.tusUpload.start()
-		})
-		.catch((error) => {
+		}).catch((error) => {
 			this.setState({exception: error})
 		})
 	}
@@ -249,9 +249,9 @@ class Upload extends Component {
 						}
 					</div>
 				</div>
-				<Tippy content={this.state.uploadPercent + `%`} isEnabled={this.state.buildingTar === false}>
+				<Tippy content={this.state.uploadPercent + '%'} isEnabled={this.state.buildingTar === false}>
 					<div className="progress">
-						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + `%`}}></div>
+						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + '%'}}></div>
 						{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
 							<div className="speed">
 								{filesize(this.state.speed, {bits: true, standard: 'iec'})}/sec
@@ -288,6 +288,11 @@ class Upload extends Component {
 			</div>
 		)
 	}
+}
+
+Upload.propTypes = {
+	data: PropTypes.object,
+	removeUpload: PropTypes.func
 }
 
 export default Upload
