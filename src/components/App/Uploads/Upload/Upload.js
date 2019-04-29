@@ -186,7 +186,9 @@ class Upload extends Component {
 	 */
 	cancelUpload = () => {
 		if (window.confirm('Er du sikker på at du vil avbryte opplastingen?')) {
-			this.tusUpload.abort()
+			if (this.tusUpload !== null) {
+				this.tusUpload.abort()
+			}
 
 			clearTimeout(this.transferSpeed.timeout)
 
