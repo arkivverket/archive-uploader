@@ -1,6 +1,6 @@
 {
     "name": "Uploader",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "An easy to use archive digitisation uploader.",
     "author": "Arkivvkerket",
     "private": true,
@@ -25,7 +25,7 @@
     "devDependencies": {
         "concurrently": "^4.1.0",
         "cross-env": "^5.2.0",
-        "electron": "^4.0.8",
+        "electron": "^5.0.2",
         "electron-builder": "^20.41.0",
         "node-sass": "^4.12.0",
         "typescript": "^3.5.1",

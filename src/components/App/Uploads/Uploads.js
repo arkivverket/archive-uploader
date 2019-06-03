@@ -53,7 +53,7 @@ class Uploads extends Component {
 
 Uploads.propTypes = {
 	removeUpload: PropTypes.func,
-	uploads: PropTypes.object
+	uploads: PropTypes.array
 }
 
 export default Uploads
