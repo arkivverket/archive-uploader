@@ -251,7 +251,7 @@ class Upload extends Component {
 						}
 					</div>
 				</div>
-				<Tippy content={this.state.uploadPercent + '%'} isEnabled={this.state.buildingTar === false}>
+				<Tippy content={this.state.uploadPercent + '%'} enabled={this.state.buildingTar === false}>
 					<div className="progress">
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + '%'}}></div>
 						{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
