@@ -58,6 +58,6 @@
         }
     },
     "browserslist": [
-        "electron 3.0"
+        "electron 5.0"
     ]
 }
