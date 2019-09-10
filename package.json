@@ -39,7 +39,8 @@
         "electron-build": "electron-builder",
         "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
         "build": "yarn react-build && yarn electron-build",
-        "build-all": "yarn react-build && yarn electron-build -mw"
+        "build-mac": "yarn react-build && yarn electron-build -m",
+        "build-win": "yarn react-build && yarn electron-build -w"
     },
     "build": {
         "appId": "no.arkivverket.digitalisering",
@@ -54,7 +55,8 @@
         "win": {
             "target": [
                 "portable"
-            ]
+            ],
+            "certificateSubjectName": "Arkivverket"
         }
     },
     "browserslist": [

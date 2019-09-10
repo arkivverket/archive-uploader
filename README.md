@@ -24,11 +24,19 @@ The following command will build a production ready version of the application f
 yarn build
 ```
 
-If you want to build the application for all platforms (currently macOS and Windows) then use the following command:
+If you want to build the application for macOS then use the following command:
 
 ```
-yarn build-all
+yarn build-mac
 ```
+
+If you want to build the application for windows then use the following command:
+
+```
+yarn build-win
+```
+
+> Building a signed release for Windows can only be done on a Windows machine with the EV token
 
 ---
 
