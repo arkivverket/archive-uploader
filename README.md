@@ -24,7 +24,7 @@ If you want to build a production-ready version the application for macOS then u
 yarn build-mac
 ```
 
-If you want to build a production-ready version the application for windows then use the following command:
+If you want to build a production-ready version the application for Windows then use the following command:
 
 ```
 yarn build-win
@@ -40,7 +40,7 @@ If you want to build a production-ready unsigned version the application for mac
 yarn build-mac-test
 ```
 
-If you want to build a production-ready unsigned version the application for windows then use the following command:
+If you want to build a production-ready unsigned version the application for Windows then use the following command:
 
 ```
 yarn build-win-test
