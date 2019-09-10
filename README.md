@@ -18,12 +18,6 @@ yarn start
 
 ## Build for production
 
-The following command will build a production-ready version of the application for your current platform:
-
-```
-yarn build
-```
-
 If you want to build a production-ready version the application for macOS then use the following command:
 
 ```
@@ -36,7 +30,21 @@ If you want to build a production-ready version the application for windows then
 yarn build-win
 ```
 
-> Building a production-ready version version for Windows can only be done on a Windows machine with the EV code signing token.
+> ⚠️ Building signed versions should only be done on the dedicated code-signing machine.
+
+## Build for test
+
+If you want to build a production-ready unsigned version the application for macOS then use the following command:
+
+```
+yarn build-mac-test
+```
+
+If you want to build a production-ready unsigned version the application for windows then use the following command:
+
+```
+yarn build-win-test
+```
 
 ---
 
