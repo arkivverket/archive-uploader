@@ -45,7 +45,7 @@
         "build-win-test": "yarn react-build && yarn electron-build -w"
     },
     "build": {
-        "afterSign": "scripts/notarize.js",
+        "afterSign": "assemble/scripts/notarize.js",
         "appId": "no.arkivverket.digitalisering.uploader",
         "directories": {
             "buildResources": "resources"
@@ -59,8 +59,8 @@
             ],
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
-            "entitlements": "platform/mac/entitlements.plist",
-            "entitlementsInherit": "platform/mac/entitlements.plist"
+            "entitlements": "assemble/mac/entitlements.plist",
+            "entitlementsInherit": "assemble/mac/entitlements.plist"
         },
         "win": {
             "target": [
