@@ -4,9 +4,7 @@ const appleId = '' // Fetch value from keychain https://github.com/electron/elec
 const appleIdPassword = '' // Fetch value from keychain https://github.com/electron/electron-notarize#safety-when-using-appleidpassword
 
 exports.default = async function notarizing(context) {
-	const { electronPlatformName, appOutDir } = context
-
-	if (electronPlatformName !== 'darwin') {
+	if (context.electronPlatformName !== 'darwin' || context.packager.platformSpecificBuildOptions.identity === null) {
 		return
 	}
 
@@ -14,7 +12,7 @@ exports.default = async function notarizing(context) {
 
 	return await notarize({
 		appBundleId: 'no.arkivverket.digitalisering.uploader',
-		appPath: `${appOutDir}/${appName}.app`,
+		appPath: `${context.appOutDir}/${appName}.app`,
 		appleId: appleId,
 		appleIdPassword: appleIdPassword,
 	})
