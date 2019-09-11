@@ -48,7 +48,7 @@
         "afterSign": "assemble/scripts/notarize.js",
         "appId": "no.arkivverket.digitalisering.uploader",
         "directories": {
-            "buildResources": "resources"
+            "buildResources": "assemble/resources"
         },
         "dmg": {
             "sign": false
