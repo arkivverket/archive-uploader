@@ -100,8 +100,8 @@ class Upload extends Component {
 				onError: (error) => {
 					this.setState({exception: error})
 
-					if (fs.existsSync(this.tarFilePath)) {
-						fs.unlinkSync(this.tarFilePath)
+					if (fs.existsSync(tar)) {
+						fs.unlinkSync(tar)
 					}
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
