@@ -1,18 +1,15 @@
-const electron = window.require('electron')
-const fs       = window.require('fs-extra')
-const path     = window.require('path')
-const tar      = window.require('tar')
-const {is}     = window.require('electron-util')
+const fs  = window.require('fs-extra')
+const tar = window.require('tar')
 
 /**
  * Builds a tar file from the source firectory and
  * returns a promise with the path to the generated tar file.
  *
  * @param  string sourceDir Source directory
- * @param  string tarName   Desired tar name (without extension)
+ * @param  string output    Full path to the desired tar archive
  * @return Promise
  */
-const buildTar = (sourceDir, tarName) => {
+const buildTar = (sourceDir, output) => {
 	return fs.readdir(sourceDir).then((files) => {
 		let fileList = []
 
@@ -24,7 +21,7 @@ const buildTar = (sourceDir, tarName) => {
 
 		const options = {
 			gzip: false,
-			file: path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), tarName + '.tar'),
+			file: output,
 			cwd: sourceDir
 		}
 

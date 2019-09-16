@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippy.js/react'
@@ -6,6 +6,8 @@ import buildTar from '../../../../helpers/buildTar'
 import notify from '../../../../helpers/notify'
 import './Upload.scss'
 
+const {is}     = window.require('electron-util')
+const electron = window.require('electron')
 const filesize = window.require('filesize')
 const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
@@ -14,7 +16,6 @@ const tus      = window.require('tus-js-client')
 
 const initialState = {
 	buildingTar: true,
-	tarFilePath: null,
 	fileId: null,
 	speed: null,
 	isPaused: false,
@@ -36,6 +37,11 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	tarFilePath = null
+
+	/**
+	 *
+	 */
 	tusUpload = null
 
 	/**
@@ -50,6 +56,15 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	constructor(props) {
+		super(props)
+
+		this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.folderName + '.tar')
+	}
+
+	/**
+	 *
+	 */
 	resetState = () => {
 		this.setState(initialState)
 	}
@@ -59,7 +74,7 @@ class Upload extends Component {
 	 */
 	upload = () => {
 
-		buildTar(this.props.data.sourceDirectory, this.props.data.folderName).then((tar) => {
+		buildTar(this.props.data.sourceDirectory, this.tarFilePath).then((tar) => {
 			let isFirstProgress = true
 
 			const file   = fs.createReadStream(tar)
@@ -68,7 +83,6 @@ class Upload extends Component {
 
 			this.setState({
 				buildingTar: false,
-				tarFilePath: tar,
 				fileId: fileId
 			})
 
@@ -85,6 +99,10 @@ class Upload extends Component {
 				},
 				onError: (error) => {
 					this.setState({exception: error})
+
+					if (fs.existsSync(this.tarFilePath)) {
+						fs.unlinkSync(this.tarFilePath)
+					}
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
 
@@ -145,6 +163,10 @@ class Upload extends Component {
 			this.tusUpload.start()
 		}).catch((error) => {
 			this.setState({exception: error})
+
+			if (fs.existsSync(this.tarFilePath)) {
+				fs.unlinkSync(this.tarFilePath)
+			}
 		})
 	}
 
@@ -177,6 +199,7 @@ class Upload extends Component {
 	 *
 	 */
 	retryUpload = () => {
+		this.tusUpload = null
 		this.resetState()
 		this.upload()
 	}
@@ -192,11 +215,13 @@ class Upload extends Component {
 
 			clearTimeout(this.transferSpeed.timeout)
 
-			if (fs.existsSync(this.state.tarFilePath)) {
-				fs.unlinkSync(this.state.tarFilePath)
+			if (fs.existsSync(this.tarFilePath)) {
+				fs.unlinkSync(this.tarFilePath)
 			}
 
-			window.localStorage.removeItem(this.state.fileId)
+			if (this.state.fileId !== null) {
+				window.localStorage.removeItem(this.state.fileId)
+			}
 
 			this.props.removeUpload(this.props.data.id)
 		}
@@ -262,7 +287,7 @@ class Upload extends Component {
 					</div>
 				</Tippy>
 				{this.state.exception !== null &&
-					<React.Fragment>
+					<Fragment>
 						<div className="error">
 							<div>
 								En feil har oppstått.
@@ -285,7 +310,7 @@ class Upload extends Component {
 								</div>
 							</div>
 						}
-					</React.Fragment>
+					</Fragment>
 				}
 			</div>
 		)

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { isDirectoryEmpty } from '../../helpers/fsHelpers'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
@@ -156,10 +156,10 @@ class App extends Component {
 		const key = this.state.uploadTemplate === null ? null : this.state.uploadTemplate.id
 
 		return (
-			<React.Fragment>
+			<Fragment>
 				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} key={key} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
-			</React.Fragment>
+			</Fragment>
 		)
 	}
 }

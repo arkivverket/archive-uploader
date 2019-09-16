@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { isDirectoryEmpty } from '../../../helpers/fsHelpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -200,14 +200,14 @@ class Uploader extends Component {
 							</div>
 						}
 						{this.state.dropzoneTarget !== null &&
-							<React.Fragment>
+							<Fragment>
 								<div className="clear-target" onClick={this.resetState} title="Avbryt">
 									<FontAwesomeIcon fixedWidth icon="times" />
 								</div>
 								<div className="message target" title={this.state.dropzoneTarget}>
 									{this.state.dropzoneTarget}
 								</div>
-							</React.Fragment>
+							</Fragment>
 						}
 					</div>
 					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>
