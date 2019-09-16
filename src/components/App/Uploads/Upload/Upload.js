@@ -72,6 +72,15 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	deleteTar = () => {
+		if (fs.existsSync(this.tarFilePath)) {
+			fs.unlinkSync(this.tarFilePath)
+		}
+	}
+
+	/**
+	 *
+	 */
 	upload = () => {
 
 		buildTar(this.props.data.sourceDirectory, this.tarFilePath).then((tar) => {
@@ -100,9 +109,7 @@ class Upload extends Component {
 				onError: (error) => {
 					this.setState({exception: error})
 
-					if (fs.existsSync(tar)) {
-						fs.unlinkSync(tar)
-					}
+					this.deleteTar()
 				},
 				onProgress: (bytesUploaded, bytesTotal) => {
 
@@ -152,9 +159,7 @@ class Upload extends Component {
 						tag: this.props.data.id
 					})
 
-					if (fs.existsSync(tar)) {
-						fs.unlinkSync(tar)
-					}
+					this.deleteTar()
 				}
 			}
 
@@ -164,9 +169,7 @@ class Upload extends Component {
 		}).catch((error) => {
 			this.setState({exception: error})
 
-			if (fs.existsSync(this.tarFilePath)) {
-				fs.unlinkSync(this.tarFilePath)
-			}
+			this.deleteTar()
 		})
 	}
 
@@ -215,13 +218,11 @@ class Upload extends Component {
 
 			clearTimeout(this.transferSpeed.timeout)
 
-			if (fs.existsSync(this.tarFilePath)) {
-				fs.unlinkSync(this.tarFilePath)
-			}
-
 			if (this.state.fileId !== null) {
 				window.localStorage.removeItem(this.state.fileId)
 			}
+
+			this.deleteTar()
 
 			this.props.removeUpload(this.props.data.id)
 		}
