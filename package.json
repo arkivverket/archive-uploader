@@ -70,7 +70,13 @@
             "target": [
                 "nsis"
             ]
-        }
+        },
+        "publish": [
+            {
+              "provider": "generic",
+              "url": "http://ra-freost:8080/test/auto-update"
+            }
+          ]
     },
     "browserslist": [
         "electron 6.0"
