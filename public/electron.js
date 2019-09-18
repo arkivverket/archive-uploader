@@ -229,8 +229,9 @@ else {
 	})
 
 	autoUpdater.on('update-downloaded', (/*event, info*/) => {
-		// @todo: Show some visual indication to the user that an update is available
 		getHelpMenuItem('downloading_update').visible = false
 		getHelpMenuItem('restart_to_update').visible = true
+
+		// @todo: Show some visual indication to the user that an update is available
 	})
 }
