@@ -1,10 +1,12 @@
 'use strict'
 
 const electron          = require('electron')
+const {autoUpdater}     = require('electron-updater')
 const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
 const ipcMain           = electron.ipcMain
+const dialog            = electron.dialog
 const path              = require('path')
 const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
@@ -157,6 +159,10 @@ else {
 				urlToOpenOnStartup = null
 			})
 		}
+
+		if (!is.development) {
+			autoUpdater.checkForUpdates()
+		}
 	})
 
 	// Quit when all windows are closed
@@ -171,5 +177,55 @@ else {
 		if (win === null) {
 			createWindow()
 		}
+	})
+
+	// Auto-update event handlers + helpers
+
+	const getHelpMenuItem = (label) => {
+		return Menu.getApplicationMenu().items.filter((item) => {
+			return item.role === 'help'
+		})[0].submenu.items.filter((item) => {
+			return item.lblid === label
+		})[0]
+	}
+
+	autoUpdater.on('checking-for-update', () => {
+		getHelpMenuItem('check_for_updates').enabled = false
+	})
+
+	autoUpdater.on('update-available', (/*event, info*/) => {
+		getHelpMenuItem('check_for_updates').visible = false
+		getHelpMenuItem('downloading_update').visible = true
+	})
+
+	autoUpdater.on('update-not-available', (/*event, info*/) => {
+		getHelpMenuItem('check_for_updates').enabled = true
+
+		dialog.showMessageBox(win, {
+			type: 'info',
+			message: 'Ingen oppdatering funnet'
+		})
+	})
+
+	autoUpdater.on('error', (event, error) => {
+		getHelpMenuItem('downloading_update').visible = true
+		getHelpMenuItem('check_for_updates').visible = true
+		getHelpMenuItem('check_for_updates').enabled = true
+
+		dialog.showMessageBox(win, {
+			type: 'error',
+			message: 'Det skjedde en feil under oppdatering.',
+			detail: error
+		})
+	})
+
+	autoUpdater.on('download-progress', (/*event, progress*/) => {
+		// @todo: Display download progress in menu
+	})
+
+	autoUpdater.on('update-downloaded', (/*event, info*/) => {
+		// @todo: Show some visual indication to the user that an update is available
+		getHelpMenuItem('downloading_update').visible = false
+		getHelpMenuItem('restart_to_update').visible = true
 	})
 }
