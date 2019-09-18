@@ -194,12 +194,12 @@ else {
 		getHelpMenuItem('check_for_updates').enabled = false
 	})
 
-	autoUpdater.on('update-available', (/*event, info*/) => {
+	autoUpdater.on('update-available', () => {
 		getHelpMenuItem('check_for_updates').visible = false
 		getHelpMenuItem('downloading_update').visible = true
 	})
 
-	autoUpdater.on('update-not-available', (/*event, info*/) => {
+	autoUpdater.on('update-not-available', () => {
 		getHelpMenuItem('check_for_updates').enabled = true
 
 		if (showUpdateNotAvailableMessage) {
@@ -224,11 +224,11 @@ else {
 		})
 	})
 
-	autoUpdater.on('download-progress', (/*event, progress*/) => {
+	autoUpdater.on('download-progress', (event, progress) => {
 		// @todo: Display download progress in menu
 	})
 
-	autoUpdater.on('update-downloaded', (/*event, info*/) => {
+	autoUpdater.on('update-downloaded', (event, info) => {
 		getHelpMenuItem('downloading_update').visible = false
 		getHelpMenuItem('restart_to_update').visible = true
 

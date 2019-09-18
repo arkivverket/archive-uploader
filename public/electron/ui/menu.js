@@ -20,38 +20,44 @@ const template = [
 				click: () => {
 					electron.shell.openExternal('https://digitalisering.arkivverket.no')
 				}
-			},
-			{
-				type: 'separator',
-				visible: !is.development
-			},
-			{
-				lblid: 'check_for_updates',
-				label: 'Se etter oppdatering...',
-				click: () => {
-					autoUpdater.checkForUpdates()
-				},
-				visible: !is.development,
-				enabled: true
-			},
-			{
-				lblid: 'downloading_update',
-				label: 'Laster ned oppdatering...',
-				visible: false,
-				enabled: false
-			},
-			{
-				lblid: 'restart_to_update',
-				label: 'Start på nytt for å oppdatere',
-				click: () => {
-					autoUpdater.quitAndInstall()
-				},
-				visible: false,
-				enabled: true
 			}
 		]
 	}
 ]
+
+// Add production specific menu items
+
+if (!is.development) {
+	template[1].submenu.push(
+		{
+			type: 'separator',
+		},
+		{
+			lblid: 'check_for_updates',
+			label: 'Se etter oppdatering...',
+			click: () => {
+				autoUpdater.checkForUpdates()
+			},
+			visible: true,
+			enabled: true
+		},
+		{
+			lblid: 'downloading_update',
+			label: 'Laster ned oppdatering...',
+			visible: false,
+			enabled: false
+		},
+		{
+			lblid: 'restart_to_update',
+			label: 'Start på nytt for å oppdatere',
+			click: () => {
+				autoUpdater.quitAndInstall()
+			},
+			visible: false,
+			enabled: true
+		}
+	)
+}
 
 // Add Windows specific menu items
 
