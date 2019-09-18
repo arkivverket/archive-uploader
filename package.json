@@ -53,6 +53,9 @@
         "dmg": {
             "sign": false
         },
+        "nsis": {
+            "deleteAppDataOnUninstall": true
+        },
         "mac": {
             "target": [
                 "dmg"
@@ -64,7 +67,7 @@
         },
         "win": {
             "target": [
-                "portable"
+                "nsis"
             ]
         }
     },
