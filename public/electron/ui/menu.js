@@ -70,10 +70,15 @@ if (is.windows || is.linux) {
 			lblid: 'about',
 			label: 'Om Uploader',
 			click: () => {
-				dialog.showMessageBox(null, {
-					'type': 'info',
-					'message': `Uploader v${electron.app.getVersion()}`,
-				})
+				if (is.linux) {
+					app.showAboutPanel()
+				}
+				else {
+					dialog.showMessageBox(null, {
+						'type': 'info',
+						'message': `Uploader v${electron.app.getVersion()}`,
+					})
+				}
 			}
 		}
 	)
