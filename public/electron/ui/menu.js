@@ -2,6 +2,7 @@
 
 const electron      = require('electron')
 const {autoUpdater} = require('electron-updater')
+const dialog        = electron.dialog
 const app           = electron.app
 const Menu          = electron.Menu
 const {is}          = require('electron-util')
@@ -22,6 +23,7 @@ const template = [
 			},
 			{
 				type: 'separator',
+				visible: !is.development
 			},
 			{
 				lblid: 'check_for_updates',
@@ -50,6 +52,26 @@ const template = [
 		]
 	}
 ]
+
+// Add Windows specific menu items
+
+if (is.windows) {
+	template[1].submenu.push(
+		{
+			type: 'separator'
+		},
+		{
+			lblid: 'about',
+			label: 'Om Uploader',
+			click: () => {
+				dialog.showMessageBox(null, {
+					'type': 'info',
+					'message': `Uploader v${electron.app.getVersion()}`,
+				})
+			}
+		}
+	)
+}
 
 // Add macOS specific menu items
 

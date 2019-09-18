@@ -202,7 +202,7 @@ else {
 	autoUpdater.on('update-not-available', (/*event, info*/) => {
 		getHelpMenuItem('check_for_updates').enabled = true
 
-		if(showUpdateNotAvailableMessage) {
+		if (showUpdateNotAvailableMessage) {
 			dialog.showMessageBox(win, {
 				type: 'none',
 				message: 'Ingen oppdatering funnet.'
