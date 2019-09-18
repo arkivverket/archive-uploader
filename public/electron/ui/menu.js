@@ -1,9 +1,10 @@
 'use strict'
 
-const electron = require('electron')
-const app      = electron.app
-const Menu     = electron.Menu
-const {is}     = require('electron-util')
+const electron      = require('electron')
+const {autoUpdater} = require('electron-updater')
+const app           = electron.app
+const Menu          = electron.Menu
+const {is}          = require('electron-util')
 
 // Base template
 
@@ -13,10 +14,38 @@ const template = [
 		role: 'help',
 		submenu: [
 			{
+				lblid: 'digitisation_link',
 				label: 'Digitalisering',
 				click: () => {
 					electron.shell.openExternal('https://digitalisering.arkivverket.no')
 				}
+			},
+			{
+				type: 'separator',
+			},
+			{
+				lblid: 'check_for_updates',
+				label: 'Se etter oppdatering...',
+				click: () => {
+					autoUpdater.checkForUpdates()
+				},
+				visible: !is.development,
+				enabled: true
+			},
+			{
+				lblid: 'downloading_update',
+				label: 'Laster ned oppdatering...',
+				visible: false,
+				enabled: false
+			},
+			{
+				lblid: 'restart_to_update',
+				label: 'Start på nytt for å oppdatere',
+				click: () => {
+					autoUpdater.quitAndInstall()
+				},
+				visible: false,
+				enabled: true
 			}
 		]
 	}
