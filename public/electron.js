@@ -102,6 +102,10 @@ else {
 		win.once('ready-to-show', () => {
 			win.show()
 			win.focus()
+
+			if (!is.development) {
+				autoUpdater.checkForUpdates()
+			}
 		})
 
 		windowState.manage(win)
@@ -160,10 +164,6 @@ else {
 				urlToOpenOnStartup = null
 			})
 		}
-
-		if (!is.development) {
-			autoUpdater.checkForUpdates()
-		}
 	})
 
 	// Quit when all windows are closed
@@ -213,7 +213,6 @@ else {
 	})
 
 	autoUpdater.on('error', (event, error) => {
-		getHelpMenuItem('downloading_update').visible = true
 		getHelpMenuItem('check_for_updates').visible = true
 		getHelpMenuItem('check_for_updates').enabled = true
 
