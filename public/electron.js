@@ -103,7 +103,7 @@ else {
 			win.show()
 			win.focus()
 
-			if (!is.development) {
+			if (!is.development && !is.linux) {
 				autoUpdater.checkForUpdates()
 			}
 		})

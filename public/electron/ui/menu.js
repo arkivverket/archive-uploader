@@ -27,7 +27,7 @@ const template = [
 
 // Add production specific menu items
 
-if (!is.development) {
+if (!is.development && !is.linux) {
 	template[1].submenu.push(
 		{
 			type: 'separator',
@@ -59,9 +59,9 @@ if (!is.development) {
 	)
 }
 
-// Add Windows specific menu items
+// Add Windows and Linux specific menu items
 
-if (is.windows) {
+if (is.windows || is.linux) {
 	template[1].submenu.push(
 		{
 			type: 'separator'

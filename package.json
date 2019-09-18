@@ -2,7 +2,7 @@
     "name": "Uploader",
     "version": "1.1.0",
     "description": "An easy to use archive digitisation uploader.",
-    "author": "Arkivvkerket",
+    "author": "Arkivvkerket <utvikling@arkivverket.no>",
     "private": true,
     "homepage": "./",
     "main": "public/electron.js",
