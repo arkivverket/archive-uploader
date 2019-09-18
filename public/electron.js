@@ -215,6 +215,7 @@ else {
 	autoUpdater.on('error', (event, error) => {
 		getHelpMenuItem('check_for_updates').visible = true
 		getHelpMenuItem('check_for_updates').enabled = true
+		getHelpMenuItem('downloading_update').visible = false
 
 		dialog.showMessageBox(win, {
 			type: 'error',
