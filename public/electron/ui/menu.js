@@ -29,7 +29,7 @@ const template = [
 				click: () => {
 					autoUpdater.checkForUpdates()
 				},
-				visible: is.development,
+				visible: !is.development,
 				enabled: true
 			},
 			{

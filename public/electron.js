@@ -17,6 +17,7 @@ const {is}              = require('electron-util')
 let win
 let urlToOpenOnStartup
 let closeWithoutDialog = false
+let showUpdateNotAvailableMessage = false
 
 const protocol = is.development ? 'dpldrdev' : 'dpldr'
 
@@ -201,10 +202,14 @@ else {
 	autoUpdater.on('update-not-available', (/*event, info*/) => {
 		getHelpMenuItem('check_for_updates').enabled = true
 
-		dialog.showMessageBox(win, {
-			type: 'info',
-			message: 'Ingen oppdatering funnet'
-		})
+		if(showUpdateNotAvailableMessage) {
+			dialog.showMessageBox(win, {
+				type: 'none',
+				message: 'Ingen oppdatering funnet.'
+			})
+		}
+
+		showUpdateNotAvailableMessage = true
 	})
 
 	autoUpdater.on('error', (event, error) => {
@@ -214,7 +219,7 @@ else {
 
 		dialog.showMessageBox(win, {
 			type: 'error',
-			message: 'Det skjedde en feil under oppdatering.',
+			message: 'Det skjedde en feil under oppdatering:',
 			detail: error
 		})
 	})
