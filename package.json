@@ -59,7 +59,7 @@
         },
         "mac": {
             "target": [
-                "dmg"
+                "zip"
             ],
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
