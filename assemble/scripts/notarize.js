@@ -1,7 +1,8 @@
 const { notarize } = require('electron-notarize')
 
-const appleId = '' // Fetch value from keychain https://github.com/electron/electron-notarize#safety-when-using-appleidpassword
-const appleIdPassword = '' // Fetch value from keychain https://github.com/electron/electron-notarize#safety-when-using-appleidpassword
+const appleId = 'apple-developer@arkivverket.no'
+// eslint-disable-next-line quotes
+const appleIdPassword = `@keychain:AC_PASSWORD`
 
 exports.default = async function notarizing(context) {
 	if (context.electronPlatformName !== 'darwin' || context.packager.platformSpecificBuildOptions.identity === null) {
