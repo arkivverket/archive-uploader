@@ -103,7 +103,7 @@ else {
 			win.show()
 			win.focus()
 
-			if (!is.development && !is.linux) {
+			if (!is.development && (is.macos || (is.windows && process.env. PORTABLE_EXECUTABLE_DIR === undefined))) {
 				autoUpdater.checkForUpdates()
 			}
 		})

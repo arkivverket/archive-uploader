@@ -27,7 +27,7 @@ const template = [
 
 // Add production specific menu items
 
-if (!is.development && !is.linux) {
+if (!is.development && (is.macos || (is.windows && process.env. PORTABLE_EXECUTABLE_DIR === undefined))) {
 	template[1].submenu.push(
 		{
 			type: 'separator',
