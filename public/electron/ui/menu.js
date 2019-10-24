@@ -88,7 +88,7 @@ if (is.windows || is.linux) {
 
 if (is.macos) {
 	template.unshift({
-		label: app.getName(),
+		label: app.name,
 		submenu: [
 			{role: 'about'},
 			{type: 'separator'},

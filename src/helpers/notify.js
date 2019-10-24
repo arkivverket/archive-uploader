@@ -15,7 +15,7 @@ const notify = (message, additionalOptions) => {
 		options = Object.assign(additionalOptions, options)
 	}
 
-	new Notification(electron.remote.app.getName(), options)
+	new Notification(electron.remote.app.name, options)
 }
 
 export default notify
