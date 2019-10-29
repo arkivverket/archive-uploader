@@ -172,14 +172,6 @@ else {
 		app.quit()
 	})
 
-	// Create a new window if none exists when the app is activated
-
-	app.on('activate', () => {
-		if (win === null) {
-			createWindow()
-		}
-	})
-
 	// Auto-update event handlers + helpers
 
 	const getHelpMenuItem = (label) => {
