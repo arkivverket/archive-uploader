@@ -71,7 +71,7 @@ class Uploader extends Component {
 	 */
 	fileDialog = () => {
 		electron.remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
-			if (result.filePaths !== undefined) {
+			if (result.canceled === false && result.filePaths !== undefined) {
 				if (!this.validateUpload(result.filePaths)) {
 					this.fileDialog()
 				}
