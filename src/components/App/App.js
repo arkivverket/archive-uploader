@@ -65,10 +65,10 @@ class App extends Component {
 
 		return {
 			id: md5(url),
-			folderName: data.folderName,
 			reference: data.reference,
 			uploadUrl: data.uploadUrl,
-			meta: data.meta
+			uploadType: data.uploadType === undefined ? 'folder' : data.uploadType,
+			meta: data.meta || {}
 		}
 	}
 
@@ -129,7 +129,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(url)
 
 			if (this.uploadExists(template.id)) {
-				alert('Denne mappen (' + template.reference + ') er under opplasting!')
+				alert('Denne ' + (template.uploadType === 'folder' ? 'mappen' : 'filen') + ' (' + template.reference + ') er allerede under opplasting!')
 
 				return
 			}

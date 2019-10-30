@@ -58,14 +58,14 @@ dpldr://eyJmb2xkZXJOYW1lIjoxNTQzOTI1NDM2LCJ1cGxvYWRVcmwiOiJodHRwOlwvXC9leGFtcGxl
 
 > Note that the protocol is `dpldrdev` when the application run in development mode.
 
-The payload must contain the following data:
+The payload must contain the following data. Note that the meta block is optional (in this example it is specific for the Archive Digitisation application):
 
 ```
 $data = [
-	'folderName' => 123,
-	'reference'  => 'RA/EA-4070/Ki/L0009',
-	'uploadUrl'  => 'http://example.org/upload',
-	'meta'       => [
+	'reference'  => 'RA/EA-4070/Ki/L0009',       // (required) Name or reference that lets the user identify of the upload
+	'uploadUrl'  => 'http://example.org/upload', // (required) URL to the tusd endpoint
+	'uploadType' => 'folder',                    // (optional) Upload type. The allowed types are 'folder' and 'tar' (default: 'folder')
+	'meta'       => [                            // (optional) Metadata that is sent back to the tusd server when the upload starts
 		'userId'     => 123, // Value must be signed
 		'unitId'     => 123, // Value must be signed
 		'folderName' => 123, // Value must be signed
@@ -75,9 +75,3 @@ $data = [
 ```
 
 > The meta values must be signed by the Archive Digitisation application as they will be used to validate the upload using a TUS hook.
-
----
-
-# Ideas for future versions
-
-* Generate a file hash to ensure that the file as been transferred correctly? (Must be possible to turn on/off)

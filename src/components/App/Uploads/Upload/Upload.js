@@ -59,7 +59,7 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 
-		this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.folderName + '.tar')
+		this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.id + '.tar')
 	}
 
 	/**
@@ -93,17 +93,16 @@ class Upload extends Component {
 			fileId: fileId
 		})
 
+		const metadata = this.props.data.meta
+
+		metadata.fileName = path.basename(tar)
+
 		const options = {
 			endpoint: this.props.data.uploadUrl,
 			resume: true,
 			uploadUrl: window.localStorage.getItem(fileId),
 			uploadSize: size,
-			metadata: {
-				userId: this.props.data.meta.userId,
-				unitId: this.props.data.meta.unitId,
-				fileName: path.basename(tar),
-				folderName: this.props.data.meta.folderName
-			},
+			metadata: metadata,
 			onError: (error) => {
 				this.setState({exception: error})
 				this.deleteTar()

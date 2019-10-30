@@ -26,13 +26,6 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	gotoDigitisation = () => {
-		electron.shell.openExternal('https://digitalisering.arkivverket.no')
-	}
-
-	/**
-	 *
-	 */
 	resetState = () => {
 		this.setState(initialState)
 	}
@@ -184,7 +177,7 @@ class Uploader extends Component {
 				<div id="info" className="info">
 					<div className="message">
 						<b>Uploader er klar til bruk!</b>
-						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen <span className="link" onClick={this.gotoDigitisation}>Arkivdigitalisering</span>, og følge instruksjonene der.</p>
+						<p>For å laste opp innhold må du trykke på lenken i den tilhørende webapplikasjonen og følge instruksjonene der.</p>
 					</div>
 				</div>
 				<div id="upload" className="upload">
