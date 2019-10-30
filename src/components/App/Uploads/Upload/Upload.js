@@ -82,96 +82,104 @@ class Upload extends Component {
 	/**
 	 *
 	 */
-	upload = () => {
+	uploadFile = (tar) => {
+		let isFirstProgress = true
 
-		buildTar(this.props.data.sourceDirectory, this.tarFilePath).then((tar) => {
-			let isFirstProgress = true
+		const file   = fs.createReadStream(tar)
+		const size   = fs.statSync(tar).size
+		const fileId = md5(this.props.data.id + size)
 
-			const file   = fs.createReadStream(tar)
-			const size   = fs.statSync(tar).size
-			const fileId = md5(this.props.data.id + size)
-
-			this.setState({
-				buildingTar: false,
-				fileId: fileId
-			})
-
-			const options = {
-				endpoint: this.props.data.uploadUrl,
-				resume: true,
-				uploadUrl: window.localStorage.getItem(fileId),
-				uploadSize: size,
-				metadata: {
-					userId: this.props.data.meta.userId,
-					unitId: this.props.data.meta.unitId,
-					fileName: path.basename(tar),
-					folderName: this.props.data.meta.folderName
-				},
-				onError: (error) => {
-					this.setState({exception: error})
-
-					this.deleteTar()
-				},
-				onProgress: (bytesUploaded, bytesTotal) => {
-
-					let speed = null
-
-					const timestamp = window.performance.now()
-
-					if (isFirstProgress) {
-						window.localStorage.setItem(fileId, this.tusUpload.url)
-
-						isFirstProgress = false
-					}
-					else {
-						const timeSinceLastProgress = timestamp - this.transferSpeed.previousChunkTimestamp
-						const bytesUploadedSinceLastProgress = bytesUploaded - this.transferSpeed.previousBytesUploaded
-
-						speed = bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000)
-
-						if (this.transferSpeed.timeout !== null) {
-							clearTimeout(this.transferSpeed.timeout)
-						}
-
-						this.transferSpeed.timeout = setTimeout(() => {
-							if (this.state.isPaused === false) {
-								this.setState({isStalled: true})
-							}
-						}, 2000)
-					}
-
-					this.transferSpeed.previousChunkTimestamp = timestamp
-					this.transferSpeed.previousBytesUploaded = bytesUploaded
-
-					this.setState({
-						speed: speed,
-						isStalled: false,
-						uploadPercent: (bytesUploaded / bytesTotal * 100).toFixed(2)
-					})
-				},
-				onSuccess: () => {
-					clearTimeout(this.transferSpeed.timeout)
-
-					this.props.removeUpload(this.props.data.id)
-
-					window.localStorage.removeItem(fileId)
-
-					notify(this.props.data.reference + ' er ferdig opplastet!', {
-						tag: this.props.data.id
-					})
-
-					this.deleteTar()
-				}
-			}
-
-			this.tusUpload = new tus.Upload(file, options)
-
-			this.tusUpload.start()
-		}).catch((error) => {
-			this.setState({exception: error})
-
-			this.deleteTar()
+		this.setState({
+			buildingTar: false,
+			fileId: fileId
 		})
+
+		const options = {
+			endpoint: this.props.data.uploadUrl,
+			resume: true,
+			uploadUrl: window.localStorage.getItem(fileId),
+			uploadSize: size,
+			metadata: {
+				userId: this.props.data.meta.userId,
+				unitId: this.props.data.meta.unitId,
+				fileName: path.basename(tar),
+				folderName: this.props.data.meta.folderName
+			},
+			onError: (error) => {
+				this.setState({exception: error})
+				this.deleteTar()
+			},
+			onProgress: (bytesUploaded, bytesTotal) => {
+
+				let speed = null
+
+				const timestamp = window.performance.now()
+
+				if (isFirstProgress) {
+					window.localStorage.setItem(fileId, this.tusUpload.url)
+
+					isFirstProgress = false
+				}
+				else {
+					const timeSinceLastProgress = timestamp - this.transferSpeed.previousChunkTimestamp
+					const bytesUploadedSinceLastProgress = bytesUploaded - this.transferSpeed.previousBytesUploaded
+
+					speed = bytesUploadedSinceLastProgress / (timeSinceLastProgress / 1000)
+
+					if (this.transferSpeed.timeout !== null) {
+						clearTimeout(this.transferSpeed.timeout)
+					}
+
+					this.transferSpeed.timeout = setTimeout(() => {
+						if (this.state.isPaused === false) {
+							this.setState({isStalled: true})
+						}
+					}, 2000)
+				}
+
+				this.transferSpeed.previousChunkTimestamp = timestamp
+				this.transferSpeed.previousBytesUploaded = bytesUploaded
+
+				this.setState({
+					speed: speed,
+					isStalled: false,
+					uploadPercent: (bytesUploaded / bytesTotal * 100).toFixed(2)
+				})
+			},
+			onSuccess: () => {
+				clearTimeout(this.transferSpeed.timeout)
+
+				this.props.removeUpload(this.props.data.id)
+
+				window.localStorage.removeItem(fileId)
+
+				notify(this.props.data.reference + ' er ferdig opplastet!', {
+					tag: this.props.data.id
+				})
+
+				this.deleteTar()
+			}
+		}
+
+		this.tusUpload = new tus.Upload(file, options)
+		this.tusUpload.start()
+	}
+
+	/**
+	 *
+	 */
+	startUpload = () => {
+		if (fs.existsSync(this.tarFilePath)) {
+			this.uploadFile(this.tarFilePath)
+		}
+		else {
+			buildTar(this.props.data.sourceDirectory, this.tarFilePath).then((tar) => {
+				this.uploadFile(tar)
+			}).catch((error) => {
+				this.setState({exception: error})
+				this.deleteTar()
+			})
+		}
 	}
 
 	/**
@@ -205,7 +213,7 @@ class Upload extends Component {
 	retryUpload = () => {
 		this.tusUpload = null
 		this.resetState()
-		this.upload()
+		this.startUpload()
 	}
 
 	/**
@@ -224,7 +232,6 @@ class Upload extends Component {
 			}
 
 			this.deleteTar()
-
 			this.props.removeUpload(this.props.data.id)
 		}
 	}
@@ -233,7 +240,7 @@ class Upload extends Component {
 	 *
 	 */
 	componentDidMount = () => {
-		this.upload()
+		this.startUpload()
 	}
 
 	/**
