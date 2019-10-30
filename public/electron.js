@@ -12,6 +12,7 @@ const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
 const menu              = require('./electron/ui/menu')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
+const notification      = require('./electron/helpers/notification')
 const {is}              = require('electron-util')
 
 let win
@@ -172,6 +173,12 @@ else {
 		app.quit()
 	})
 
+	// Handle notifications from the renderer
+
+	ipcMain.on('notification', (event, ...args) => {
+		notification(...args)
+	})
+
 	// Auto-update event handlers + helpers
 
 	const getHelpMenuItem = (label) => {
@@ -224,6 +231,6 @@ else {
 		getHelpMenuItem('downloading_update').visible = false
 		getHelpMenuItem('restart_to_update').visible = true
 
-		// @todo: Show some visual indication to the user that an update is available
+		notification('Oppdatering', 'En ny versjon av Uploader er tilgjengelig!')
 	})
 }

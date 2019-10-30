@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 import buildTar from '../../../../helpers/buildTar'
-import notify from '../../../../helpers/notify'
 import './Upload.scss'
 
 const {is}     = window.require('electron-util')
@@ -153,9 +152,7 @@ class Upload extends Component {
 
 				window.localStorage.removeItem(fileId)
 
-				notify(this.props.data.reference + ' er ferdig opplastet!', {
-					tag: this.props.data.id
-				})
+				electron.ipcRenderer.send('notification', 'Ferdig', this.props.data.reference + ' er ferdig opplastet!')
 
 				this.deleteTar()
 			}
