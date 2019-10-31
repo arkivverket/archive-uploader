@@ -33,7 +33,7 @@ class App extends Component {
 			uploads = JSON.parse(uploads)
 
 			for (let i = 0; i < uploads.length; i++) {
-				let directory = uploads[i].sourceDirectory
+				let directory = uploads[i].source
 
 				if (!fs.existsSync(directory) || !fs.statSync(directory).isDirectory() || isDirectoryEmpty(directory)) {
 					uploads.splice(i, 1)
@@ -67,7 +67,7 @@ class App extends Component {
 			id: md5(url),
 			reference: data.reference,
 			uploadUrl: data.uploadUrl,
-			uploadType: data.uploadType === undefined ? 'folder' : data.uploadType,
+			uploadType: data.uploadType === undefined ? 'directory' : (data.uploadType === 'tar' ? 'tar' : 'directory'),
 			meta: data.meta || {}
 		}
 	}
@@ -129,7 +129,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(url)
 
 			if (this.uploadExists(template.id)) {
-				alert('Denne ' + (template.uploadType === 'folder' ? 'mappen' : 'filen') + ' (' + template.reference + ') er allerede under opplasting!')
+				alert('Denne ' + (template.uploadType === 'directory' ? 'mappen' : 'filen') + ' (' + template.reference + ') er allerede under opplasting!')
 
 				return
 			}
@@ -157,7 +157,7 @@ class App extends Component {
 
 		return (
 			<Fragment>
-				<Uploader addUpload={this.addUpload} uploadTemplate={this.state.uploadTemplate} key={key} />
+				<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
 				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
 			</Fragment>
 		)

@@ -64,7 +64,7 @@ The payload must contain the following data. Note that the meta block is optiona
 $data = [
 	'reference'  => 'RA/EA-4070/Ki/L0009',       // (required) Name or reference that lets the user identify of the upload
 	'uploadUrl'  => 'http://example.org/upload', // (required) URL to the tusd endpoint
-	'uploadType' => 'folder',                    // (optional) Upload type. The allowed types are 'folder' and 'tar' (default: 'folder')
+	'uploadType' => 'directory',                 // (optional) Upload type. The allowed types are 'directory' and 'tar' (default: 'directory')
 	'meta'       => [                            // (optional) Metadata that is sent back to the tusd server when the upload starts
 		'userId'     => 123, // Value must be signed
 		'unitId'     => 123, // Value must be signed
