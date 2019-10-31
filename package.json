@@ -1,6 +1,6 @@
 {
     "name": "Uploader",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "An easy to use archive digitisation uploader.",
     "author": "Arkivvkerket <utvikling@arkivverket.no>",
     "private": true,
