@@ -26,6 +26,10 @@ if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
+	// Register custom protocol
+
+	app.setAsDefaultProtocolClient(protocol)
+
 	// Focus window if we have one and handle URL opening on Windows/Linux
 
 	app.on('second-instance', (event, argv) => {
@@ -45,10 +49,6 @@ else {
 			}
 		}
 	})
-
-	// Register custom protocol
-
-	app.setAsDefaultProtocolClient(protocol)
 
 	// Handle URL opening
 
@@ -72,10 +72,11 @@ else {
 		}
 	}
 
-	/**
-	 * Create window.
-	 */
-	const createWindow = () => {
+	// Set the application menu and create the window when the app is ready
+
+	app.on('ready', () => {
+		Menu.setApplicationMenu(menu)
+
 		// Load the previous state with fallback to defaults
 
 		let windowState = windowStateKeeper({
@@ -101,6 +102,21 @@ else {
 
 		windowState.manage(win)
 
+		// Set the renderer
+
+		if (is.development) {
+			win.loadURL('http://localhost:3000')
+
+			win.webContents.openDevTools()
+		}
+		else {
+			win.loadURL(urlUtilities.format({
+				pathname: path.join(__dirname, '../build/index.html'),
+				protocol: 'file:',
+				slashes: true
+			}))
+		}
+
 		// Register auto-update event handlers
 
 		autoUpdates(win)
@@ -110,13 +126,21 @@ else {
 		win.once('ready-to-show', () => {
 			win.show()
 			win.focus()
+		})
 
+		// Check for updates once the window is shown and trigger a upload if the app was started from a URL
+
+		win.once('show', () => {
 			if (!is.development && (is.macos || (is.windows && process.env.PORTABLE_EXECUTABLE_DIR === undefined))) {
 				autoUpdater.checkForUpdates()
 			}
+
+			if (urlToOpenOnStartup) {
+				startUpload(win, urlToOpenOnStartup)
+			}
 		})
 
-		// Register close event handler
+		// Register window close event handler
 
 		win.on('close', (event) => {
 			if (!closeWithoutDialog) {
@@ -134,42 +158,11 @@ else {
 			}
 		})
 
-		// Register closed event handler
+		// Register window closed event handler
 
 		win.on('closed', () => {
 			win = null
 		})
-
-		// Load the renderer
-
-		if (is.development) {
-			win.loadURL('http://localhost:3000')
-
-			win.webContents.openDevTools()
-		}
-		else {
-			win.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/index.html'),
-				protocol: 'file:',
-				slashes: true
-			}))
-		}
-	}
-
-	// Create a window and set the application menu when the app is ready
-
-	app.on('ready', () => {
-		Menu.setApplicationMenu(menu)
-
-		createWindow()
-
-		if (urlToOpenOnStartup) {
-			win.once('show', () => {
-				startUpload(win, urlToOpenOnStartup)
-
-				urlToOpenOnStartup = null
-			})
-		}
 	})
 
 	// Quit when all windows are closed
