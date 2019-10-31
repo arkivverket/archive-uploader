@@ -26,13 +26,6 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
-	gotoDigitisation = () => {
-		electron.shell.openExternal('https://digitalisering.arkivverket.no')
-	}
-
-	/**
-	 *
-	 */
 	resetState = () => {
 		this.setState(initialState)
 	}
@@ -46,21 +39,32 @@ class Uploader extends Component {
 		if (files.length > 1) {
 			success = false
 
-			alert('Du kan bare laste opp en mappe av gangen!')
+			alert(`Du kan bare laste opp en ${this.props.upload === 'directory' ? 'mappe' : 'fil'} av gangen!`)
 		}
 
-		const path = typeof(files[0]) === 'object' ? files[0].path : files[0]
+		if (success) {
+			const path = typeof(files[0]) === 'object' ? files[0].path : files[0]
 
-		if (success && !fs.statSync(path).isDirectory()) {
-			success = false
+			if (this.props.upload.uploadType === 'tar') {
+				if (path.split('.').pop() !== 'tar') {
+					success = false
 
-			alert('Du må laste opp en mappe!')
-		}
+					alert('Du må laste opp en tar-fil!')
+				}
+			}
+			else {
+				if (success && !fs.statSync(path).isDirectory()) {
+					success = false
 
-		if (success && isDirectoryEmpty(path)) {
-			success = false
+					alert('Du må laste opp en mappe!')
+				}
 
-			alert('Mappen må inneholde minst en fil!')
+				if (success && isDirectoryEmpty(path)) {
+					success = false
+
+					alert('Mappen må inneholde minst en fil!')
+				}
+			}
 		}
 
 		return success
@@ -69,8 +73,26 @@ class Uploader extends Component {
 	/**
 	 *
 	 */
+	dialogProperties = () => {
+		if (this.props.upload.uploadType === 'tar') {
+			return {
+				filters: [
+					{name: 'Tar', extensions: ['tar']}
+				],
+				properties: ['openFile']
+			}
+		}
+
+		return {
+			properties: ['openDirectory']
+		}
+	}
+
+	/**
+	 *
+	 */
 	fileDialog = () => {
-		electron.remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
+		electron.remote.dialog.showOpenDialog(this.dialogProperties()).then((result) => {
 			if (result.canceled === false && result.filePaths !== undefined) {
 				if (!this.validateUpload(result.filePaths)) {
 					this.fileDialog()
@@ -155,9 +177,9 @@ class Uploader extends Component {
 	 *
 	 */
 	startUpload = () => {
-		const upload = this.props.uploadTemplate
+		const upload = this.props.upload
 
-		upload.sourceDirectory = this.state.dropzoneTarget
+		upload.source = this.state.dropzoneTarget
 
 		this.props.addUpload(upload)
 
@@ -184,7 +206,7 @@ class Uploader extends Component {
 				<div id="info" className="info">
 					<div className="message">
 						<b>Uploader er klar til bruk!</b>
-						<p>For å laste opp innhold må du starte arbeid på en enhet i webapplikasjonen <span className="link" onClick={this.gotoDigitisation}>Arkivdigitalisering</span>, og følge instruksjonene der.</p>
+						<p>For å laste opp innhold må du trykke på lenken i den tilhørende webapplikasjonen og følge instruksjonene der.</p>
 					</div>
 				</div>
 				<div id="upload" className="upload">
@@ -196,7 +218,7 @@ class Uploader extends Component {
 					>
 						{this.state.dropzoneTarget === null &&
 							<div className="message">
-								Dra og slipp mappen her, eller <span className="link" onClick={this.fileDialog}>bla gjennom filer</span>.
+								Dra og slipp det du vil laste opp her, eller <span className="link" onClick={this.fileDialog}>bla gjennom filsystemet</span>.
 							</div>
 						}
 						{this.state.dropzoneTarget !== null &&
@@ -221,7 +243,7 @@ class Uploader extends Component {
 
 Uploader.propTypes = {
 	addUpload: PropTypes.func,
-	uploadTemplate: PropTypes.object
+	upload: PropTypes.object
 }
 
 export default Uploader

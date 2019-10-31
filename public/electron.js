@@ -6,19 +6,18 @@ const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
 const ipcMain           = electron.ipcMain
-const dialog            = electron.dialog
 const path              = require('path')
 const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
+const {is}              = require('electron-util')
 const menu              = require('./electron/ui/menu')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const notification      = require('./electron/helpers/notification')
-const {is}              = require('electron-util')
+const autoUpdates       = require('./electron/events/autoUpdates')
 
 let win
 let urlToOpenOnStartup
 let closeWithoutDialog = false
-let showUpdateNotAvailableMessage = false
 
 const protocol = is.development ? 'dpldrdev' : 'dpldr'
 
@@ -76,7 +75,6 @@ else {
 	 * Create window.
 	 */
 	const createWindow = () => {
-
 		// Load the previous state with fallback to defaults
 
 		let windowState = windowStateKeeper({
@@ -100,6 +98,14 @@ else {
 			}
 		})
 
+		windowState.manage(win)
+
+		// Register auto-update event handlers
+
+		autoUpdates(win)
+
+		// Show and focus window once it's ready
+
 		win.once('ready-to-show', () => {
 			win.show()
 			win.focus()
@@ -108,23 +114,6 @@ else {
 				autoUpdater.checkForUpdates()
 			}
 		})
-
-		windowState.manage(win)
-
-		// Load the renderer
-
-		if (is.development) {
-			win.loadURL('http://localhost:3000')
-
-			win.webContents.openDevTools()
-		}
-		else {
-			win.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/index.html'),
-				protocol: 'file:',
-				slashes: true
-			}))
-		}
 
 		// Register close event handler
 
@@ -149,14 +138,29 @@ else {
 		win.on('closed', () => {
 			win = null
 		})
+
+		// Load the renderer
+
+		if (is.development) {
+			win.loadURL('http://localhost:3000')
+
+			win.webContents.openDevTools()
+		}
+		else {
+			win.loadURL(urlUtilities.format({
+				pathname: path.join(__dirname, '../build/index.html'),
+				protocol: 'file:',
+				slashes: true
+			}))
+		}
 	}
 
 	// Create a window and set the application menu when the app is ready
 
 	app.on('ready', () => {
-		createWindow()
-
 		Menu.setApplicationMenu(menu)
+
+		createWindow()
 
 		if (urlToOpenOnStartup) {
 			win.once('show', () => {
@@ -177,60 +181,5 @@ else {
 
 	ipcMain.on('notification', (event, ...args) => {
 		notification(...args)
-	})
-
-	// Auto-update event handlers + helpers
-
-	const getHelpMenuItem = (label) => {
-		return Menu.getApplicationMenu().items.filter((item) => {
-			return item.role === 'help'
-		})[0].submenu.items.filter((item) => {
-			return item.lblid === label
-		})[0]
-	}
-
-	autoUpdater.on('checking-for-update', () => {
-		getHelpMenuItem('check_for_updates').enabled = false
-	})
-
-	autoUpdater.on('update-available', () => {
-		getHelpMenuItem('check_for_updates').visible = false
-		getHelpMenuItem('downloading_update').visible = true
-	})
-
-	autoUpdater.on('update-not-available', () => {
-		getHelpMenuItem('check_for_updates').enabled = true
-
-		if (showUpdateNotAvailableMessage) {
-			dialog.showMessageBox(win, {
-				type: 'none',
-				message: 'Ingen oppdatering funnet.'
-			})
-		}
-
-		showUpdateNotAvailableMessage = true
-	})
-
-	autoUpdater.on('error', (event, error) => {
-		getHelpMenuItem('check_for_updates').visible = true
-		getHelpMenuItem('check_for_updates').enabled = true
-		getHelpMenuItem('downloading_update').visible = false
-
-		dialog.showMessageBox(win, {
-			type: 'error',
-			message: 'Det skjedde en feil under oppdatering:',
-			detail: error
-		})
-	})
-
-	autoUpdater.on('download-progress', (event, progress) => {
-		// @todo: Display download progress in menu
-	})
-
-	autoUpdater.on('update-downloaded', (event, info) => {
-		getHelpMenuItem('downloading_update').visible = false
-		getHelpMenuItem('restart_to_update').visible = true
-
-		notification('Oppdatering', 'En ny versjon av Uploader er tilgjengelig!')
 	})
 }

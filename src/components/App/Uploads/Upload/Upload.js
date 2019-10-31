@@ -59,7 +59,12 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 
-		this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.folderName + '.tar')
+		if (this.props.data.uploadType === 'tar') {
+			this.tarFilePath = this.props.data.source
+		}
+		else {
+			this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.id + '.tar')
+		}
 	}
 
 	/**
@@ -93,17 +98,16 @@ class Upload extends Component {
 			fileId: fileId
 		})
 
+		const metadata = this.props.data.meta
+
+		metadata.fileName = path.basename(tar)
+
 		const options = {
 			endpoint: this.props.data.uploadUrl,
 			resume: true,
 			uploadUrl: window.localStorage.getItem(fileId),
 			uploadSize: size,
-			metadata: {
-				userId: this.props.data.meta.userId,
-				unitId: this.props.data.meta.unitId,
-				fileName: path.basename(tar),
-				folderName: this.props.data.meta.folderName
-			},
+			metadata: metadata,
 			onError: (error) => {
 				this.setState({exception: error})
 				this.deleteTar()
@@ -154,7 +158,9 @@ class Upload extends Component {
 
 				electron.ipcRenderer.send('notification', 'Ferdig', this.props.data.reference + ' er ferdig opplastet!')
 
-				this.deleteTar()
+				if(this.props.data.uploadType === 'directory') {
+					this.deleteTar()
+				}
 			}
 		}
 
@@ -166,16 +172,26 @@ class Upload extends Component {
 	 *
 	 */
 	startUpload = () => {
-		if (fs.existsSync(this.tarFilePath)) {
-			this.uploadFile(this.tarFilePath)
+		if (this.props.data.uploadType === 'tar') {
+			if (fs.existsSync(this.tarFilePath)) {
+				this.uploadFile(this.tarFilePath)
+			}
+			else {
+				this.props.removeUpload(this.props.data.id)
+			}
 		}
 		else {
-			buildTar(this.props.data.sourceDirectory, this.tarFilePath).then((tar) => {
-				this.uploadFile(tar)
-			}).catch((error) => {
-				this.setState({exception: error})
-				this.deleteTar()
-			})
+			if (fs.existsSync(this.tarFilePath)) {
+				this.uploadFile(this.tarFilePath)
+			}
+			else {
+				buildTar(this.props.data.source, this.tarFilePath).then((tar) => {
+					this.uploadFile(tar)
+				}).catch((error) => {
+					this.setState({exception: error})
+					this.deleteTar()
+				})
+			}
 		}
 	}
 
@@ -252,8 +268,8 @@ class Upload extends Component {
 					</div>
 				</div>
 				<div className="bottom-row">
-					<div className="source-directory" title={this.props.data.sourceDirectory}>
-						{this.props.data.sourceDirectory}
+					<div className="source-directory" title={this.props.data.source}>
+						{this.props.data.source}
 					</div>
 					<div className="controls">
 						{this.state.buildingTar === true &&
