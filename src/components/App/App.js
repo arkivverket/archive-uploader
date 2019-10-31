@@ -67,7 +67,7 @@ class App extends Component {
 			id: md5(payload),
 			reference: data.reference,
 			uploadUrl: data.uploadUrl,
-			uploadType: data.uploadType === undefined ? 'directory' : (data.uploadType === 'tar' ? 'tar' : 'directory'),
+			uploadType: data.uploadType === undefined ? 'directory' : data.uploadType,
 			meta: data.meta || {}
 		}
 	}
