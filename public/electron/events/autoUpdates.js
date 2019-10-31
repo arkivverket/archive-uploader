@@ -20,7 +20,7 @@ const getHelpMenuItem = (label) => {
 }
 
 /**
- * @param BrowserWindow win Window instance
+ * @param BrowserWindow win BrowserWindow instance
  */
 const autoUpdates = (win) => {
 	autoUpdater.on('checking-for-update', () => {

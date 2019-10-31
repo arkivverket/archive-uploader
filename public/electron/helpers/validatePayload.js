@@ -22,6 +22,8 @@ const schema = {
 }
 
 /**
+ * Validates the URL payload.
+ *
  * @param string payload The payload received from the URL
  * @return boolean
  */
