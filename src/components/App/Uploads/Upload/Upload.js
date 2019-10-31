@@ -158,7 +158,7 @@ class Upload extends Component {
 
 				electron.ipcRenderer.send('notification', 'Ferdig', this.props.data.reference + ' er ferdig opplastet!')
 
-				if(this.props.data.uploadType === 'directory') {
+				if (this.props.data.uploadType === 'directory') {
 					this.deleteTar()
 				}
 			}
