@@ -61,11 +61,11 @@ const autoUpdates = (win) => {
 		// @todo: Display download progress in menu
 	})
 
-	autoUpdater.on('update-downloaded', (event, info) => {
+	autoUpdater.on('update-downloaded', () => {
 		getHelpMenuItem('downloading_update').visible = false
 		getHelpMenuItem('restart_to_update').visible = true
 
-		notification('Oppdatering', `Versjon ${info.version} av Uploader er lastet ned. Start applikasjonen på nytt for å oppgradere.`)
+		notification('Oppdatering', 'En ny versjon av Uploader er lastet ned. Start applikasjonen på nytt for å oppgradere.')
 	})
 }
 
