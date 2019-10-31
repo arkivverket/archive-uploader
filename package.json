@@ -1,6 +1,6 @@
 {
     "name": "Uploader",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "An easy to use archive digitisation uploader.",
     "author": "Arkivvkerket <utvikling@arkivverket.no>",
     "private": true,
@@ -11,6 +11,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
         "@fortawesome/react-fontawesome": "^0.1.7",
         "@tippy.js/react": "^3.1.0",
+        "ajv": "^6.10.2",
         "electron-updater": "^4.1.2",
         "electron-util": "^0.12.2",
         "electron-window-state": "^5.0.3",
@@ -75,10 +76,10 @@
         },
         "publish": [
             {
-              "provider": "generic",
-              "url": "https://uploader.digitalisering.arkivverket.no"
+                "provider": "generic",
+                "url": "https://uploader.digitalisering.arkivverket.no"
             }
-          ]
+        ]
     },
     "browserslist": [
         "electron 7.0"

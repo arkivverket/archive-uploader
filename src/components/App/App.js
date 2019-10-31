@@ -60,11 +60,11 @@ class App extends Component {
 	/**
 	 *
 	 */
-	buildCurrentUploadTemplate = (url) => {
-		const data = JSON.parse(window.atob(url.split('//').pop()))
+	buildCurrentUploadTemplate = (payload) => {
+		const data = JSON.parse(payload)
 
 		return {
-			id: md5(url),
+			id: md5(payload),
 			reference: data.reference,
 			uploadUrl: data.uploadUrl,
 			uploadType: data.uploadType === undefined ? 'directory' : (data.uploadType === 'tar' ? 'tar' : 'directory'),
@@ -125,8 +125,8 @@ class App extends Component {
 	 *
 	 */
 	componentDidMount = () => {
-		electron.ipcRenderer.on('start-upload', (event, url) => {
-			const template = this.buildCurrentUploadTemplate(url)
+		electron.ipcRenderer.on('start-upload', (event, payload) => {
+			const template = this.buildCurrentUploadTemplate(payload)
 
 			if (this.uploadExists(template.id)) {
 				alert('Denne ' + (template.uploadType === 'directory' ? 'mappen' : 'filen') + ' (' + template.reference + ') er allerede under opplasting!')

@@ -13,6 +13,7 @@ const {is}              = require('electron-util')
 const menu              = require('./electron/ui/menu')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const notification      = require('./electron/helpers/notification')
+const startUpload       = require('./electron/helpers/startUpload')
 const autoUpdates       = require('./electron/events/autoUpdates')
 
 let win
@@ -39,7 +40,7 @@ else {
 				const url = findUrlInArgs(protocol, argv)
 
 				if (url !== false) {
-					win.webContents.send('start-upload', url)
+					startUpload(win, url)
 				}
 			}
 		}
@@ -56,7 +57,7 @@ else {
 			event.preventDefault()
 
 			if (win) {
-				win.webContents.send('start-upload', url)
+				startUpload(win, url)
 			}
 			else {
 				urlToOpenOnStartup = url
@@ -164,7 +165,7 @@ else {
 
 		if (urlToOpenOnStartup) {
 			win.once('show', () => {
-				win.webContents.send('start-upload', urlToOpenOnStartup)
+				startUpload(win, urlToOpenOnStartup)
 
 				urlToOpenOnStartup = null
 			})
