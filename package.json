@@ -1,7 +1,7 @@
 {
-    "name": "Uploader",
+    "name": "uploader",
     "version": "1.2.2",
-    "description": "An easy to use archive digitisation uploader.",
+    "description": "An easy to use tusd uploader.",
     "author": "Arkivvkerket <utvikling@arkivverket.no>",
     "private": true,
     "homepage": "./",
@@ -47,8 +47,9 @@
         "build-win-test": "yarn react-build && yarn electron-build -w"
     },
     "build": {
-        "afterSign": "assemble/scripts/notarize.js",
         "appId": "no.arkivverket.digitalisering.uploader",
+        "productName": "Uploader",
+        "afterSign": "assemble/scripts/notarize.js",
         "directories": {
             "buildResources": "assemble/resources"
         },
