@@ -20,9 +20,9 @@ const getHelpMenuItem = (label) => {
 }
 
 /**
- * @param BrowserWindow win BrowserWindow instance
+ * @param BrowserWindow window BrowserWindow instance
  */
-const autoUpdates = (win) => {
+const autoUpdates = (window) => {
 	autoUpdater.on('checking-for-update', () => {
 		getHelpMenuItem('check_for_updates').enabled = false
 	})
@@ -36,7 +36,7 @@ const autoUpdates = (win) => {
 		getHelpMenuItem('check_for_updates').enabled = true
 
 		if (showUpdateNotAvailableMessage) {
-			dialog.showMessageBox(win, {
+			dialog.showMessageBox(window, {
 				type: 'none',
 				message: 'Ingen oppdatering funnet.'
 			})
@@ -50,7 +50,7 @@ const autoUpdates = (win) => {
 		getHelpMenuItem('check_for_updates').enabled = true
 		getHelpMenuItem('downloading_update').visible = false
 
-		dialog.showMessageBox(win, {
+		dialog.showMessageBox(window, {
 			type: 'error',
 			message: 'Det skjedde en feil under oppdatering:',
 			detail: error

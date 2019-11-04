@@ -16,7 +16,7 @@ const notification      = require('./electron/helpers/notification')
 const startUpload       = require('./electron/helpers/startUpload')
 const autoUpdates       = require('./electron/events/autoUpdates')
 
-let win
+let mainWindow
 let urlToOpenOnStartup
 let closeWithoutDialog = false
 
@@ -33,18 +33,18 @@ else {
 	// Focus window if we have one and handle URL opening on Windows/Linux
 
 	app.on('second-instance', (event, argv) => {
-		if (win) {
-			if (win.isMinimized()) {
-				win.restore()
+		if (mainWindow) {
+			if (mainWindow.isMinimized()) {
+				mainWindow.restore()
 			}
 
-			win.focus()
+			mainWindow.focus()
 
 			if (!is.macos) {
 				const url = findUrlInArgs(protocol, argv)
 
 				if (url !== false) {
-					startUpload(win, url)
+					startUpload(mainWindow, url)
 				}
 			}
 		}
@@ -56,8 +56,8 @@ else {
 		app.on('open-url', (event, url) => {
 			event.preventDefault()
 
-			if (win) {
-				startUpload(win, url)
+			if (mainWindow) {
+				startUpload(mainWindow, url)
 			}
 			else {
 				urlToOpenOnStartup = url
@@ -80,38 +80,38 @@ else {
 		// Load the previous state with fallback to defaults
 
 		let windowState = windowStateKeeper({
-			defaultWidth: 500,
-			defaultHeight: 800
+			defaultWidth: 700,
+			defaultHeight: 700
 		})
 
 		// Create the application window and register it with the state keeper
 
-		win = new BrowserWindow({
+		mainWindow = new BrowserWindow({
 			titleBarStyle: is.macos ? 'hidden' : 'default',
 			x: windowState.x,
 			y: windowState.y,
 			width: windowState.width,
 			height: windowState.height,
+			minWidth: 700,
 			minHeight: 500,
-			minWidth: 500,
 			show: false,
 			webPreferences: {
 				nodeIntegration: true
 			}
 		})
 
-		windowState.manage(win)
+		windowState.manage(mainWindow)
 
 		// Set the renderer
 
 		if (is.development) {
-			win.loadURL('http://localhost:3000')
+			mainWindow.loadURL('http://localhost:3000')
 
-			win.webContents.openDevTools()
+			mainWindow.webContents.openDevTools()
 		}
 		else {
-			win.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/index.html'),
+			mainWindow.loadURL(urlUtilities.format({
+				pathname: path.join(__dirname, '../build/main.html'),
 				protocol: 'file:',
 				slashes: true
 			}))
@@ -119,40 +119,40 @@ else {
 
 		// Register auto-update event handlers
 
-		autoUpdates(win)
+		autoUpdates(mainWindow)
 
 		// Show and focus window once it's ready
 
-		win.once('ready-to-show', () => {
-			win.show()
-			win.focus()
+		mainWindow.once('ready-to-show', () => {
+			mainWindow.show()
+			mainWindow.focus()
 		})
 
 		// Check for updates once the window is shown and trigger a upload if the app was started from a URL
 
-		win.once('show', () => {
+		mainWindow.once('show', () => {
 			if (!is.development && (is.macos || (is.windows && process.env.PORTABLE_EXECUTABLE_DIR === undefined))) {
 				autoUpdater.checkForUpdates()
 			}
 
 			if (urlToOpenOnStartup) {
-				startUpload(win, urlToOpenOnStartup)
+				startUpload(mainWindow, urlToOpenOnStartup)
 			}
 		})
 
 		// Register window close event handler
 
-		win.on('close', (event) => {
+		mainWindow.on('close', (event) => {
 			if (!closeWithoutDialog) {
 				event.preventDefault()
 
-				win.webContents.send('can-i-close')
+				mainWindow.webContents.send('can-i-close')
 
 				ipcMain.once('can-i-close-reply', (event, canClose) => {
 					if (canClose) {
 						closeWithoutDialog = true
 
-						win.close()
+						mainWindow.close()
 					}
 				})
 			}
@@ -160,8 +160,8 @@ else {
 
 		// Register window closed event handler
 
-		win.on('closed', () => {
-			win = null
+		mainWindow.on('closed', () => {
+			mainWindow = null
 		})
 	})
 

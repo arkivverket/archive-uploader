@@ -7,14 +7,14 @@ const validatePayload = require('./validatePayload')
 /**
  * Triggers a new upload.
  *
- * @param BrowserWindow win BrowserWindow instance
- * @param string        url URL
+ * @param BrowserWindow window BrowserWindow instance
+ * @param string        url    URL
  */
-const startUpload = (win, url) => {
+const startUpload = (window, url) => {
 	const payload = Buffer.from(url.split('//').pop(), 'base64').toString('utf8')
 
 	if (!validatePayload(payload)) {
-		dialog.showMessageBox(win, {
+		dialog.showMessageBox(window, {
 			type: 'error',
 			message: 'Lenken du trykket på er ugyldig.'
 		})
@@ -22,7 +22,7 @@ const startUpload = (win, url) => {
 		return
 	}
 
-	win.webContents.send('start-upload', payload)
+	window.webContents.send('start-upload', payload)
 }
 
 module.exports = startUpload
