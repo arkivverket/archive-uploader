@@ -78,7 +78,7 @@ class Upload extends Component {
 	 *
 	 */
 	deleteTar = () => {
-		if (fs.existsSync(this.tarFilePath)) {
+		if (fs.existsSync(this.tarFilePath) && this.props.data.uploadType === 'directory') {
 			fs.unlinkSync(this.tarFilePath)
 		}
 	}
@@ -158,9 +158,7 @@ class Upload extends Component {
 
 				electron.ipcRenderer.send('notification', 'Ferdig', this.props.data.reference + ' er ferdig opplastet!')
 
-				if (this.props.data.uploadType === 'directory') {
-					this.deleteTar()
-				}
+				this.deleteTar()
 			}
 		}
 
@@ -245,6 +243,7 @@ class Upload extends Component {
 			}
 
 			this.deleteTar()
+
 			this.props.removeUpload(this.props.data.id)
 		}
 	}
