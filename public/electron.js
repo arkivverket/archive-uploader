@@ -111,7 +111,7 @@ else {
 		}
 		else {
 			mainWindow.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/main.html'),
+				pathname: path.join(__dirname, '../build/index.html'),
 				protocol: 'file:',
 				slashes: true
 			}))
