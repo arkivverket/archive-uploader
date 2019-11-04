@@ -6,6 +6,7 @@ const dialog        = electron.dialog
 const app           = electron.app
 const Menu          = electron.Menu
 const {is}          = require('electron-util')
+const settings      = require('../settings')
 
 // Base template
 
@@ -91,6 +92,10 @@ if (is.macos) {
 		label: app.name,
 		submenu: [
 			{role: 'about'},
+			{type: 'separator'},
+			{label: 'Preferences', accelerator: 'Command+,', click: () => {
+				settings.open()
+			}},
 			{type: 'separator'},
 			{role: 'services', submenu: []},
 			{type: 'separator'},

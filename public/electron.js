@@ -92,7 +92,7 @@ else {
 			y: windowState.y,
 			width: windowState.width,
 			height: windowState.height,
-			minWidth: 700,
+			minWidth: 500,
 			minHeight: 500,
 			show: false,
 			webPreferences: {

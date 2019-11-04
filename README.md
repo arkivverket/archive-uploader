@@ -14,7 +14,7 @@ Next you can start the application in development mode using the following comma
 yarn start
 ```
 
-> 💡 React components will automatically be reloaded when modified. However, if you make changes to the Electron application files (`public/electron.js`, `public/electron/*`) then you'll have to restart the application.
+> 💡 React components will automatically be reloaded when modified. However, if you make changes to the Electron main process files (`public/*`) then you'll have to restart the application.
 
 ## Build for production
 
