@@ -53,7 +53,7 @@ class App extends Component {
 	 */
 	setBadgeCount = (count) => {
 		if (!is.windows) {
-			electron.remote.app.badgeCount = count
+			electron.ipcRenderer.send('set-badge-count', count)
 		}
 	}
 

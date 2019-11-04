@@ -176,4 +176,10 @@ else {
 	ipcMain.on('notification', (event, ...args) => {
 		notification(...args)
 	})
+
+	// Update the badge count from the renderer
+
+	ipcMain.on('set-badge-count', (event, count) => {
+		app.badgeCount = count
+	})
 }
