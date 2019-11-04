@@ -49,7 +49,7 @@ settings.open = () => {
 			height: 500,
 			minWidth: 500,
 			minHeight: 500,
-			show: true,
+			show: false,
 			webPreferences: {
 				nodeIntegration: true
 			}
