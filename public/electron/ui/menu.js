@@ -93,7 +93,7 @@ if (is.macos) {
 		submenu: [
 			{role: 'about'},
 			{type: 'separator'},
-			{label: 'Preferences', accelerator: 'Command+,', click: () => {
+			{label: 'Preferences...', accelerator: 'Command+,', click: () => {
 				settings.open()
 			}},
 			{type: 'separator'},
