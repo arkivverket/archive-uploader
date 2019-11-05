@@ -6,8 +6,6 @@ const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
 const ipcMain           = electron.ipcMain
-const path              = require('path')
-const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
 const {is}              = require('electron-util')
 const menu              = require('./electron/ui/menu')
@@ -15,6 +13,7 @@ const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const notification      = require('./electron/helpers/notification')
 const startUpload       = require('./electron/helpers/startUpload')
 const autoUpdates       = require('./electron/events/autoUpdates')
+const settings          = require('./electron/settings')
 
 let mainWindow
 let urlToOpenOnStartup
@@ -177,5 +176,11 @@ else {
 
 	ipcMain.on('set-badge-count', (event, count) => {
 		app.badgeCount = count
+	})
+
+	// Close the settings window
+
+	ipcMain.on('close-settings', () => {
+		settings.close()
 	})
 }

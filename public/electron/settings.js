@@ -2,8 +2,6 @@
 
 const electron      = require('electron')
 const BrowserWindow = electron.BrowserWindow
-const path          = require('path')
-const urlUtilities  = require('url')
 const {is}          = require('electron-util')
 
 const settings = {}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { isDirectoryEmpty } from '../../helpers/fsHelpers'
+import Settings from './Settings/Settings'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
 import './App.scss'
@@ -160,7 +161,7 @@ class App extends Component {
 			<HashRouter>
 				<Switch>
 					<Route path="/settings">
-						Settings...
+						<Settings />
 					</Route>
 					<Route path="/">
 						<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
