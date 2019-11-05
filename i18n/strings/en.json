@@ -1,0 +1,13 @@
+{
+	"You can only upload one file at a time!": "You can only upload one file at a time!",
+	"You can only upload one directory at a time!": "You can only upload one directory at a time!",
+	"You must upload a tar-file!": "You must upload a tar-file!",
+	"You must upload a directory!": "You must upload a directory!",
+	"The directory must contain at least one file!": "The directory must contain at least one file!",
+	"Uploads": "Uploads",
+	"Uploader is ready for use!": "Uploader is ready for use!",
+	"To upload content you must click on the link in the belonging web application and follow the instructions there.": "To upload content you must click on the link in the belonging web application and follow the instructions there.",
+	"Drag and drop the item you want to upload here, or": "Drag and drop the item you want to upload here, or",
+	"browse the file system": "browse the file system",
+	"Start upload": "Start upload"
+}

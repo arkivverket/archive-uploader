@@ -25,6 +25,10 @@ if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
+	// Disable hardware acceleration to prevent errors (check if this is necessary in future versions)
+
+	app.disableHardwareAcceleration()
+
 	// Register custom protocol
 
 	app.setAsDefaultProtocolClient(protocol)

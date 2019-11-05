@@ -56,6 +56,10 @@ settings.open = () => {
 			}
 		})
 
+		if (!is.macos) {
+			settingsWindow.removeMenu()
+		}
+
 		// Set the renderer
 
 		if (is.development) {

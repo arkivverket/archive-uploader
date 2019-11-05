@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 const electron = window.require('electron')
+const {is}     = window.require('electron-util')
 
 class Settings extends Component {
 	close = () => {
@@ -11,7 +12,9 @@ class Settings extends Component {
 		return (
 			<div>
 				<div>Hello</div>
-				<button onClick={this.close}>close</button>
+				{is.macos &&
+					<button onClick={this.close}>close</button>
+				}
 			</div>
 		)
 	}

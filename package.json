@@ -18,6 +18,7 @@
         "filesize": "^6.0.0",
         "fs-extra": "^8.1.0",
         "md5": "^2.2.1",
+        "os-locale": "^4.0.0",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
         "react-router-dom": "^5.1.2",

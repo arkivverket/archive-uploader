@@ -60,7 +60,7 @@ if (!is.development && (is.macos || (is.windows && process.env.PORTABLE_EXECUTAB
 	)
 }
 
-// Add Windows and Linux specific menu items
+// Add Linux and Windows specific menu items
 
 if (is.windows || is.linux) {
 	template[1].submenu.push(
@@ -85,7 +85,7 @@ if (is.windows || is.linux) {
 	)
 }
 
-// Add macOS specific menu items
+// Add macOS or Linux and Windows specific menu items
 
 if (is.macos) {
 	template.unshift({
@@ -102,6 +102,18 @@ if (is.macos) {
 			{role: 'hide'},
 			{role: 'hideothers'},
 			{role: 'unhide'},
+			{type: 'separator'},
+			{role: 'quit'}
+		]
+	})
+}
+else {
+	template.unshift({
+		role: 'fileMenu',
+		submenu: [
+			{label: 'Preferences...', accelerator: 'Ctrl+,', click: () => {
+				settings.open()
+			}},
 			{type: 'separator'},
 			{role: 'quit'}
 		]
