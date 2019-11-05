@@ -1,4 +1,19 @@
 {
+	"Window": "Vindu",
+	"Help": "Hjelp",
+
+	"About Uploader": "Om Uploader",
+	"Preferences...": "Valg...",
+	"Services": "Tjenester",
+	"Hide Uploader": "Skjul Uploader",
+	"Hide Others": "Skjul andre",
+	"Show All": "Vis alle",
+	"Quit Uploader": "Avslutt Uploader",
+
+	"Check for Updates...": "Se etter oppdatering...",
+	"Downloading Updates...": "Laster ned oppdatering...",
+	"Restart to Update": "Start på nytt for å oppdatere",
+
 	"You can only upload one file at a time!": "Du kan bare laste opp en fil av gangen!",
 	"You can only upload one directory at a time!": "Du kan bare laste opp en mappe av gangen!",
 	"You must upload a tar-file!": "Du må laste opp en tar-fil!",

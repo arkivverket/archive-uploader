@@ -1,4 +1,19 @@
 {
+	"Window": "Window",
+	"Help": "Help",
+
+	"About Uploader": "About Uploader",
+	"Preferences...": "Preferences...",
+	"Services": "Services",
+	"Hide Upliader": "Hide Uploader",
+	"Hide Others": "Hide Others",
+	"Show All": "Show All",
+	"Quit Uploader": "Quit Uploader",
+
+	"Check for Updates...": "Check for Updates...",
+	"Downloading Updates...": "Downloading Updates...",
+	"Restart to Update": "Restart to Update",
+
 	"You can only upload one file at a time!": "You can only upload one file at a time!",
 	"You can only upload one directory at a time!": "You can only upload one directory at a time!",
 	"You must upload a tar-file!": "You must upload a tar-file!",
