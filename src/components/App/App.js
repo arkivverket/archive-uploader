@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import { isDirectoryEmpty } from '../../helpers/fsHelpers'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
@@ -156,10 +157,17 @@ class App extends Component {
 		const key = this.state.uploadTemplate === null ? null : this.state.uploadTemplate.id
 
 		return (
-			<Fragment>
-				<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
-				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
-			</Fragment>
+			<HashRouter>
+				<Switch>
+					<Route path="/settings">
+						Settings...
+					</Route>
+					<Route path="/">
+						<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
+						<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
+					</Route>
+				</Switch>
+			</HashRouter>
 		)
 	}
 }

@@ -2,6 +2,9 @@
 
 const electron      = require('electron')
 const BrowserWindow = electron.BrowserWindow
+const path          = require('path')
+const urlUtilities  = require('url')
+const {is}          = require('electron-util')
 
 const settings = {}
 
@@ -57,7 +60,12 @@ settings.open = () => {
 
 		// Set the renderer
 
-		// @todo Write the code here ...
+		if (is.development) {
+			settingsWindow.loadURL('http://localhost:3000/#/settings')
+		}
+		else {
+			settingsWindow.loadURL(`file://${__dirname}/../index.html#/settings`)
+		}
 
 		// Show and focus window once it's ready
 

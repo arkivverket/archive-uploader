@@ -110,11 +110,7 @@ else {
 			mainWindow.webContents.openDevTools()
 		}
 		else {
-			mainWindow.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/index.html'),
-				protocol: 'file:',
-				slashes: true
-			}))
+			mainWindow.loadURL(`file://${__dirname}/index.html`)
 		}
 
 		// Register auto-update event handlers
