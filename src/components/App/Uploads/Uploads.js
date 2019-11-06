@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Upload from './Upload/Upload'
 import './Uploads.scss'
 
+const i18n = window.require('i18n')
+
 /**
  *
  */
@@ -31,13 +33,13 @@ class Uploads extends Component {
 				<div className="header">
 					<button className="button" onClick={this.closeActiveUploads}>
 						<FontAwesomeIcon fixedWidth icon="times" />
-						<span>Lukk</span>
+						<span>{i18n.__('Close')}</span>
 					</button>
 				</div>
 				{this.props.uploads.length === 0 &&
 					<div className="no-uploads">
 						<div className="message">
-							Det er ingenting som lastes opp akkurat nå.
+							{i18n.__('There are currently no active uploads.')}
 						</div>
 					</div>
 				}

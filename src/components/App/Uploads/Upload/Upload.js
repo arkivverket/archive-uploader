@@ -10,6 +10,7 @@ const {is}     = window.require('electron-util')
 const electron = window.require('electron')
 const filesize = window.require('filesize')
 const fs       = window.require('fs-extra')
+const i18n     = window.require('i18n')
 const md5      = window.require('md5')
 const path     = window.require('path')
 const tus      = window.require('tus-js-client')
@@ -156,7 +157,7 @@ class Upload extends Component {
 
 				window.localStorage.removeItem(fileId)
 
-				electron.ipcRenderer.send('notification', 'Ferdig', this.props.data.reference + ' er ferdig opplastet!')
+				electron.ipcRenderer.send('notification', i18n.__('Done'), this.props.data.reference + ' ' + i18n.__('has finished uploading!'))
 
 				this.deleteTar()
 			}
@@ -231,7 +232,7 @@ class Upload extends Component {
 	 *
 	 */
 	cancelUpload = () => {
-		if (window.confirm('Er du sikker på at du vil avbryte opplastingen?')) {
+		if (window.confirm(i18n.__('Are you sure that you want to cancel the upload?'))) {
 			if (this.tusUpload !== null) {
 				this.tusUpload.abort()
 			}
@@ -272,7 +273,7 @@ class Upload extends Component {
 					</div>
 					<div className="controls">
 						{this.state.buildingTar === true &&
-							<span title="Klargjør for opplasting">
+							<span title={i18n.__('Preparing for upload')}>
 								<FontAwesomeIcon fixedWidth pulse icon="circle-notch" />
 							</span>
 						}
@@ -280,17 +281,17 @@ class Upload extends Component {
 							<div className="hoverable">
 								<span onClick={this.toggleUpload} style={{marginRight: '.25em'}}>
 									{this.state.isPaused === true &&
-										<span title="Fortsett">
+										<span title={i18n.__('Resume')}>
 											<FontAwesomeIcon fixedWidth icon="play-circle" />
 										</span>
 									}
 									{this.state.isPaused === false &&
-										<span title="Pause">
+										<span title={i18n.__('Pause')}>
 											<FontAwesomeIcon fixedWidth icon="pause-circle" />
 										</span>
 									}
 								</span>
-								<span title="Avbryt">
+								<span title={i18n.__('Cancel')}>
 									<FontAwesomeIcon fixedWidth icon="times-circle" onClick={this.cancelUpload} />
 								</span>
 							</div>
@@ -311,19 +312,19 @@ class Upload extends Component {
 					<Fragment>
 						<div className="error">
 							<div>
-								En feil har oppstått.
+								{i18n.__('An error has occurred.')}
 								<div className="details" title="Info">
 									<FontAwesomeIcon fixedWidth icon="info-circle" onClick={this.toggleExceptionDetails} />
 								</div>
 								<div className="options">
-									<span onClick={this.retryUpload}>Prøv på nytt</span>
-									<span onClick={this.cancelUpload}>Avbryt</span>
+									<span onClick={this.retryUpload}>{i18n.__('Retry')}</span>
+									<span onClick={this.cancelUpload}>{i18n.__('Cancel')}</span>
 								</div>
 							</div>
 						</div>
 						{this.state.showExceptionDetails === true &&
 							<div className="error-details">
-								<div className="close" onClick={this.toggleExceptionDetails} title="Lukk">
+								<div className="close" onClick={this.toggleExceptionDetails} title={i18n.__('Close')}>
 									<FontAwesomeIcon fixedWidth icon="times" />
 								</div>
 								<div className="details">

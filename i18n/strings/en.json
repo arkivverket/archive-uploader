@@ -1,4 +1,5 @@
 {
+	"File": "File",
 	"Window": "Window",
 	"Help": "Help",
 
@@ -14,6 +15,11 @@
 	"Downloading Updates...": "Downloading Updates...",
 	"Restart to Update": "Restart to Update",
 
+	"This directory": "This directory",
+	"This file": "This file",
+	"is already being uploaded!": "is already being uploaded!",
+	"You have active uploads. Are you sure that you want to quit?": "You have active uploads. Are you sure that you want to quit?",
+
 	"You can only upload one file at a time!": "You can only upload one file at a time!",
 	"You can only upload one directory at a time!": "You can only upload one directory at a time!",
 	"You must upload a tar-file!": "You must upload a tar-file!",
@@ -24,5 +30,18 @@
 	"To upload content you must click on the link in the belonging web application and follow the instructions there.": "To upload content you must click on the link in the belonging web application and follow the instructions there.",
 	"Drag and drop the item you want to upload here, or": "Drag and drop the item you want to upload here, or",
 	"browse the file system": "browse the file system",
-	"Start upload": "Start upload"
+	"Start upload": "Start upload",
+
+	"Close": "Close",
+	"There are currently no active uploads.": "There are currently no active uploads.",
+
+	"Done": "Done",
+	"has finished uploading!": "has finished uploading!",
+	"Are you sure that you want to cancel the upload?": "Are you sure that you want to cancel the upload?",
+	"Preparing for upload": "Preparing for upload",
+	"Resume": "Resume",
+	"Pause": "Pause",
+	"Cancel": "Cancel",
+	"An error has occurred.": "An error has occured.",
+	"Retry": "Retry"
 }

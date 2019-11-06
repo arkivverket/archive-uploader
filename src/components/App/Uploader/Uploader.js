@@ -40,7 +40,7 @@ class Uploader extends Component {
 		if (files.length > 1) {
 			success = false
 
-			alert(`Du kan bare laste opp en ${this.props.upload === 'directory' ? 'mappe' : 'fil'} av gangen!`)
+			alert(i18n.__(`You can only upload one ${this.props.upload === 'directory' ? 'directory' : 'file'} at a time!`))
 		}
 
 		if (success) {
@@ -50,20 +50,20 @@ class Uploader extends Component {
 				if (path.split('.').pop() !== 'tar') {
 					success = false
 
-					alert('Du må laste opp en tar-fil!')
+					alert(i18n.__('You must upload a tar-file!'))
 				}
 			}
 			else {
 				if (success && !fs.statSync(path).isDirectory()) {
 					success = false
 
-					alert('Du må laste opp en mappe!')
+					alert(i18n.__('You must upload a directory!'))
 				}
 
 				if (success && isDirectoryEmpty(path)) {
 					success = false
 
-					alert('Mappen må inneholde minst en fil!')
+					alert(i18n.__('The directory must contain at least one file!'))
 				}
 			}
 		}
@@ -206,8 +206,8 @@ class Uploader extends Component {
 				</div>
 				<div id="info" className="info">
 					<div className="message">
-						<b>Uploader er klar til bruk!</b>
-						<p>For å laste opp innhold må du trykke på lenken i den tilhørende webapplikasjonen og følge instruksjonene der.</p>
+						<b>{i18n.__('Uploader is ready for use!')}</b>
+						<p>{i18n.__('To upload content you must click on the link in the belonging web application and follow the instructions there.')}</p>
 					</div>
 				</div>
 				<div id="upload" className="upload">
@@ -219,7 +219,7 @@ class Uploader extends Component {
 					>
 						{this.state.dropzoneTarget === null &&
 							<div className="message">
-								Dra og slipp det du vil laste opp her, eller <span className="link" onClick={this.fileDialog}>bla gjennom filsystemet</span>.
+								{i18n.__('Drag and drop the item you want to upload here, or')} <span className="link" onClick={this.fileDialog}>{i18n.__('browse the file system')}</span>.
 							</div>
 						}
 						{this.state.dropzoneTarget !== null &&
@@ -234,7 +234,7 @@ class Uploader extends Component {
 						}
 					</div>
 					<button id="start-upload" onClick={this.startUpload} disabled={this.state.buttonDisabled}>
-						Start opplasting
+						{i18n.__('Start upload')}
 					</button>
 				</div>
 			</div>

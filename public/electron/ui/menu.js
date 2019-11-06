@@ -111,7 +111,7 @@ if (is.macos) {
 }
 else {
 	template.unshift({
-		role: 'fileMenu',
+		role: 'fileMenu', label: i18n.__('File'),
 		submenu: [
 			{label: i18n.__('Preferences...'), accelerator: 'Ctrl+,', click: () => {
 				settings.open()
