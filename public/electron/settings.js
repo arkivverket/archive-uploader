@@ -16,7 +16,7 @@ let settingsWindow = null
 const getMainWindow = () => {
 	let mainWindow = BrowserWindow.getFocusedWindow()
 
-	if(mainWindow !== null) {
+	if (mainWindow !== null) {
 		return mainWindow
 	}
 

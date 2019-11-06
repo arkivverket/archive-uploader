@@ -6,7 +6,6 @@ import 'tippy.js/dist/tippy.css'
 import buildTar from '../../../../helpers/buildTar'
 import './Upload.scss'
 
-const {is}     = window.require('electron-util')
 const electron = window.require('electron')
 const filesize = window.require('filesize')
 const fs       = window.require('fs-extra')
@@ -38,6 +37,11 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	settings = null
+
+	/**
+	 *
+	 */
 	tarFilePath = null
 
 	/**
@@ -60,11 +64,13 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 
+		this.settings = this.settings = new (window.require('electron-store'))()
+
 		if (this.props.data.uploadType === 'tar') {
 			this.tarFilePath = this.props.data.source
 		}
 		else {
-			this.tarFilePath = path.join(electron.remote.app.getPath(is.development ? 'downloads' : 'temp'), this.props.data.id + '.tar')
+			this.tarFilePath = path.join((this.settings.get('buildDirectory') || electron.remote.app.getPath('temp')), this.props.data.id + '.tar')
 		}
 	}
 

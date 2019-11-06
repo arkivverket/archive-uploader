@@ -19,6 +19,8 @@
 	"Build Directory": "Build Directory",
 	"Default Temporary Directory": "Default Temporary Directory",
 	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.",
+	"The chosen directory isn't writable!": "The chosen directory isn't writable!",
+	"Reset": "Reset",
 
 	"This directory": "This directory",
 	"This file": "This file",

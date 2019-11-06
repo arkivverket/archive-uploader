@@ -33,13 +33,32 @@ body {
 		div.content {
 			padding: 1rem;
 
-			div.faux-input {
-				border: 1px solid #ccc;
-				background-color: #eee;
-				padding: 0.4rem;
-				padding-left: 0.8rem;
-				padding-right: 0.8rem;
-				cursor: pointer;
+			div.build-directory {
+				position: relative;
+
+				div.faux-input {
+					border: 1px solid #ccc;
+					background-color: #eee;
+					padding: 0.4rem;
+					padding-left: 1rem;
+					padding-right: 4rem;
+					cursor: pointer;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				button {
+					position: absolute;
+					top: 0;
+					right: 0;
+					background: #ccc;
+					height: 100%;
+					border: 1px solid #ccc;
+
+					&:active {
+						background-color: #ddd;
+					}
+				}
 			}
 
 			.small {
