@@ -30,7 +30,7 @@ class Settings extends Component {
 	constructor(props) {
 		super(props)
 
-		this.settings = new (window.require('electron-store'))
+		this.settings = new (window.require('electron-store'))()
 
 		this.state.buildDirectory = this.getBuildDirectory()
 	}
@@ -64,10 +64,11 @@ class Settings extends Component {
 					}
 				</div>
 				<div className="content">
-					<p>{i18n.__('Tar build directory:')}</p>
+					<p>{i18n.__('Build Directory:')}</p>
 					<Tippy content={this.state.buildDirectory || electron.remote.app.getPath('temp')}>
 						<div className="faux-input">{this.state.buildDirectory || i18n.__('Default Temporary Directory')}</div>
 					</Tippy>
+					<p className="small">{i18n.__('Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.')}</p>
 				</div>
 			</div>
 		)

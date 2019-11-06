@@ -16,8 +16,9 @@
 	"Restart to Update": "Start på nytt for å oppdatere",
 
 	"Preferences": "Valg",
-	"Tar build directory:": "Tar-byggemappe:",
+	"Build Directory": "Byggemappe",
 	"Default Temporary Directory": "Standard midlertidige mappe",
+	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Mappe som Uploader bruker til å bygge et tar-arkiv når en mappe skal lastes opp. Pass på at det er nok plass på det valgte filsystemet.",
 
 	"This directory": "Denne mappen",
 	"This file": "Denne filen",

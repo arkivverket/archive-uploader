@@ -47,7 +47,7 @@ settings.open = () => {
 			modal: true,
 			parent: mainWindow,
 			width: 500,
-			height: 250,
+			height: 300,
 			show: false,
 			resizable: false,
 			webPreferences: {

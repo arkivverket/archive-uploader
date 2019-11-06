@@ -16,8 +16,9 @@
 	"Restart to Update": "Restart to Update",
 
 	"Preferences": "Preferences",
-	"Tar build directory:": "Tar build directory:",
+	"Build Directory": "Build Directory",
 	"Default Temporary Directory": "Default Temporary Directory",
+	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.",
 
 	"This directory": "This directory",
 	"This file": "This file",
