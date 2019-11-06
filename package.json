@@ -12,6 +12,7 @@
         "@fortawesome/react-fontawesome": "^0.1.7",
         "@tippy.js/react": "^3.1.0",
         "ajv": "^6.10.2",
+        "electron-store": "^5.1.0",
         "electron-updater": "^4.2.0",
         "electron-util": "^0.12.2",
         "electron-window-state": "^5.0.3",

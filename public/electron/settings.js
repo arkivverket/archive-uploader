@@ -47,10 +47,9 @@ settings.open = () => {
 			modal: true,
 			parent: mainWindow,
 			width: 500,
-			height: 500,
-			minWidth: 500,
-			minHeight: 500,
+			height: 250,
 			show: false,
+			resizable: false,
 			webPreferences: {
 				nodeIntegration: true
 			}

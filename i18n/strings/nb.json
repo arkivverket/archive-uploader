@@ -15,6 +15,10 @@
 	"Downloading Updates...": "Laster ned oppdatering...",
 	"Restart to Update": "Start på nytt for å oppdatere",
 
+	"Preferences": "Valg",
+	"Tar build directory:": "Tar-byggemappe:",
+	"Default Temporary Directory": "Standard midlertidige mappe",
+
 	"This directory": "Denne mappen",
 	"This file": "Denne filen",
 	"is already being uploaded!": "er allerede under opplasting!",

@@ -15,6 +15,10 @@
 	"Downloading Updates...": "Downloading Updates...",
 	"Restart to Update": "Restart to Update",
 
+	"Preferences": "Preferences",
+	"Tar build directory:": "Tar build directory:",
+	"Default Temporary Directory": "Default Temporary Directory",
+
 	"This directory": "This directory",
 	"This file": "This file",
 	"is already being uploaded!": "is already being uploaded!",
