@@ -6,8 +6,6 @@ const app               = electron.app
 const BrowserWindow     = electron.BrowserWindow
 const Menu              = electron.Menu
 const ipcMain           = electron.ipcMain
-const path              = require('path')
-const urlUtilities      = require('url')
 const windowStateKeeper = require('electron-window-state')
 const {is}              = require('electron-util')
 const menu              = require('./electron/ui/menu')
@@ -15,6 +13,7 @@ const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const notification      = require('./electron/helpers/notification')
 const startUpload       = require('./electron/helpers/startUpload')
 const autoUpdates       = require('./electron/events/autoUpdates')
+const settings          = require('./electron/settings')
 
 let mainWindow
 let urlToOpenOnStartup
@@ -26,6 +25,10 @@ if (!app.requestSingleInstanceLock()) {
 	app.quit()
 }
 else {
+	// Disable hardware acceleration to prevent errors (check if this is necessary in future versions)
+
+	app.disableHardwareAcceleration()
+
 	// Register custom protocol
 
 	app.setAsDefaultProtocolClient(protocol)
@@ -92,7 +95,7 @@ else {
 			y: windowState.y,
 			width: windowState.width,
 			height: windowState.height,
-			minWidth: 700,
+			minWidth: 500,
 			minHeight: 500,
 			show: false,
 			webPreferences: {
@@ -110,11 +113,7 @@ else {
 			mainWindow.webContents.openDevTools()
 		}
 		else {
-			mainWindow.loadURL(urlUtilities.format({
-				pathname: path.join(__dirname, '../build/main.html'),
-				protocol: 'file:',
-				slashes: true
-			}))
+			mainWindow.loadURL(`file://${__dirname}/index.html`)
 		}
 
 		// Register auto-update event handlers
@@ -181,5 +180,11 @@ else {
 
 	ipcMain.on('set-badge-count', (event, count) => {
 		app.badgeCount = count
+	})
+
+	// Close the settings window
+
+	ipcMain.on('close-settings', () => {
+		settings.close()
 	})
 }

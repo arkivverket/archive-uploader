@@ -1,5 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import { isDirectoryEmpty } from '../../helpers/fsHelpers'
+import Settings from './Settings/Settings'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
 import './App.scss'
@@ -8,6 +10,7 @@ const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
 const {is}     = window.require('electron-util')
+const i18n     = window.require('i18n')
 
 /**
  *
@@ -129,7 +132,7 @@ class App extends Component {
 			const template = this.buildCurrentUploadTemplate(payload)
 
 			if (this.uploadExists(template.id)) {
-				alert('Denne ' + (template.uploadType === 'directory' ? 'mappen' : 'filen') + ' (' + template.reference + ') er allerede under opplasting!')
+				alert(i18n.__('This ' + (template.uploadType === 'directory' ? 'directory' : 'file')) + ' (' + template.reference + ') ' + i18n.__('is already being uploaded!'))
 
 				return
 			}
@@ -143,7 +146,7 @@ class App extends Component {
 		})
 
 		electron.ipcRenderer.on('can-i-close', (event) => {
-			const canClose = this.state.uploads.length === 0 || window.confirm('Du har pågående opplastinger. Er du sikker på at du vil avslutte?')
+			const canClose = this.state.uploads.length === 0 || window.confirm(i18n.__('You have active uploads. Are you sure that you want to quit?'))
 
 			event.sender.send('can-i-close-reply', canClose)
 		})
@@ -156,10 +159,17 @@ class App extends Component {
 		const key = this.state.uploadTemplate === null ? null : this.state.uploadTemplate.id
 
 		return (
-			<Fragment>
-				<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
-				<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
-			</Fragment>
+			<HashRouter>
+				<Switch>
+					<Route path="/settings">
+						<Settings />
+					</Route>
+					<Route path="/">
+						<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
+						<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
+					</Route>
+				</Switch>
+			</HashRouter>
 		)
 	}
 }

@@ -1,0 +1,70 @@
+body {
+	div#settings {
+		background-color: #fefefe;
+		width: 100vw;
+		height: 100vh;
+		padding: 0;
+
+		div.settings-header {
+			height: calc(30vh - 2rem);
+			padding: 1rem;
+			display: flex;
+			align-items: center;
+			background-color: #eee;
+			border-bottom: 1px solid #ccc;
+
+			span.heading {
+				font-size: 1.5rem;
+			}
+
+			button {
+				margin-left: auto;
+				font-size: 1.2rem;
+				background: none;
+				border: none;
+				border-radius: 19px;
+
+				&:active {
+					background-color: #fefefe;
+				}
+			}
+		}
+
+		div.content {
+			padding: 1rem;
+
+			div.build-directory {
+				position: relative;
+
+				div.faux-input {
+					border: 1px solid #ccc;
+					background-color: #eee;
+					padding: 0.4rem;
+					padding-left: 1rem;
+					padding-right: 4rem;
+					cursor: pointer;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				button {
+					position: absolute;
+					top: 0;
+					right: 0;
+					background: #ccc;
+					height: 100%;
+					border: 1px solid #ccc;
+
+					&:active {
+						background-color: #ddd;
+					}
+				}
+			}
+
+			.small {
+				color: #333;
+				font-size: 0.7rem;
+			}
+		}
+	}
+}

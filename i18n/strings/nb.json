@@ -1,0 +1,54 @@
+{
+	"File": "Fil",
+	"Window": "Vindu",
+	"Help": "Hjelp",
+
+	"About Uploader": "Om Uploader",
+	"Preferences...": "Valg...",
+	"Services": "Tjenester",
+	"Hide Uploader": "Skjul Uploader",
+	"Hide Others": "Skjul andre",
+	"Show All": "Vis alle",
+	"Quit Uploader": "Avslutt Uploader",
+
+	"Check for Updates...": "Se etter oppdatering...",
+	"Downloading Updates...": "Laster ned oppdatering...",
+	"Restart to Update": "Start på nytt for å oppdatere",
+
+	"Preferences": "Valg",
+	"Build Directory": "Byggemappe",
+	"Default Temporary Directory": "Standard midlertidige mappe",
+	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Mappe som Uploader bruker til å bygge et tar-arkiv når en mappe skal lastes opp. Pass på at det er nok plass på det valgte filsystemet.",
+	"Reset": "Nullstill",
+
+	"This directory": "Denne mappen",
+	"This file": "Denne filen",
+	"is already being uploaded!": "er allerede under opplasting!",
+	"You have active uploads. Are you sure that you want to quit?": "Du har pågående opplastinger. Er du sikker på at du vil avslutte?",
+	"The chosen directory isn't writable!": "Den valgte mappen er ikke skrivbar!",
+
+	"You can only upload one file at a time!": "Du kan bare laste opp en fil av gangen!",
+	"You can only upload one directory at a time!": "Du kan bare laste opp en mappe av gangen!",
+	"You must upload a tar-file!": "Du må laste opp en tar-fil!",
+	"You must upload a directory!": "Du må laste opp en mappe!",
+	"The directory must contain at least one file!": "Mappen må inneholde minst en fil!",
+	"Uploads": "Opplastinger",
+	"Uploader is ready for use!": "Uploader er klar til bruk!",
+	"To upload content you must click on the link in the belonging web application and follow the instructions there.": "For å laste opp innhold må du trykke på lenken i den tilhørende webapplikasjonen og følge instruksjonene der.",
+	"Drag and drop the item you want to upload here, or": "Dra og slipp det du vil laste opp her, eller",
+	"browse the file system": "bla gjennom filsystemet",
+	"Start upload": "Start opplasting",
+
+	"Close": "Lukk",
+	"There are currently no active uploads.": "Det er ingenting som lastes opp akkurat nå.",
+
+	"Done": "Ferdig",
+	"has finished uploading!": "er ferdig opplastet!",
+	"Are you sure that you want to cancel the upload?": "Er du sikker på at du vil avbryte opplastingen?",
+	"Preparing for upload": "Klargjør for opplasting",
+	"Resume": "Fortsett",
+	"Pause": "Pause",
+	"Cancel": "Avbryt",
+	"An error has occurred.": "En feil har oppstått.",
+	"Retry": "Prøv på nytt"
+}
