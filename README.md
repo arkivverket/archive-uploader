@@ -32,6 +32,8 @@ yarn build-win
 
 > ⚠️ Building signed versions should only be done on the dedicated code-signing machine.
 
+> ⚠️ Remember to bump the `i18n` version number and to run `yarn upgrade i18n` if you have edited the language files.
+
 ## Build for test
 
 If you want to build a production-ready unsigned version the application for macOS then use the following command:
