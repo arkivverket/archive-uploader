@@ -24,7 +24,8 @@
         "react-router-dom": "^5.1.2",
         "react-scripts": "^3.2.0",
         "tar": "^5.0.5",
-        "tus-js-client": "^1.8.0"
+        "tus-js-client": "^1.8.0",
+        "i18n": "file:./i18n"
     },
     "devDependencies": {
         "concurrently": "^5.0.0",

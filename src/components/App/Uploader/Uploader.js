@@ -6,6 +6,7 @@ import './Uploader.scss'
 
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
+const i18n     = window.require('i18n')
 
 const initialState = {
 	dropzoneTarget: null,
@@ -200,7 +201,7 @@ class Uploader extends Component {
 				<div className="header">
 					<button className="button" onClick={this.showActiveUploads}>
 						<FontAwesomeIcon fixedWidth icon="upload" />
-						<span>Opplastinger</span>
+						<span>{i18n.__('Uploads')}</span>
 					</button>
 				</div>
 				<div id="info" className="info">
