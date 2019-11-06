@@ -70,7 +70,13 @@ class Upload extends Component {
 			this.tarFilePath = this.props.data.source
 		}
 		else {
-			this.tarFilePath = path.join((this.settings.get('buildDirectory') || electron.remote.app.getPath('temp')), this.props.data.id + '.tar')
+			let buildDirectory = this.settings.get('buildDirectory')
+
+			if (buildDirectory === undefined || fs.existsSync(buildDirectory) === false) {
+				buildDirectory = electron.remote.app.getPath('temp')
+			}
+
+			this.tarFilePath = path.join(buildDirectory, this.props.data.id + '.tar')
 		}
 	}
 
