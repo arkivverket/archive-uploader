@@ -4,6 +4,7 @@ const electron      = require('electron')
 const dialog        = electron.dialog
 const Menu          = electron.Menu
 const {autoUpdater} = require('electron-updater')
+const i18n          = require('i18n')
 const notification  = require('../helpers/notification')
 
 let showUpdateNotAvailableMessage = false
@@ -65,7 +66,7 @@ const autoUpdates = (window) => {
 		getHelpMenuItem('downloading_update').visible = false
 		getHelpMenuItem('restart_to_update').visible = true
 
-		notification('Oppdatering', 'En ny versjon av Uploader er lastet ned. Start applikasjonen på nytt for å oppgradere.')
+		notification(i18n.__('Update'), i18n.__('A new version of Uploader has been downloaded. Restart the application to update.'))
 	})
 }
 

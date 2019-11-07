@@ -14,6 +14,8 @@
 	"Check for Updates...": "Se etter oppdatering...",
 	"Downloading Updates...": "Laster ned oppdatering...",
 	"Restart to Update": "Start på nytt for å oppdatere",
+	"Update": "Oppdatering",
+	"A new version of Uploader has been downloaded. Restart the application to update.": "En ny versjon av Uploader er lastet ned. Start applikasjonen på nytt for å oppgradere.",
 
 	"Preferences": "Valg",
 	"Build Directory": "Byggemappe",

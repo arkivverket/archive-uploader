@@ -96,7 +96,7 @@ class Settings extends Component {
 					}
 				</div>
 				<div className="content">
-					<p>{i18n.__('Build Directory:')}</p>
+					<p>{i18n.__('Build Directory')}:</p>
 					<div className="build-directory">
 						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || electron.remote.app.getPath('temp')}</div>}>
 							<div className="faux-input" onClick={this.pickBuildDirectory}>

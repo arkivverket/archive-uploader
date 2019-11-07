@@ -14,6 +14,8 @@
 	"Check for Updates...": "Check for Updates...",
 	"Downloading Updates...": "Downloading Updates...",
 	"Restart to Update": "Restart to Update",
+	"Update": "Update",
+	"A new version of Uploader has been downloaded. Restart the application to update.": "A new version of Uploader has been downloaded. Restart the application to update.",
 
 	"Preferences": "Preferences",
 	"Build Directory": "Build Directory",
