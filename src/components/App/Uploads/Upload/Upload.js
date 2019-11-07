@@ -64,7 +64,7 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 
-		this.settings = this.settings = new (window.require('electron-store'))()
+		this.settings = new (window.require('electron-store'))()
 
 		if (this.props.data.uploadType === 'tar') {
 			this.tarFilePath = this.props.data.source
