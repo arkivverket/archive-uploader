@@ -47,7 +47,7 @@ class Settings extends Component {
 	 *
 	 */
 	getBuildDirectory = () => {
-		return this.settings.get('buildDirectory')
+		return this.settings.get('buildDirectory') || null
 	}
 
 	/**

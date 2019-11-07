@@ -1,9 +1,9 @@
 'use strict'
 
+const electron = require('electron')
 const fs       = require('fs-extra')
-const osLocale = require('os-locale')
 
-const locale = osLocale.sync()
+const locale = electron.app ? electron.app.getLocale() : electron.remote.app.getLocale()
 
 let strings = null
 
