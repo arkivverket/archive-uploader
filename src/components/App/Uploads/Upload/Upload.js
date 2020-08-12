@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Tippy from '@tippy.js/react'
+import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import buildTar from '../../../../helpers/buildTar'
 import './Upload.scss'
@@ -310,7 +310,7 @@ class Upload extends Component {
 						}
 					</div>
 				</div>
-				<Tippy content={this.state.uploadPercent + '%'} enabled={this.state.buildingTar === false}>
+				<Tippy content={this.state.uploadPercent + '%'} disabled={this.state.buildingTar}>
 					<div className="progress">
 						<div className={`bar ${this.state.isPaused ? 'paused' : ''} ${this.state.isStalled ? 'stalled' : ''}`} style={{width: this.state.uploadPercent + '%'}}></div>
 						{this.state.speed !== null && this.state.isPaused === false && this.state.isStalled === false &&
