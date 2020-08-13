@@ -60,9 +60,7 @@ class Settings extends Component {
 	 *
 	 */
 	getLimitChunkSize = () => {
-		const limitChunkSize = this.settings.get('limitChunkSize')
-
-		return  limitChunkSize === undefined ? true : limitChunkSize
+		return this.settings.get('limitChunkSize') !== false
 	}
 
 	/**
