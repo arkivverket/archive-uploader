@@ -120,6 +120,7 @@ class Upload extends Component {
 			resume: true,
 			uploadUrl: window.localStorage.getItem(fileId),
 			uploadSize: size,
+			chunkSize: 16777216, // 16 MB
 			metadata: metadata,
 			onError: (error) => {
 				this.setState({exception: error})
