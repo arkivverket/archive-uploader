@@ -47,8 +47,7 @@
         "build-mac": "yarn react-build && yarn electron-build -m",
         "build-mac-test": "yarn react-build && yarn electron-build -m -c.mac.identity=null",
         "build-win": "yarn react-build && yarn electron-build -w -c.win.certificateSubjectName=\"Arkivverket\"",
-        "build-win-test": "yarn react-build && yarn electron-build -w",
-        "postinstall": "touch ./node_modules/.metadata_never_index"
+        "build-win-test": "yarn react-build && yarn electron-build -w"
     },
     "build": {
         "appId": "no.arkivverket.digitalisering.uploader",
