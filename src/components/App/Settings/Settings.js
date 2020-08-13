@@ -18,6 +18,8 @@ class Settings extends Component {
 	 */
 	state = {
 		buildDirectory: null,
+		limitChunkSize: null,
+		chunkSize: null,
 	}
 
 	/**
@@ -34,6 +36,10 @@ class Settings extends Component {
 		this.settings = new (window.require('electron-store'))()
 
 		this.state.buildDirectory = this.getBuildDirectory()
+
+		this.state.limitChunkSize = this.getLimitChunkSize()
+
+		this.state.chunkSize = this.getChunkSize()
 	}
 
 	/**
@@ -48,6 +54,22 @@ class Settings extends Component {
 	 */
 	getBuildDirectory = () => {
 		return this.settings.get('buildDirectory') || null
+	}
+
+	/**
+	 *
+	 */
+	getLimitChunkSize = () => {
+		const limitChunkSize = this.settings.get('limitChunkSize')
+
+		return  limitChunkSize === undefined ? true : limitChunkSize
+	}
+
+	/**
+	 *
+	 */
+	getChunkSize = () => {
+		return this.settings.get('chunkSize') || 16
 	}
 
 	/**
@@ -84,6 +106,29 @@ class Settings extends Component {
 	/**
 	 *
 	 */
+	updateLimitChunkSize = () => {
+		this.setState((prevState) => ({
+			limitChunkSize: !prevState.limitChunkSize
+		}), () => {
+			this.settings.set('limitChunkSize', this.state.limitChunkSize)
+		})
+	}
+
+	/**
+	 *
+	 */
+	updateChunkSize = (event) => {
+		this.setState({
+			chunkSize: event.target.value
+		}, () =>
+		{
+			this.settings.set('chunkSize', parseInt(this.state.chunkSize))
+		})
+	}
+
+	/**
+	 *
+	 */
 	render = () => {
 		return (
 			<div id="settings">
@@ -110,6 +155,25 @@ class Settings extends Component {
 						}
 					</div>
 					<p className="small">{i18n.__('Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.')}</p>
+
+					<hr />
+
+					<p>{i18n.__('Limit chunk size')}:</p>
+
+					<input type="checkbox" onChange={this.updateLimitChunkSize} checked={this.state.limitChunkSize}></input>
+
+					{this.state.limitChunkSize &&
+						<>
+							<input type="range" min="1" max="100" step="1" value={this.state.chunkSize} onChange={this.updateChunkSize} title={`${this.state.chunkSize} MiB`}></input>
+							{this.state.chunkSize} MiB
+						</>
+					}
+
+					{!this.state.limitChunkSize &&
+						<span>{i18n.__('No limit.')}</span>
+					}
+
+					<p className="small">{i18n.__('The maximum size of a chunk in MiB which will be uploaded in a single request. This can be used when a server or proxy has a limit on how big request bodies may be.')}</p>
 				</div>
 			</div>
 		)

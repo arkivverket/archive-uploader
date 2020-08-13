@@ -42,6 +42,11 @@ class Upload extends Component {
 	/**
 	 *
 	 */
+	chunkSize = Infinity
+
+	/**
+	 *
+	 */
 	tarFilePath = null
 
 	/**
@@ -65,6 +70,10 @@ class Upload extends Component {
 		super(props)
 
 		this.settings = new (window.require('electron-store'))()
+
+		if(this.settings.get('limitChunkSize') !== false) {
+			this.chunkSize = (1024 ** 2) * (this.settings.get('chunkSize') || 16)
+		}
 
 		if (this.props.data.uploadType === 'tar') {
 			this.tarFilePath = this.props.data.source
@@ -120,7 +129,7 @@ class Upload extends Component {
 			resume: true,
 			uploadUrl: window.localStorage.getItem(fileId),
 			uploadSize: size,
-			chunkSize: 16777216, // 16 MB
+			chunkSize: this.chunkSize,
 			metadata: metadata,
 			onError: (error) => {
 				this.setState({exception: error})

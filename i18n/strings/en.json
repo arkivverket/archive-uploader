@@ -23,6 +23,9 @@
 	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.",
 	"The chosen directory isn't writable!": "The chosen directory isn't writable!",
 	"Reset": "Reset",
+	"Limit chunk size": "Limit chunk size",
+	"No limit.": "No limit.",
+	"The maximum size of a chunk in MiB which will be uploaded in a single request. This can be used when a server or proxy has a limit on how big request bodies may be.": "The maximum size of a chunk in MiB which will be uploaded in a single request. This can be used when a server or proxy has a limit on how big request bodies may be.",
 
 	"This directory": "This directory",
 	"This file": "This file",

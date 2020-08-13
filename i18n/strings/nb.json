@@ -22,6 +22,9 @@
 	"Default Temporary Directory": "Standard midlertidige mappe",
 	"Location where the Uploader will build a tar-archive when uploading directories. Make sure the filesystem has enough space.": "Mappe som Uploader bruker til å bygge et tar-arkiv når en mappe skal lastes opp. Pass på at det er nok plass på det valgte filsystemet.",
 	"Reset": "Nullstill",
+	"Limit chunk size": "Begrens delstørrelse",
+	"No limit.": "Ingen begrensning.",
+	"The maximum size of a chunk in MiB which will be uploaded in a single request. This can be used when a server or proxy has a limit on how big request bodies may be.": "Den maksimale delstørrelsen i MiB som kan lastes opp i en enkelt forespørsel. Dette kan brukes når en server eller proxy har en begrensning på hvor stor en forespørselstekst kan være.",
 
 	"This directory": "Denne mappen",
 	"This file": "Denne filen",
