@@ -99,8 +99,10 @@ else {
 			minHeight: 500,
 			show: false,
 			webPreferences: {
-				nodeIntegration: true
-			}
+				nodeIntegration: true,
+				enableRemoteModule: true,
+				worldSafeExecuteJavaScript: true,
+			},
 		})
 
 		windowState.manage(mainWindow)

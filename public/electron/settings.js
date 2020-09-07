@@ -51,7 +51,9 @@ settings.open = () => {
 			show: false,
 			resizable: false,
 			webPreferences: {
-				nodeIntegration: true
+				nodeIntegration: true,
+				enableRemoteModule: true,
+				worldSafeExecuteJavaScript: true,
 			}
 		})
 
