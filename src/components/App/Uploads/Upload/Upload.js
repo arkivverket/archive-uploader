@@ -127,7 +127,6 @@ class Upload extends Component {
 
 		const options = {
 			endpoint: this.props.data.uploadUrl,
-			resume: true,
 			uploadUrl: window.localStorage.getItem(fileId),
 			uploadSize: size,
 			chunkSize: this.chunkSize,
@@ -187,7 +186,14 @@ class Upload extends Component {
 		}
 
 		this.tusUpload = new tus.Upload(file, options)
-		this.tusUpload.start()
+
+		this.tusUpload.findPreviousUploads().then((previousUploads) => {
+			if (previousUploads.length > 0) {
+				this.tusUpload.resumeFromPreviousUpload(previousUploads[0])
+			}
+
+			this.tusUpload.start()
+		})
 	}
 
 	/**
