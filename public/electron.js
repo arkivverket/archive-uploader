@@ -2,19 +2,20 @@
 
 const {autoUpdater}     = require('electron-updater')
 const {is}              = require('electron-util')
-const app               = electron.app
 const autoUpdates       = require('./electron/events/autoUpdates')
-const BrowserWindow     = electron.BrowserWindow
 const electron          = require('electron')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
-const ipcMain           = electron.ipcMain
-const Menu              = electron.Menu
 const menu              = require('./electron/ui/menu')
 const notification      = require('./electron/helpers/notification')
 const settings          = require('./electron/settings')
 const startUpload       = require('./electron/helpers/startUpload')
 const Store             = require('electron-store')
 const windowStateKeeper = require('electron-window-state')
+
+const app               = electron.app
+const BrowserWindow     = electron.BrowserWindow
+const ipcMain           = electron.ipcMain
+const Menu              = electron.Menu
 
 let mainWindow
 let urlToOpenOnStartup
@@ -105,6 +106,7 @@ else {
 				nodeIntegration: true,
 				enableRemoteModule: true,
 				worldSafeExecuteJavaScript: true,
+				contextIsolation: false
 			},
 		})
 

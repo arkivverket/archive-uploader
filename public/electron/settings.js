@@ -54,6 +54,7 @@ settings.open = () => {
 				nodeIntegration: true,
 				enableRemoteModule: true,
 				worldSafeExecuteJavaScript: true,
+				contextIsolation: false
 			}
 		})
 

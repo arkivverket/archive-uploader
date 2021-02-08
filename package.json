@@ -87,6 +87,6 @@
         ]
     },
     "browserslist": [
-        "electron 7.0"
+        "electron 11.0"
     ]
 }
