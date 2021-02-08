@@ -5,13 +5,13 @@
 Clone the repo and run the following command:
 
 ```
-yarn install
+npm install
 ```
 
 Next you can start the application in development mode using the following command:
 
 ```
-yarn start
+npm run start
 ```
 
 > 💡 React components will automatically be reloaded when modified. However, if you make changes to the Electron main process files (`public/*`) then you'll have to restart the application.
@@ -21,13 +21,13 @@ yarn start
 If you want to build a production-ready version the application for macOS then use the following command:
 
 ```
-yarn build-mac
+npm run build-mac
 ```
 
 If you want to build a production-ready version the application for Windows then use the following command:
 
 ```
-yarn build-win
+npm run build-win
 ```
 
 > ⚠️ Building signed versions should only be done on the dedicated code-signing machine.
@@ -37,13 +37,13 @@ yarn build-win
 If you want to build a production-ready unsigned version the application for macOS then use the following command:
 
 ```
-yarn build-mac-test
+npm run build-mac-test
 ```
 
 If you want to build a production-ready unsigned version the application for Windows then use the following command:
 
 ```
-yarn build-win-test
+npm run build-win-test
 ```
 
 ---
