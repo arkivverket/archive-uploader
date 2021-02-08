@@ -12,6 +12,7 @@ const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
 const md5      = window.require('md5')
 const path     = window.require('path')
+const Store    = window.require('electron-store')
 const tus      = window.require('tus-js-client')
 
 const initialState = {
@@ -69,7 +70,7 @@ class Upload extends Component {
 	constructor(props) {
 		super(props)
 
-		this.settings = new (window.require('electron-store'))()
+		this.settings = new Store()
 
 		if (this.settings.get('limitChunkSize') !== false) {
 			this.chunkSize = (1024 ** 2) * (this.settings.get('chunkSize') || 16)

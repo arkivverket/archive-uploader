@@ -8,6 +8,7 @@ const {is}     = window.require('electron-util')
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
+const Store    = window.require('electron-store')
 
 /**
  *
@@ -33,7 +34,7 @@ class Settings extends Component {
 	constructor(props) {
 		super(props)
 
-		this.settings = new (window.require('electron-store'))()
+		this.settings = new Store()
 
 		this.state.buildDirectory = this.getBuildDirectory()
 

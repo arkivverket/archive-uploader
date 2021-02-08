@@ -1,19 +1,20 @@
 'use strict'
 
-const electron          = require('electron')
 const {autoUpdater}     = require('electron-updater')
-const app               = electron.app
-const BrowserWindow     = electron.BrowserWindow
-const Menu              = electron.Menu
-const ipcMain           = electron.ipcMain
-const windowStateKeeper = require('electron-window-state')
 const {is}              = require('electron-util')
-const menu              = require('./electron/ui/menu')
-const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
-const notification      = require('./electron/helpers/notification')
-const startUpload       = require('./electron/helpers/startUpload')
+const app               = electron.app
 const autoUpdates       = require('./electron/events/autoUpdates')
+const BrowserWindow     = electron.BrowserWindow
+const electron          = require('electron')
+const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
+const ipcMain           = electron.ipcMain
+const Menu              = electron.Menu
+const menu              = require('./electron/ui/menu')
+const notification      = require('./electron/helpers/notification')
 const settings          = require('./electron/settings')
+const startUpload       = require('./electron/helpers/startUpload')
+const Store             = require('electron-store')
+const windowStateKeeper = require('electron-window-state')
 
 let mainWindow
 let urlToOpenOnStartup
@@ -79,6 +80,8 @@ else {
 
 	app.on('ready', () => {
 		Menu.setApplicationMenu(menu)
+
+		Store.initRenderer() // Temporary workaround for https://github.com/sindresorhus/electron-store/issues/164
 
 		// Load the previous state with fallback to defaults
 
