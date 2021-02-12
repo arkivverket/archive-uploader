@@ -82,7 +82,9 @@ else {
 	app.on('ready', () => {
 		Menu.setApplicationMenu(menu)
 
-		Store.initRenderer() // Temporary workaround for https://github.com/sindresorhus/electron-store/issues/164
+		// Initialize the electron store
+
+		Store.initRenderer()
 
 		// Load the previous state with fallback to defaults
 
