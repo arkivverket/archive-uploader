@@ -39,15 +39,12 @@
     },
     "scripts": {
         "react-start": "react-scripts start",
-        "react-build": "yarn install && yarn upgrade i18n && react-scripts build",
-        "react-test": "react-scripts test --env=jsdom",
-        "react-eject": "react-scripts eject",
-        "electron-build": "electron-builder",
-        "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
-        "build-mac": "yarn react-build && yarn electron-build -m",
-        "build-mac-test": "yarn react-build && yarn electron-build -m -c.mac.identity=null",
-        "build-win": "yarn react-build && yarn electron-build -w -c.win.certificateSubjectName=\"Arkivverket\"",
-        "build-win-test": "yarn react-build && yarn electron-build -w"
+        "react-build": "npm install && npm upgrade i18n && react-scripts build",
+        "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+        "build-mac": "npm run react-build && electron-builder -m",
+        "build-mac-test": "npm run react-build && electron-builder -m -c.mac.identity=null",
+        "build-win": "npm run react-build && electron-builder -w -c.win.certificateSubjectName=\"Arkivverket\"",
+        "build-win-test": "npm run react-build && electron-builder -w"
     },
     "build": {
         "appId": "no.arkivverket.digitalisering.uploader",
