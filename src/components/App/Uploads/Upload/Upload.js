@@ -14,6 +14,7 @@ const md5      = window.require('md5')
 const path     = window.require('path')
 const Store    = window.require('electron-store')
 const tus      = window.require('tus-js-client')
+const remote   = window.require('@electron/remote')
 
 const initialState = {
 	buildingTar: true,
@@ -83,7 +84,7 @@ class Upload extends Component {
 			let buildDirectory = this.settings.get('buildDirectory')
 
 			if (buildDirectory === undefined || fs.existsSync(buildDirectory) === false) {
-				buildDirectory = electron.remote.app.getPath('temp')
+				buildDirectory = remote.app.getPath('temp')
 			}
 
 			this.tarFilePath = path.join(buildDirectory, this.props.data.id + '.tar')

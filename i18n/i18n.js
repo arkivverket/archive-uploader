@@ -2,8 +2,9 @@
 
 const electron = require('electron')
 const fs       = require('fs-extra')
+//const remote   = window.require('@electron/remote/main')
 
-const locale = electron.app ? electron.app.getLocale() : electron.remote.app.getLocale()
+const locale = electron.app ? electron.app.getLocale() : window.require('@electron/remote').app.getLocale()
 
 let strings = null
 

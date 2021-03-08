@@ -9,6 +9,7 @@ const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
 const Store    = window.require('electron-store')
+const remote   = window.require('@electron/remote')
 
 /**
  *
@@ -75,7 +76,7 @@ class Settings extends Component {
 	 *
 	 */
 	pickBuildDirectory = () => {
-		electron.remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
+		remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
 			if (result.canceled === false && result.filePaths !== undefined) {
 				fs.access(result.filePaths[0], fs.constants.W_OK, (error) => {
 					if (!error) {
@@ -142,7 +143,7 @@ class Settings extends Component {
 				<div className="content">
 					<p>{i18n.__('Build Directory')}:</p>
 					<div className="build-directory">
-						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || electron.remote.app.getPath('temp')}</div>}>
+						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || remote.app.getPath('temp')}</div>}>
 							<div className="faux-input" onClick={this.pickBuildDirectory}>
 								{this.state.buildDirectory || i18n.__('Default Temporary Directory')}
 							</div>
