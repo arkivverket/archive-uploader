@@ -11,7 +11,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.35",
         "@fortawesome/free-solid-svg-icons": "^5.15.3",
         "@fortawesome/react-fontawesome": "^0.1.14",
-        "@tippyjs/react": "^4.2.4",
+        "@tippyjs/react": "^4.2.5",
         "ajv": "^7.2.3",
         "electron-store": "^7.0.2",
         "electron-updater": "^4.3.8",
