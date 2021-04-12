@@ -15,7 +15,7 @@
         "ajv": "^7.2.3",
         "electron-store": "^7.0.3",
         "electron-updater": "^4.3.8",
-        "electron-util": "^0.14.2",
+        "electron-util": "^0.15.0",
         "electron-window-state": "^5.0.3",
         "filesize": "^6.1.0",
         "fs-extra": "^9.0.1",
