@@ -18,7 +18,7 @@
         "electron-util": "^0.16.0",
         "electron-window-state": "^5.0.3",
         "filesize": "^6.3.0",
-        "fs-extra": "^9.0.1",
+        "fs-extra": "^10.0.0",
         "i18n": "file:./i18n",
         "md5": "^2.3.0",
         "react": "^17.0.1",
