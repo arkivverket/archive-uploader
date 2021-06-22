@@ -1,6 +1,6 @@
 {
     "name": "uploader",
-    "version": "1.3.5",
+    "version": "1.4.0",
     "description": "An easy to use tusd uploader.",
     "author": "Arkivvkerket <utvikling@arkivverket.no>",
     "private": true,

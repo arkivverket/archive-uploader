@@ -164,7 +164,7 @@ class Settings extends Component {
 
 					{this.state.limitChunkSize &&
 						<>
-							<input type="range" min="1" max="100" step="1" value={this.state.chunkSize} onChange={this.updateChunkSize} title={`${this.state.chunkSize} MiB`}></input>
+							<input type="range" min="1" max="1000" step="1" value={this.state.chunkSize} onChange={this.updateChunkSize} title={`${this.state.chunkSize} MiB`}></input>
 							{this.state.chunkSize} MiB
 						</>
 					}
