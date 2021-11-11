@@ -109,7 +109,6 @@ else {
 			webPreferences: {
 				nodeIntegration: true,
 				enableRemoteModule: true,
-				worldSafeExecuteJavaScript: true,
 				contextIsolation: false
 			},
 		})
