@@ -11,7 +11,6 @@ const schema = {
 	$id: 'https://uploader.digitalisering.arkivverket.no/schema/payload.json',
 	type: 'object',
 	properties: {
-		folderName: {type: 'string'}, // @deprecated Remove this when we no longer generate URLs containing the property
 		reference: {type: 'string'},
 		uploadUrl: {type: 'string'},
 		uploadType: {type: 'string', enum: ['tar', 'directory']},
