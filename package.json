@@ -17,7 +17,7 @@
         "electron-updater": "^4.6.0",
         "electron-util": "^0.17.2",
         "electron-window-state": "^5.0.3",
-        "filesize": "^6.3.0",
+        "filesize": "^8.0.6",
         "fs-extra": "^10.0.0",
         "i18n": "file:./i18n",
         "md5": "^2.3.0",
