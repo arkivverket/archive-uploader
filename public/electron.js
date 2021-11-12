@@ -197,4 +197,11 @@ else {
 	ipcMain.on('close-settings', () => {
 		settings.close()
 	})
+
+
+	ipcMain.handle('get-temp-directory', async () => {
+		console.log('get-temp-directory')
+		console.log(app.getPath('temp'))
+		return app.getPath('temp')
+	})
 }
