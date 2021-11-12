@@ -86,6 +86,10 @@ else {
 
 		const settings = new Store()
 		settings.set('tmpDirectory', app.getPath('temp'))
+		if (!settings.get('locale')) {
+			settings.set('locale', app.getLocale())
+		}
+
 
 		// Load the previous state with fallback to defaults
 

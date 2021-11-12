@@ -1,11 +1,9 @@
 'use strict'
 
-const electron = require('electron')
 const fs       = require('fs-extra')
-//const remote   = window.require('@electron/remote/main')
+const Store    = require('electron-store')
 
-const locale = electron.app ? electron.app.getLocale() : window.require('@electron/remote').app.getLocale()
-
+const locale = (new Store()).get('locale')
 let strings = null
 
 /**
@@ -16,6 +14,7 @@ class i18n {
 	 *
 	 */
 	static __ = (string) => {
+
 		if (strings === null) {
 			if (fs.existsSync(`${__dirname}/strings/${locale}.json`)) {
 				strings = JSON.parse(fs.readFileSync(`${__dirname}/strings/${locale}.json`))
