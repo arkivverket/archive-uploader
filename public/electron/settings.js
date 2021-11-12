@@ -1,7 +1,6 @@
 'use strict'
 
-const electron      = require('electron')
-const BrowserWindow = electron.BrowserWindow
+const { BrowserWindow, ipcMain, dialog } = require('electron')
 const {is}          = require('electron-util')
 
 const settings = {}
@@ -93,5 +92,11 @@ settings.close = () => {
 		settingsWindow.close()
 	}
 }
+
+ipcMain.handle('pick-build-directory', async () => {
+	return dialog.showOpenDialog({
+		properties: ['openDirectory']
+	})
+})
 
 module.exports = settings

@@ -4,12 +4,12 @@ import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import './Settings.scss'
 
+
 const {is}     = window.require('electron-util')
-const electron = window.require('electron')
+const { ipcRenderer } = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
 const Store    = window.require('electron-store')
-const remote   = window.require('@electron/remote')
 
 /**
  *
@@ -36,7 +36,7 @@ class Settings extends Component {
 	constructor(props) {
 		super(props)
 
-		electron.ipcRenderer.invoke('get-temp-directory', 'arg').then((response) => {
+		ipcRenderer.invoke('get-temp-directory', 'arg').then((response) => {
 			this.setState({tempDir: response})
 		})
 
@@ -53,7 +53,7 @@ class Settings extends Component {
 	 *
 	 */
 	close = () => {
-		electron.ipcRenderer.send('close-settings')
+		ipcRenderer.send('close-settings')
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Settings extends Component {
 	 *
 	 */
 	pickBuildDirectory = () => {
-		remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
+		ipcRenderer.invoke('pick-build-directory').then((result) => {
 			if (result.canceled === false && result.filePaths !== undefined) {
 				fs.access(result.filePaths[0], fs.constants.W_OK, (error) => {
 					if (!error) {
