@@ -5,7 +5,6 @@ require('@electron/remote/main').initialize()
 const {autoUpdater}     = require('electron-updater')
 const {is}              = require('electron-util')
 const autoUpdates       = require('./electron/events/autoUpdates')
-const electron          = require('electron')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const menu              = require('./electron/ui/menu')
 const notification      = require('./electron/helpers/notification')
@@ -13,11 +12,8 @@ const settings          = require('./electron/settings')
 const startUpload       = require('./electron/helpers/startUpload')
 const Store             = require('electron-store')
 const windowStateKeeper = require('electron-window-state')
+const { app, Menu, BrowserWindow, ipcMain, dialog } = require('electron')
 
-const app               = electron.app
-const BrowserWindow     = electron.BrowserWindow
-const ipcMain           = electron.ipcMain
-const Menu              = electron.Menu
 
 let mainWindow
 let urlToOpenOnStartup
@@ -199,9 +195,7 @@ else {
 	})
 
 
-	ipcMain.handle('get-temp-directory', async () => {
-		console.log('get-temp-directory')
-		console.log(app.getPath('temp'))
-		return app.getPath('temp')
-	})
+	ipcMain.handle('get-temp-directory', async () => app.getPath('temp'))
+
+	ipcMain.handle('pick-upload', async (_, dialogProperties) => dialog.showOpenDialog(dialogProperties))
 }
