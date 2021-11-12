@@ -22,7 +22,6 @@ class Settings extends Component {
 		buildDirectory: null,
 		limitChunkSize: null,
 		chunkSize: null,
-		tempDir: null,
 	}
 
 	/**
@@ -35,10 +34,6 @@ class Settings extends Component {
 	 */
 	constructor(props) {
 		super(props)
-
-		ipcRenderer.invoke('get-temp-directory', 'arg').then((response) => {
-			this.setState({tempDir: response})
-		})
 
 		this.settings = new Store()
 
@@ -148,7 +143,7 @@ class Settings extends Component {
 				<div className="content">
 					<p>{i18n.__('Build Directory')}:</p>
 					<div className="build-directory">
-						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || this.state.tempDir}</div>}>
+						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || this.settings.get('tmpDirectory')}</div>}>
 							<div className="faux-input" onClick={this.pickBuildDirectory}>
 								{this.state.buildDirectory || i18n.__('Default Temporary Directory')}
 							</div>

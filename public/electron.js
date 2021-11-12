@@ -84,6 +84,9 @@ else {
 
 		Store.initRenderer()
 
+		const settings = new Store()
+		settings.set('tmpDirectory', app.getPath('temp'))
+
 		// Load the previous state with fallback to defaults
 
 		let windowState = windowStateKeeper({
@@ -193,9 +196,6 @@ else {
 	ipcMain.on('close-settings', () => {
 		settings.close()
 	})
-
-
-	ipcMain.handle('get-temp-directory', async () => app.getPath('temp'))
 
 	ipcMain.handle('pick-upload', async (_, dialogProperties) => dialog.showOpenDialog(dialogProperties))
 }
