@@ -1,7 +1,5 @@
 'use strict'
 
-require('@electron/remote/main').initialize()
-
 const {autoUpdater}     = require('electron-updater')
 const {is}              = require('electron-util')
 const autoUpdates       = require('./electron/events/autoUpdates')
@@ -111,7 +109,6 @@ else {
 			show: false,
 			webPreferences: {
 				nodeIntegration: true,
-				enableRemoteModule: true,
 				contextIsolation: false
 			},
 		})
