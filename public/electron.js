@@ -1,7 +1,6 @@
 'use strict'
 
 const {autoUpdater}     = require('electron-updater')
-const {is}              = require('electron-util')
 const autoUpdates       = require('./electron/events/autoUpdates')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const menu              = require('./electron/ui/menu')
@@ -11,6 +10,7 @@ const startUpload       = require('./electron/helpers/startUpload')
 const Store             = require('electron-store')
 const windowStateKeeper = require('electron-window-state')
 const { app, Menu, BrowserWindow, ipcMain, dialog } = require('electron')
+const is = require('./electron/helpers/is')
 
 
 let mainWindow

@@ -5,11 +5,11 @@ import Settings from './Settings/Settings'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
 import './App.scss'
+import is from '../../helpers/is'
 
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
-const {is}     = window.require('electron-util')
 const i18n     = window.require('i18n')
 
 /**

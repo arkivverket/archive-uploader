@@ -1,7 +1,7 @@
 'use strict'
 
 const { BrowserWindow, ipcMain, dialog } = require('electron')
-const {is}          = require('electron-util')
+const is = require('./helpers/is')
 
 const settings = {}
 

@@ -3,13 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import './Settings.scss'
+import is from '../../../helpers/is'
 
 
-const {is}     = window.require('electron-util')
 const { ipcRenderer } = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
 const Store    = window.require('electron-store')
+
 
 /**
  *

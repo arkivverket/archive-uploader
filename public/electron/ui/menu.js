@@ -5,9 +5,9 @@ const {autoUpdater} = require('electron-updater')
 const dialog        = electron.dialog
 const app           = electron.app
 const Menu          = electron.Menu
-const {is}          = require('electron-util')
 const i18n          = require('i18n')
 const settings      = require('../settings')
+const is = require('../helpers/is')
 
 // Base template
 
