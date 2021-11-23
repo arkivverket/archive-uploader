@@ -1,9 +1,9 @@
 module.exports = {
-	macos: process.platform === 'darwin',
-	linux: process.platform === 'linux',
-	windows: process.platform === 'win32',
-	main: process.type === 'browser',
-	renderer: process.type === 'renderer',
-	macAppStore: process.mas === true,
-	windowsStore: process.windowsStore === true
+	macos: window.process.platform === 'darwin',
+	linux: window.process.platform === 'linux',
+	windows: window.process.platform === 'win32',
+	main: window.process.type === 'browser',
+	renderer: window.process.type === 'renderer',
+	macAppStore: window.process.mas === true,
+	windowsStore: window.process.windowsStore === true
 }
