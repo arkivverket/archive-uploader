@@ -43,6 +43,12 @@ class Settings extends Component {
 		this.state.limitChunkSize = this.getLimitChunkSize()
 
 		this.state.chunkSize = this.getChunkSize()
+
+		window.addEventListener('keydown', ({key}) => {
+			if (key === 'Escape') {
+				this.close()
+			}
+		})
 	}
 
 	/**
