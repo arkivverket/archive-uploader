@@ -5,7 +5,6 @@ const autoUpdates       = require('./electron/events/autoUpdates')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const menu              = require('./electron/ui/menu')
 const notification      = require('./electron/helpers/notification')
-const settings          = require('./electron/settings')
 const startUpload       = require('./electron/helpers/startUpload')
 const Store             = require('electron-store')
 const windowStateKeeper = require('electron-window-state')
@@ -190,12 +189,6 @@ else {
 
 	ipcMain.on('set-badge-count', (event, count) => {
 		app.badgeCount = count
-	})
-
-	// Close the settings window
-
-	ipcMain.on('close-settings', () => {
-		settings.close()
 	})
 
 	ipcMain.handle('pick-upload', async (_, dialogProperties) => dialog.showOpenDialog(dialogProperties))

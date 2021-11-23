@@ -99,4 +99,9 @@ ipcMain.handle('pick-build-directory', async () => {
 	})
 })
 
+// Close the settings window
+ipcMain.on('close-settings', () => {
+	settings.close()
+})
+
 module.exports = settings
