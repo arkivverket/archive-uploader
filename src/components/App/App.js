@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { isDirectoryEmpty } from '../../helpers/fsHelpers'
 import Settings from './Settings/Settings'
 import Uploader from './Uploader/Uploader'
 import Uploads from './Uploads/Uploads'
 import './App.scss'
+import is from '../../helpers/is'
 
 const electron = window.require('electron')
 const fs       = window.require('fs-extra')
 const md5      = window.require('md5')
-const {is}     = window.require('electron-util')
 const i18n     = window.require('i18n')
 
 /**
@@ -160,15 +160,15 @@ class App extends Component {
 
 		return (
 			<HashRouter>
-				<Switch>
-					<Route path="/settings">
-						<Settings />
-					</Route>
-					<Route path="/">
-						<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
-						<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
-					</Route>
-				</Switch>
+				<Routes>
+					<Route path="/settings" element={<Settings />} />
+					<Route path="/" element={
+						<>
+							<Uploader addUpload={this.addUpload} upload={this.state.uploadTemplate} key={key} />
+							<Uploads uploads={this.state.uploads} removeUpload={this.removeUpload} />
+						</>
+					} />
+				</Routes>
 			</HashRouter>
 		)
 	}

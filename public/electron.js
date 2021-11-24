@@ -1,23 +1,16 @@
 'use strict'
 
-require('@electron/remote/main').initialize()
-
 const {autoUpdater}     = require('electron-updater')
-const {is}              = require('electron-util')
 const autoUpdates       = require('./electron/events/autoUpdates')
-const electron          = require('electron')
 const findUrlInArgs     = require('./electron/helpers/findUrlInArgs')
 const menu              = require('./electron/ui/menu')
 const notification      = require('./electron/helpers/notification')
-const settings          = require('./electron/settings')
 const startUpload       = require('./electron/helpers/startUpload')
 const Store             = require('electron-store')
 const windowStateKeeper = require('electron-window-state')
+const { app, Menu, BrowserWindow, ipcMain, dialog } = require('electron')
+const is = require('./electron/helpers/is')
 
-const app               = electron.app
-const BrowserWindow     = electron.BrowserWindow
-const ipcMain           = electron.ipcMain
-const Menu              = electron.Menu
 
 let mainWindow
 let urlToOpenOnStartup
@@ -88,6 +81,13 @@ else {
 
 		Store.initRenderer()
 
+		const settings = new Store()
+		settings.set('tmpDirectory', app.getPath('temp'))
+		if (!settings.get('locale')) {
+			settings.set('locale', app.getLocale())
+		}
+
+
 		// Load the previous state with fallback to defaults
 
 		let windowState = windowStateKeeper({
@@ -108,8 +108,6 @@ else {
 			show: false,
 			webPreferences: {
 				nodeIntegration: true,
-				enableRemoteModule: true,
-				worldSafeExecuteJavaScript: true,
 				contextIsolation: false
 			},
 		})
@@ -193,9 +191,5 @@ else {
 		app.badgeCount = count
 	})
 
-	// Close the settings window
-
-	ipcMain.on('close-settings', () => {
-		settings.close()
-	})
+	ipcMain.handle('pick-upload', async (_, dialogProperties) => dialog.showOpenDialog(dialogProperties))
 }

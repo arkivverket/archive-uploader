@@ -6,7 +6,7 @@ import 'tippy.js/dist/tippy.css'
 import buildTar from '../../../../helpers/buildTar'
 import './Upload.scss'
 
-const electron = window.require('electron')
+const { ipcRenderer } = window.require('electron')
 const filesize = window.require('filesize')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
@@ -14,7 +14,6 @@ const md5      = window.require('md5')
 const path     = window.require('path')
 const Store    = window.require('electron-store')
 const tus      = window.require('tus-js-client')
-const remote   = window.require('@electron/remote')
 
 const initialState = {
 	buildingTar: true,
@@ -84,7 +83,7 @@ class Upload extends Component {
 			let buildDirectory = this.settings.get('buildDirectory')
 
 			if (buildDirectory === undefined || fs.existsSync(buildDirectory) === false) {
-				buildDirectory = remote.app.getPath('temp')
+				buildDirectory = this.settings.get('tmpDirectory')
 			}
 
 			this.tarFilePath = path.join(buildDirectory, this.props.data.id + '.tar')
@@ -180,7 +179,7 @@ class Upload extends Component {
 
 				window.localStorage.removeItem(fileId)
 
-				electron.ipcRenderer.send('notification', i18n.__('Done'), this.props.data.reference + ' ' + i18n.__('has finished uploading!'))
+				ipcRenderer.send('notification', i18n.__('Done'), this.props.data.reference + ' ' + i18n.__('has finished uploading!'))
 
 				this.deleteTar()
 			}

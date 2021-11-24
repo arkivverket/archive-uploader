@@ -4,9 +4,9 @@ import { isDirectoryEmpty } from '../../../helpers/fsHelpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Uploader.scss'
 
+const { ipcRenderer } = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
-const remote   = window.require('@electron/remote')
 
 const initialState = {
 	dropzoneTarget: null,
@@ -93,7 +93,7 @@ class Uploader extends Component {
 	 *
 	 */
 	fileDialog = () => {
-		remote.dialog.showOpenDialog(this.dialogProperties()).then((result) => {
+		ipcRenderer.invoke('pick-upload', this.dialogProperties()).then((result) => {
 			if (result.canceled === false && result.filePaths !== undefined) {
 				if (!this.validateUpload(result.filePaths)) {
 					this.fileDialog()

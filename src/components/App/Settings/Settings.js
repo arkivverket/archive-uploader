@@ -3,13 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import './Settings.scss'
+import is from '../../../helpers/is'
 
-const {is}     = window.require('electron-util')
-const electron = window.require('electron')
+
+const { ipcRenderer } = window.require('electron')
 const fs       = window.require('fs-extra')
 const i18n     = window.require('i18n')
 const Store    = window.require('electron-store')
-const remote   = window.require('@electron/remote')
+
 
 /**
  *
@@ -42,13 +43,19 @@ class Settings extends Component {
 		this.state.limitChunkSize = this.getLimitChunkSize()
 
 		this.state.chunkSize = this.getChunkSize()
+
+		window.addEventListener('keydown', ({key}) => {
+			if (key === 'Escape') {
+				this.close()
+			}
+		})
 	}
 
 	/**
 	 *
 	 */
 	close = () => {
-		electron.ipcRenderer.send('close-settings')
+		ipcRenderer.send('close-settings')
 	}
 
 	/**
@@ -76,7 +83,7 @@ class Settings extends Component {
 	 *
 	 */
 	pickBuildDirectory = () => {
-		remote.dialog.showOpenDialog({properties: ['openDirectory']}).then((result) => {
+		ipcRenderer.invoke('pick-build-directory').then((result) => {
 			if (result.canceled === false && result.filePaths !== undefined) {
 				fs.access(result.filePaths[0], fs.constants.W_OK, (error) => {
 					if (!error) {
@@ -143,7 +150,7 @@ class Settings extends Component {
 				<div className="content">
 					<p>{i18n.__('Build Directory')}:</p>
 					<div className="build-directory">
-						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || remote.app.getPath('temp')}</div>}>
+						<Tippy content={<div style={{wordBreak: 'break-all'}}>{this.state.buildDirectory || this.settings.get('tmpDirectory')}</div>}>
 							<div className="faux-input" onClick={this.pickBuildDirectory}>
 								{this.state.buildDirectory || i18n.__('Default Temporary Directory')}
 							</div>

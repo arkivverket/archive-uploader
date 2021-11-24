@@ -1,8 +1,7 @@
 'use strict'
 
-const electron      = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const {is}          = require('electron-util')
+const { BrowserWindow, ipcMain, dialog } = require('electron')
+const is = require('./helpers/is')
 
 const settings = {}
 
@@ -53,7 +52,6 @@ settings.open = () => {
 			webPreferences: {
 				nodeIntegration: true,
 				enableRemoteModule: true,
-				worldSafeExecuteJavaScript: true,
 				contextIsolation: false
 			}
 		})
@@ -94,5 +92,16 @@ settings.close = () => {
 		settingsWindow.close()
 	}
 }
+
+ipcMain.handle('pick-build-directory', async () => {
+	return dialog.showOpenDialog({
+		properties: ['openDirectory']
+	})
+})
+
+// Close the settings window
+ipcMain.on('close-settings', () => {
+	settings.close()
+})
 
 module.exports = settings
