@@ -1,6 +1,3 @@
-$progressBarBackgroundColor: #7abac8;
-$progressBarBackgroundColorStalled: #B4080D;
-
 body {
 	.uploads {
 		.upload {
@@ -45,10 +42,10 @@ body {
 					margin-left: auto;
 
 					.hoverable {
-						color: lighten(#373A3C, 30) !important;
+						color: var(--action-gray-light) !important;
 
 						& svg:hover {
-							color: #373A3C !important;
+							color: var(--action-gray-dark) !important;
 						}
 					}
 				}
@@ -74,9 +71,9 @@ body {
 				.bar {
 					height: 100%;
 					width: 0;
-					background-color: $progressBarBackgroundColor;
+					background-color: var(--progress-bar-background-color-main);
 					background-size: 40px 40px;
-					background-image: linear-gradient(-45deg, lighten($progressBarBackgroundColor, 5) 25%, transparent 25%, transparent 50%, lighten($progressBarBackgroundColor, 5) 50%, lighten($progressBarBackgroundColor, 5) 75%, transparent 75%, transparent);
+					background-image: linear-gradient(-45deg, var(--progress-bar-background-color-light) 25%, transparent 25%, transparent 50%, var(--progress-bar-background-color-light) 50%, var(--progress-bar-background-color-light) 75%, transparent 75%, transparent);
 					animation: barberpole .8s linear infinite;
 					transition: width .6s ease;
 
@@ -86,7 +83,7 @@ body {
 
 					&.stalled {
 						background-image: none;
-						background-color: $progressBarBackgroundColorStalled;
+						background-color: var(--color-error-main);
 					}
 				}
 
@@ -156,7 +153,7 @@ body {
 				left: 0;
 				width: 100%;
 				height: 100vh;
-				background-color: $progressBarBackgroundColorStalled;
+				background-color: var(--color-error-main);
 				color: #FFFFFF;
 				z-index: 999;
 
@@ -168,7 +165,7 @@ body {
 					border-bottom-left-radius: 4px;
 
 					&:hover {
-						background-color: lighten($progressBarBackgroundColorStalled, 5);
+						background-color: var(--color-error-main-light);
 					}
 				}
 

@@ -1,3 +1,21 @@
+:root {
+	--progress-bar-background-color-main: #7abac8;
+	--progress-bar-background-color-light: #8cc3cf;
+	--color-error-main: #b4080d;
+	--color-error-light: #cc090f;
+
+	--action-gray-dark: #373a3c;
+	--action-gray-light: #81878b;
+
+	--button-color: #034c6b;
+	--button-color-dark: #023a52;
+	--button-color-darker: #022838;
+	--button-color-disabled: #5B8BA0;
+	--dropzone-bg-color: #daefef;
+	--dropzone-bg-color-light: #e3f3f3;
+	--dropzone-bg-color-lighter: #ecf7f7;
+}
+
 body {
 	margin: 0;
 	padding: 0;
