@@ -13,7 +13,7 @@
         "@tippyjs/react": "^4.2.6",
         "ajv": "^8.8.0",
         "electron-store": "^8.0.1",
-        "electron-updater": "^4.6.2",
+        "electron-updater": "^4.6.3",
         "electron-window-state": "^5.0.3",
         "filesize": "^8.0.6",
         "fs-extra": "^10.0.0",
