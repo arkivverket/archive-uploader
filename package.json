@@ -27,9 +27,10 @@
         "tus-js-client": "^2.3.0"
     },
     "devDependencies": {
+        "browserslist": "^4.18.1",
         "concurrently": "^6.4.0",
         "cross-env": "^7.0.3",
-        "electron": "^15.3.1",
+        "electron": "^16.0.2",
         "electron-builder": "^22.14.5",
         "electron-notarize": "^1.1.1",
         "node-sass": "^6.0.1",
@@ -82,6 +83,6 @@
         ]
     },
     "browserslist": [
-        "electron 15.0"
+        "electron 16.0"
     ]
 }
