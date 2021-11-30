@@ -83,6 +83,6 @@
         ]
     },
     "browserslist": [
-        "electron 15.0"
+        "electron 16.0"
     ]
 }
