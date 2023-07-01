@@ -27,7 +27,7 @@
         "tus-js-client": "^2.3.0"
     },
     "devDependencies": {
-        "browserslist": "^4.18.1",
+        "browserslist": "^4.21.9",
         "concurrently": "^6.4.0",
         "cross-env": "^7.0.3",
         "electron": "^16.0.4",
